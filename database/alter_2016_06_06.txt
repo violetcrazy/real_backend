@@ -1,0 +1,2 @@
+ALTER TABLE  `land_apartment` ADD  `furniture_id` INT( 11 ) NULL DEFAULT NULL AFTER  `view_count` ;
+ALTER TABLE  `land_furniture` ADD  `status` TINYINT( 1 ) NOT NULL DEFAULT  '1' COMMENT  '1 - active, 2 - inactive, 3 - removed';

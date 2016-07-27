@@ -1,0 +1,45 @@
+category/list
+
+    module
+        1: Tin tức
+        2: Phong thủy (Danh sách các năm)
+    $query = array(
+        'authorized_token' => $authorizedToken,
+        'module' => 'module'
+    );
+
+
+article/list
+
+    module
+        1: Tin tức
+        3: Phong thủy ( Năm)
+    type
+        10: nam
+        11: nữ
+
+    $params = array(
+        'category_id' => categoryId,
+        'module' => 'module',
+        'authorized_token' => $authorizedToken,
+        'type' => $type
+    );
+
+
+article/detail
+    $params = array(
+        'id' => $id,
+        'authorized_token' => $authorizedToken,
+    );
+
+Luồng xử lý
+    Hiên thị select box năm và select box giới tính(mặc định là nam hoặc nữ ko để trống nhé)
+        API: category/list
+
+    Khi chọn/Thay đổi năm
+        Kết hợp với giới tính => lấy danh sách bài viết phù hợp tạo select box chọn bài viết (Phong thủy thì gọi là tháng)
+        API: article/list
+
+    Khi chọn bài viết (chọn tháng)
+        Load ra chi tiết bài viết về tháng đó năm đó giới tính đó
+        API: article/detail

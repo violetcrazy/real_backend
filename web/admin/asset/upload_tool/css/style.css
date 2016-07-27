@@ -1,0 +1,380 @@
+.dropzone {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  margin-bottom: 20px;
+  padding-right: 320px;
+}
+.dropzone.category-media-list {
+  padding: 0;
+}
+.dropzone.media-list .wrap-list {
+  top: 65px;
+}
+.dropzone.media-list .form-filter-media {
+  position: absolute;
+  top: 0;
+  background: #F5F5F5;
+  float: left;
+  border-bottom: 3px solid #4caf50;
+  padding: 10px 20px;
+  left: 0;
+  right: 320px;
+  padding-right: 75px;
+}
+.dropzone.media-list .form-filter-media button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.dropzone .block-preview {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  border-left: 1px solid #d7d7d7;
+  width: 320px;
+}
+.dropzone .block-preview .title {
+  padding: 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #d7d7d7;
+}
+.dropzone .block-preview .entry-preview {
+  padding: 10px 15px;
+  overflow: auto;
+  position: absolute;
+  bottom: 0;
+  top: 43px;
+}
+.dropzone .block-preview .summary-short {
+  padding-left: 160px;
+}
+.dropzone .block-preview .thumbnail {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  display: block;
+  margin: auto;
+  float: left;
+  overflow: hidden;
+}
+.dropzone .block-preview .thumbnail .caption {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  padding: 5px 7px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 12px;
+}
+.dropzone .block-preview .thumbnail img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+.dropzone .block-preview .form-edit-media {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.dropzone .block-preview .form-edit-media .form-control {
+  margin-bottom: 5px;
+}
+.dropzone .dz-default.dz-message {
+  display: none;
+}
+.dropzone .header {
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+.dropzone .click-area {
+  border-bottom: 3px dashed #d7d7d7;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+.dropzone .wrap-list {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 0;
+  right: 320px;
+  overflow: auto;
+  padding: 0 10px 10px 15px;
+}
+.dropzone .dz-drag-hover:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: auto;
+  background-color: rgba(66, 133, 244, 0.7);
+  z-index: 9;
+}
+.dropzone .dz-drag-hover:after {
+  content: "Thả hình ảnh vào đây";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 9;
+  width: 170px;
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  line-height: 40px;
+}
+.dz-preview {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+.dz-preview.active .thumbnail-img {
+  border: 3px solid #ff0000;
+}
+.dz-preview .dz-filename {
+  display: none;
+}
+.dz-preview .dz-size {
+  position: absolute;
+}
+.dz-preview .thumbnail-img {
+  border: 1px solid #d7d7d7;
+  overflow: hidden;
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  margin: auto;
+}
+.dz-preview .thumbnail-img img {
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.dz-preview .input-textarea {
+  padding-left: 130px;
+}
+.dz-preview .input-textarea textarea {
+  height: 70px;
+  margin-bottom: 5px;
+}
+.dz-preview .dz-progress {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.dz-preview .dz-progress .dz-upload {
+  display: block;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  height: 10px;
+  background-color: #4285f4;
+  transition: all 0.5s;
+}
+body,
+html {
+  min-height: 100%;
+  position: absolute;
+  background-color: #ececec;
+  left: 0px;
+  bottom: 0px;
+  top: 0;
+  right: 0;
+  margin: auto;
+}
+a:hover {
+  text-decoration: none;
+}
+.wrap-list-cate {
+  position: relative;
+  height: 100%;
+}
+.wrap-list-cate .col-xs-6 {
+  position: relative;
+  height: 100%;
+}
+.list-folder {
+  padding: 0;
+  overflow: auto;
+  max-height: 100%;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  right: 15px;
+  left: 15px;
+  border: 1px solid #d7d7d7;
+}
+.list-folder li {
+  list-style: none;
+  position: relative;
+}
+.list-folder li a {
+  display: block;
+  color: #000;
+  border-bottom: 1px solid #d7d7d7;
+  padding: 10px 5px;
+  padding-right: 35px;
+}
+.list-folder li .delete-category {
+  position: absolute;
+  background-color: #fff;
+  color: #444;
+  right: 10px;
+  top: 10px;
+  display: block;
+  width: 25px;
+  color: #ff0000;
+  text-align: center;
+  bottom: 10px;
+  margin: auto;
+  padding: 0px;
+  height: 25px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.list-folder li:nth-child(odd) a {
+  background-color: #f1f1f1;
+}
+.list-folder li:nth-child(odd) a.delete-category {
+  position: absolute;
+  background-color: #fff;
+  color: #444;
+  right: 10px;
+  top: 10px;
+  display: block;
+  width: 25px;
+  color: #ff0000;
+  text-align: center;
+  bottom: 10px;
+  margin: auto;
+  padding: 0px;
+  height: 25px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.wrap-filenmanager {
+  left: 0px;
+  bottom: 0px;
+  top: 0;
+  right: 0;
+  margin: auto;
+}
+.wrap-filenmanager .header-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.wrap-filenmanager .header-area.loadding-file {
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-image: url('../../img/loading.gif');
+}
+.wrap-filenmanager .body-area {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.wrap-filenmanager .body-area .dropzone {
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.action-bottom {
+  overflow: hidden;
+}
+.select-folder-upload {
+  position: absolute;
+  top: 0;
+  background: #F5F5F5;
+  float: left;
+  border-bottom: 3px solid #4caf50;
+  padding: 10px 20px;
+  left: 0;
+  right: 320px;
+  -webkit-transition: padding-left 0.5s;
+  -moz-transition: padding-left 0.5s;
+  -ms-transition: padding-left 0.5s;
+  -o-transition: padding-left 0.5s;
+  transition: padding-left 0.5s;
+  background-position: 10px center;
+}
+.select-folder-upload .progress {
+  opacity: 0;
+}
+.select-folder-upload .progress .progress-bar {
+  width: 0;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  -ms-transition: all 0s;
+  -o-transition: all 0s;
+  transition: all 0s;
+}
+.select-folder-upload.loadding-file {
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-image: url('../../img/loading.gif');
+}
+.select-folder-upload.loadding-file .progress {
+  opacity: 1;
+}
+.select-folder-upload.loadding-file .progress .progress-bar {
+  width: 90%;
+  -webkit-transition: all 5s;
+  -moz-transition: all 5s;
+  -ms-transition: all 5s;
+  -o-transition: all 5s;
+  transition: all 5s;
+}
+.select-folder-upload.done .progress .progress-bar {
+  width: 100%;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.progress {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: -4px;
+  height: 5px;
+  margin: auto;
+}

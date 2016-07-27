@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <title>Administrator</title>
+        <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link type="image/x-icon" rel="shortcut icon" href="http://localhost.cdn.land.com/asset/backend/img/logo.png?20151227_2325" />
+        <link type="image/x-icon" rel="icon" href="http://localhost.cdn.land.com/asset/backend/img/logo.png?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/bootstrap/css/bootstrap.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/font-awesome/css/font-awesome.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/fonts/style.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/css/main.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/css/main-responsive.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/iCheck/skins/all.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/perfect-scrollbar/src/perfect-scrollbar.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/css/theme_black_and_white.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/select2/select2.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/tag_auto/fm.tagator.jquery.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/datepicker/css/datepicker.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/bootstrap-fileupload/bootstrap-fileupload.min.css?20151227_2325" />
+        <link type="text/css" rel="stylesheet" media="print" href="http://localhost.cdn.land.com/asset/backend/css/print.min.css?20151227_2325" />
+
+        <!--[if IE 7]>
+        <link type="text/css" rel="stylesheet" href="http://localhost.cdn.land.com/asset/backend/plugins/font-awesome/css/font-awesome-ie7.min.css?20151227_2325" />
+        <![endif]-->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/respond.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/excanvas.min.js?20151227_2325"></script>
+        <![endif]-->
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/js/jquery.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/bootstrap/js/bootstrap.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/blockUI/jquery.blockUI.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/iCheck/jquery.icheck.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/less/less-1.5.0.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/jquery-cookie/jquery.cookie.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/select2/select2.min.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/tag_auto/fm.tagator.jquery.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/datepicker/js/bootstrap-datepicker.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/js/main.js?20151227_2325"></script>
+        <script type="text/javascript" src="http://localhost.cdn.land.com/asset/backend/plugins/bootstrap-fileupload/bootstrap-fileupload.min.js?20151227_2325"></script>
+
+    </head>
+    <body>
+
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="clip-list-2"></span>
+                    </button>
+                    <a href="http://localhost.admin.land.com/" class="navbar-brand">
+                        <img src="http://localhost.cdn.land.com/asset/backend/img/logo.png?20151227_2325" style="height: 40px;" />
+                    </a>
+                </div>
+                <div class="navbar-tools" style="border-bottom: none;">
+                    <ul class="nav navbar-right">
+                        <li class="dropdown current-user">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true">
+                                <img src="http://localhost.cdn.land.com/asset/backend/img/avatar_default_small.png" class="circle-img" alt="Avatar">
+                                <span class="username">Administrator</span>
+                                <i class="clip-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://localhost.admin.land.com/user/profile">
+                                        <i class="clip-user-2"></i>
+                                        Tài khoản
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="http://localhost.admin.land.com/user/logout">
+                                        <i class="clip-exit"></i>
+                                        Thoát
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="main-container" style="margin-top: 0 !important;">
+            <div class="navbar-content">
+
+                <div class="main-navigation navbar-collapse collapse">
+                    <div class="navigation-toggler">
+                        <i class="clip-chevron-left"></i>
+                        <i class="clip-chevron-right"></i>
+                    </div>
+                    <ul class="main-navigation-menu">
+                        <li class="active open">
+                            <a href="http://localhost.admin.land.com/">
+                                <i class="clip-home"></i>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-database"></i>
+                                <span class="title">Quản lý dự án</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/project/list">
+                                        <span class="title">Danh sách dự án</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/project-list-attribute">
+                                        <span class="title">Quản lý thuộc tính</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-cube-2 "></i>
+                                <span class="title">Quản lý Block</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/block/list">
+                                        <span class="title">Danh sách Block</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/block-list-attribute">
+                                        <span class="title">Thuộc tính mở rộng</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-location"></i>
+                                <span class="title">Quản lý căn hộ</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/apartment/list">
+                                        <span class="title">Danh sách căn hộ</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/apartment-list-attribute">
+                                        <span class="title">Thuộc tính mở rộng</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-cube-2 "></i>
+                                <span class="title">Căn hộ cho thuê, bán</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/ceriterial/list-rent">
+                                        <span class="title">Căn hộ cho thuê</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/ceriterial/list-buy">
+                                        <span class="title">Căn hộ bán</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-banknote"></i>
+                                <span class="title">Danh mục/Nhóm</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/category/list">
+                                        <span class="title">Danh mục</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/category/group-list">
+                                        <span class="title">Nhóm</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/category/link-list">
+                                        <span class="title">Liên kết</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/category/fengshui">
+                                        <span class="title">Phong thủy</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-file-3"></i>
+                                <span class="title">Quản lý bài viết</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/article/list">
+                                        <span class="title">Danh sách bài viết</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/article/page-list">
+                                        <span class="title">Danh sách trang tĩnh</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/article/fengshui-list">
+                                        <span class="title">Danh sách phong thủy</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-banknote"></i>
+                                <span class="title">Quản lý banner</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/banner/list">
+                                        <span class="title">Danh sách banner</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="http://localhost.admin.land.com/analytic/list">
+                                <i class="clip-health"></i>
+                                <span class="title">Quản lý thống kê</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-settings"></i>
+                                <span class="title">Quản lý hệ thống</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/system/seo">
+                                        <span class="title">Cấu hình SEO</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/system/email">
+                                        <span class="title">Cấu hình email</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0);">
+                                <i class="clip-user-2"></i>
+                                <span class="title">Quản lý thành viên</span>
+                                <i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/user/list-admin">
+                                        <span class="title">Danh sách quản trị viên</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/user/list-member">
+                                        <span class="title">Danh sách thành viên</span>
+                                    </a>
+                                </li>
+
+                                <li class="">
+                                    <a href="http://localhost.admin.land.com/user/list-agent">
+                                        <span class="title">Danh sách đại lý</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="container">
+                    <br><br><br><br>
+
+                    <span id="icon-choosed">
+                        <img src="http://placehold.it/70x70" alt="">
+                    </span>
+
+                    <br>
+                    <br>
+
+                    <a data-toggle="modal" id="modal_ajax_demo_btn" class="demo btn btn-bricky">
+                        Chọn icon
+                    </a>
+                    <div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <div><b>Chọn Icon</b></div>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab">Icon Màu</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Icon Trắng</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/2.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/def.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-bath-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-bbq.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-be-boi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-bed-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-cap-truyen-ic-hinh.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-cho-phep-nuoi-thu-cung.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-cong-vien-giai-tri.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-cong-vien-nuoc.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-cong-vien.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-dieu-hoa.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-dola.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-duong-di-dao.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-floor-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-gym.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-ha.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-ham-ruou.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-ho-tro-nguoi-khuyet-tat.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-home-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-khu-mua-sam.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-khu-vuc-thu-nuoi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-khu-vui-choi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-lo-suoi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-location-small.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-mail.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-mang-wifi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-mat-troi-lan.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-mat-troi-moc.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-nha-bep.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-nha-hang.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-nha-kho.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-noi-de-xe.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-orientation-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phone.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-an-ninh.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-an.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-bao-quan-thuc-phan.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-bep.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-cho-nguoi-giup-viec.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-de-quan-ao.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-gym.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-khach.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-lam-viec.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-ngu-cho-ngoi-gia.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-ngu.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-sinh-hoat-chung.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-tam.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-phong-tho.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-position.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-san-bay.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-san-gofl.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-san-tenis.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-security.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-sieu-thi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-size-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-spa.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-thang-may.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-thu-vien.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-tivi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-tree.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-black.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-cong-vien.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-ho-boi.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-ho.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-san-golf.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-san-vuon.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-view-thanh-pho.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic-vuon.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Air Port_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Apartment_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_BBQ_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Cable Car_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_City View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Easy Transportation_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Event Organisation_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Garden View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Golf Court_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Golf View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Gym_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Hospital_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Kid Kindergaten_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Lake View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Mall_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Medical Care_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Outdoor and Water Area_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Park View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Park_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Pen House_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Pet Area_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Play Ground_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Reservation_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Restaurant_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Sea View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Spa_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Supermarket_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Swimming Pool View_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Swimming Pool_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Tennis Court_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_University_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Vinpearl Park_20px.png" alt="">
+                                        </span>
+                                        <span class="item-icon-select">
+                                            <img src="http://localhost.cdn.land.com/asset/frontend/upload/icon/black/ic_Walking Path_20px.png" alt="">
+                                        </span>
+
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn">Close</button>
+                            <button type="button" class="btn btn-primary" id="select_icon">Ok</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer clearfix">
+            <div class="footer-inner">2015 &copy; JINN</div>
+            <div class="footer-items">
+                <span class="go-top">
+                    <i class="clip-chevron-up"></i>
+                </span>
+            </div>
+        </div>
+
+        <script src="http://localhost.cdn.land.com/asset/backend/js/bootstrap-modal.js"></script>
+        <script src="http://localhost.cdn.land.com/asset/backend/js/bootstrap-modalmanager.js"></script>
+        <script src="http://localhost.cdn.land.com/asset/backend/js/ui-modals.js"></script>
+
+        <link href="http://localhost.cdn.land.com/asset/backend/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+        <link href="http://localhost.cdn.land.com/asset/backend/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+        <style>
+            #icon-choosed,
+            .item-icon-select{
+                width: 50px;
+                height: 50px;
+                display: inline-block;
+                cursor: pointer;
+                border: 2px solid transparent;
+                position: relative;
+            }
+            #icon-choosed img,
+            .item-icon-select img{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                margin: auto;
+            }
+            #icon-choosed,
+            .item-icon-select.active{
+                border: 2px solid red;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document)
+                .ready(function() {
+                    Main.init();
+
+                    var $modal = $('#ajax-modal');
+                    $('#modal_ajax_demo_btn').on('click', function () {
+                        // create the backdrop and wait for next modal to be triggered
+                        // $('body').modalmanager('loading');
+                        $modal.modal();
+                    });
+
+                    $('body').on('click', '.item-icon-select', function(){
+                        $('.item-icon-select').removeClass('active');
+                        $(this).addClass('active');
+                    });
+
+                    $('body').on('click', '#select_icon', function(e){
+                        event.preventDefault();
+
+                        var src = $('.tab-pane.active').find('.item-icon-select.active').find('img').attr('src');
+                        $('.item-icon-select').removeClass('active');
+
+                        $modal.modal('hide');
+                        // Xử lý gắn vào đâu đó thì làm ở đây
+                        $('#icon-choosed img').attr('src', src)
+                    });
+
+                })
+
+            ;
+        </script>
+
+    </body>
+</html>

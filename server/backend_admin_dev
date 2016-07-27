@@ -1,0 +1,64 @@
+server {
+    listen 80;
+    server_name localhost.admin.land.com;
+    charset utf-8;
+
+    root /usr/share/nginx/html/real_backend/web/admin;
+    index index.php;
+    #access_log /usr/share/nginx/html/real_backend/log/admin_access.log;
+    error_log /usr/share/nginx/html/real_backend/log/admin_error.log;
+
+    gzip on;
+    gzip_static on;
+    gzip_types
+        text/plain
+        text/css
+        text/javascript
+        text/xml
+        image/x-icon
+        image/png
+        image/gif
+        image/jpeg
+        image/jpg
+        image/svg+xml
+        application/x-javascript
+        application/xml
+        application/xml+rss
+        application/x-font-ttf
+        application/x-font-truetype
+        application/x-font-opentype
+        application/font-woff
+        application/vnd.ms-fontobject
+        application/octet-stream;
+
+    server_tokens off;
+    log_not_found off;
+
+    add_header Access-Control-Allow-Origin *;
+
+    try_files $uri $uri/ @rewrite;
+
+    location @rewrite {
+        rewrite ^/(.*)$ /index.php?_url=/$1;
+    }
+
+    location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|xml|svg|eot|ttf|woff)$ {
+        expires max;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include /etc/nginx/fastcgi_params;
+
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

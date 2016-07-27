@@ -1,0 +1,2 @@
+ALTER TABLE `land_map_image` ADD `position` INT NOT NULL DEFAULT '1' AFTER `module`;
+ALTER TABLE `land_map_image` CHANGE `position` `position` INT(11) NOT NULL DEFAULT '1' COMMENT '1: image, 2:map';

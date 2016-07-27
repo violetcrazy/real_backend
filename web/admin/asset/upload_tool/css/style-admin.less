@@ -1,0 +1,282 @@
+.body-area{
+    padding: 0px;
+    margin-top: 15px;
+}
+.dropzone {
+    box-shadow: none;
+    background-color: #fff;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    margin-bottom: 20px;
+    padding-right: 320px;
+
+    &.category-media-list {
+        padding: 0;
+    }
+    &.media-list {
+        .wrap-list {
+            padding-top: 0;
+            height: 650px;
+            margin-bottom: 60px;
+            overflow: auto;
+        }
+        .form-filter-media {
+            position: absolute;
+            top: 0;
+            background: #F5F5F5;
+            float: left;
+            border-bottom: 3px solid #4caf50;
+            padding: 10px 20px;
+            left: 0;
+            right: 320px;
+            padding-right: 75px;
+
+            button {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+            }
+        }
+    }
+    .block-preview {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        border-left: 1px solid #d7d7d7;
+        width: 320px;
+        min-height: 300px;
+        .title {
+            padding: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #d7d7d7;
+        }
+        .entry-preview {
+            padding: 10px 15px;
+            overflow: auto;
+            position: relative;
+            bottom: 0;
+            top: 0px;
+        }
+        .summary-short {
+            padding-left: 160px;
+        }
+        .thumbnail {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            display: block;
+            margin: auto;
+            float: left;
+            overflow: hidden;
+
+            .caption {
+                position: relative;
+                bottom: 0px;
+                left: 0;
+                right: 0;
+                padding: 5px 7px;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                font-size: 12px;
+            }
+            img {
+                position: relative;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                margin: auto;
+            }
+        }
+        .form-edit-media {
+            margin-top: 10px;
+            padding-top: 10px;
+
+            .form-control {
+                margin-bottom: 5px;
+            }
+        }
+        .action-bottom {
+        }
+    }
+    .dz-default.dz-message {
+        display: none;
+    }
+    .header {
+        font-size: 20px;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    }
+    .click-area {
+        border-bottom: 3px dashed #d7d7d7;
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+    }
+    .wrap-list {
+        position: relative;
+        top: 20px;
+        bottom: 20px;
+        left: 0;
+        right: 320px;
+        overflow: auto;
+        padding: 0 10px 10px 15px;
+    }
+    .dz-drag-hover {
+        &:before {
+            content: "";
+            position: relative;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            margin: auto;
+            background-color: rgba(66, 133, 244, 0.7);
+            z-index: 9;
+        }
+        &:after {
+            content: "Thả hình ảnh vào đây";
+            position: relative;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            z-index: 9;
+            width: 170px;
+            height: 40px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 40px;
+        }
+    }
+}
+body, html {
+    min-height: 500px;
+    position: relative;
+    background-color: #ececec;
+    left: 0px;
+    bottom: 0px;
+    top: 0;
+    right: 0;
+    margin: auto;
+}
+.container {
+    position: relative;
+}
+.wrap-filenmanager {
+    left: 20px;
+    bottom: 20px;
+    top: 20px;
+    right: 20px;
+    margin: auto;
+    height: 100%;
+
+    .header-area {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-top: 30px;
+    }
+    .body-area {
+        position: relative;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        .dropzone {
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
+.action-bottom {
+    overflow: hidden;
+}
+.select-folder-upload {
+    position: absolute;
+    top: 0;
+    background: #F5F5F5;
+    float: left;
+    border-bottom: 3px solid #4caf50;
+    padding: 10px 20px;
+    left: 0;
+    right: 320px;
+    background-position: 10px center;
+
+    .progress {
+        opacity: 0;
+
+        .progress-bar {
+            width: 0;
+            -webkit-transition: all 0s;
+            -moz-transition: all 0s;
+            -ms-transition: all 0s;
+            -o-transition: all 0s;
+            transition: all 0s;
+        }
+    }
+    &.loadding-file {
+        padding-left: 40px;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-image: url('../../img/loading.gif');
+
+        .progress {
+            opacity: 1;
+
+            .progress-bar {
+                width: 90%;
+                -webkit-transition: all 5s;
+                -moz-transition: all 5s;
+                -ms-transition: all 5s;
+                -o-transition: all 5s;
+                transition: all 5s;
+            }
+        }
+    }
+    &.done {
+        .progress {
+            .progress-bar {
+                width: 100%;
+                -webkit-transition: all 0.5s;
+                -moz-transition: all 0.5s;
+                -ms-transition: all 0.5s;
+                -o-transition: all 0.5s;
+                transition: all 0.5s;
+            }
+        }
+    }
+}
+.progress {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -4px;
+    height: 5px;
+    margin: auto;
+}
+
+
+.list-folder{
+    position: relative;
+    top: 15px;
+    left: 0px;
+
+}

@@ -1,0 +1,10 @@
+Web: jinn.codex4u.com
+Ip: 103.27.238.153
+Ftp: jinn_new / admin!@#456
+SSH: dev / hoiquanque
+
+Admin: adminjinn.codex4u.com
+admin / adminjinn2016
+
+http://103.27.238.153/phpmyadmin/
+jinn_new / Lzx8Qa5NERyuHyZe

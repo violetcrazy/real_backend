@@ -1,0 +1,82 @@
+ALTER TABLE `land_project`
+    CHANGE COLUMN `block_count` `block_count` INT(11) NOT NULL DEFAULT '0' COMMENT 'so block/khu' AFTER `gallery`,
+    CHANGE COLUMN `apartment_count` `apartment_count` INT(11) NOT NULL DEFAULT '0' COMMENT 'so san pham/can ho' AFTER `block_count`,
+    CHANGE COLUMN `property_trend` `direction` TINYINT(4) NULL DEFAULT NULL COMMENT 'phuong huong: dong, tay, nam, bac' AFTER `sold_count`,
+    CHANGE COLUMN `area` `total_area` VARCHAR(255) NULL DEFAULT NULL COMMENT 'tong dien tich' AFTER `direction`,
+    CHANGE COLUMN `space` `green_area` VARCHAR(255) NULL DEFAULT NULL COMMENT 'dien tich cay xanh' AFTER `total_area`,
+    CHANGE COLUMN `view_count` `view_count` INT(11) NOT NULL DEFAULT '0' AFTER `meta_keywords_eng`,
+    DROP COLUMN `floor_count`,
+    DROP INDEX `approved_by`,
+    DROP INDEX `updated_by`;
+
+ALTER TABLE `land_block`
+    CHANGE COLUMN `shortname` `shortname` VARCHAR(100) NULL DEFAULT NULL AFTER `slug_eng`,
+    CHANGE COLUMN `description` `description` TEXT NULL AFTER `gallery`,
+    CHANGE COLUMN `description_eng` `description_eng` TEXT NULL AFTER `description`,
+    CHANGE COLUMN `policy` `policy` TEXT NULL AFTER `price_eng`,
+    CHANGE COLUMN `policy_eng` `policy_eng` TEXT NULL AFTER `policy`,
+    CHANGE COLUMN `floor_name_list` `floor_name_list` VARCHAR(1000) NULL DEFAULT NULL AFTER `policy_eng`,
+    CHANGE COLUMN `floor_count` `floor_count` INT(11) NOT NULL DEFAULT '0' AFTER `floor_name_list`,
+    CHANGE COLUMN `apartment_name_list` `apartment_name_list` VARCHAR(1000) NULL DEFAULT NULL AFTER `floor_count`,
+    CHANGE COLUMN `property_trend` `direction` TINYINT(4) NULL DEFAULT NULL AFTER `apartment_count`,
+    CHANGE COLUMN `area` `total_area` VARCHAR(255) NULL DEFAULT NULL AFTER `direction`,
+    CHANGE COLUMN `space` `green_area` VARCHAR(255) NULL DEFAULT NULL AFTER `total_area`,
+    CHANGE COLUMN `view_count` `view_count` INT(11) NOT NULL DEFAULT '0' AFTER `green_area`,
+    DROP INDEX `updated_by`,
+    DROP INDEX `approved_by`,
+    DROP INDEX `name`,
+    ADD INDEX `name` (`name`);
+
+ALTER TABLE `land_attribute`
+    CHANGE COLUMN `module` `module` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '1 - project, 2 - block, 3 - apartment' AFTER `language`,
+    DROP COLUMN `image_one`,
+    DROP COLUMN `image_two`,
+    DROP COLUMN `is_search`;
+
+ALTER TABLE `land_attribute`
+    DROP INDEX `created_at`;
+
+ALTER TABLE `land_apartment`
+    CHANGE COLUMN `gallery` `gallery` MEDIUMTEXT NULL COMMENT 'lưu trữ gallery dạng json' AFTER `default_image`,
+    CHANGE COLUMN `panorama_view` `panorama_image` VARCHAR(255) NULL DEFAULT NULL AFTER `gallery`,
+    CHANGE COLUMN `floor_count` `floor` INT(11) NOT NULL DEFAULT '0' AFTER `position_eng`,
+    CHANGE COLUMN `adults` `adults_count` INT(11) NULL DEFAULT NULL AFTER `bathroom_count`,
+    CHANGE COLUMN `children` `children_count` INT(11) NULL DEFAULT NULL AFTER `adults_count`,
+    CHANGE COLUMN `trend` `direction` TINYINT(4) NULL DEFAULT NULL COMMENT 'huong (dong, tay...)' AFTER `children_count`,
+    CHANGE COLUMN `area` `total_area` VARCHAR(50) NULL DEFAULT NULL COMMENT 'diện tích căn hộ' AFTER `direction`,
+    CHANGE COLUMN `space` `green_area` VARCHAR(50) NULL DEFAULT NULL COMMENT 'diện tích vườn' AFTER `total_area`,
+    CHANGE COLUMN `ordering` `ordering` INT(11) NOT NULL DEFAULT '1' AFTER `rose`,
+    CHANGE COLUMN `view_count` `view_count` INT(11) NOT NULL DEFAULT '0' AFTER `ordering`,
+    DROP COLUMN `furniture_name`,
+    DROP COLUMN `furniture_name_eng`,
+    DROP COLUMN `furniture_address`,
+    DROP COLUMN `furniture_address_eng`,
+    DROP COLUMN `furniture_email`,
+    DROP COLUMN `furniture_logo`,
+    DROP COLUMN `furniture_note`,
+    DROP COLUMN `furniture_note_eng`,
+    DROP INDEX `updated_by`,
+    DROP INDEX `approved_by`,
+    DROP INDEX `created_by`;
+
+ALTER TABLE `land_apartment`
+    CHANGE COLUMN `panorama_image` `panorama_image` VARCHAR(255) NULL DEFAULT NULL AFTER `default_image`;
+
+ALTER TABLE `land_user`
+    CHANGE COLUMN `avatar` `avatar_image` VARCHAR(255) NULL DEFAULT NULL AFTER `phone`,
+    CHANGE COLUMN `cover` `cover_image` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar_image`,
+    CHANGE COLUMN `job_title` `job_title` VARCHAR(255) NULL DEFAULT NULL AFTER `cover_image`,
+    CHANGE COLUMN `job_title_eng` `job_title_eng` VARCHAR(255) NULL DEFAULT NULL AFTER `job_title`,
+    CHANGE COLUMN `save_home` `save_home` INT(1) NULL DEFAULT '1' COMMENT '1: save, 0: ko save' AFTER `description_eng`,
+    CHANGE COLUMN `save_search` `save_search` INT(1) NULL DEFAULT '1' COMMENT '1: save, 0: ko save' AFTER `save_home`,
+    CHANGE COLUMN `purchased_properties` `purchased_properties` INT(1) NULL DEFAULT '1' COMMENT '1: save, 0: ko save' AFTER `save_search`,
+    CHANGE COLUMN `new_letter` `newsletter` INT(1) NULL DEFAULT '11' COMMENT '11: dally; 12: weekly; 13: monthly' AFTER `purchased_properties`,
+    CHANGE COLUMN `is_verified` `is_verified` TINYINT(1) NOT NULL DEFAULT '2' COMMENT '1 - yes, 2 - no' AFTER `membership`;
+
+ALTER TABLE `land_apartment`
+    CHANGE COLUMN `total_area` `total_area` VARCHAR(255) NULL DEFAULT NULL COMMENT 'diện tích căn hộ' AFTER `direction`,
+    CHANGE COLUMN `green_area` `green_area` VARCHAR(255) NULL DEFAULT NULL COMMENT 'diện tích vườn' AFTER `total_area`;
+
+ALTER TABLE `land_map`
+    CHANGE COLUMN `image_map_id` `map_image_id` INT(11) NULL DEFAULT NULL COMMENT 'id of map image' AFTER `id`,
+    CHANGE COLUMN `map` `point` MEDIUMTEXT NOT NULL COMMENT 'path file json' AFTER `item_id`;

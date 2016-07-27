@@ -1,0 +1,11 @@
+/nbproject/
+/log/
+/.idea/
+
+/cache/data/metadata/
+/cache/api/volt/
+/cache/admin/volt/
+
+/web/api/asset/upload/
+/web/admin/asset/upload/
+/web/admin/uploads/image/cache/

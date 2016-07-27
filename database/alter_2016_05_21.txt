@@ -1,0 +1,8 @@
+ALTER TABLE `land_attribute` ADD `name_eng` VARCHAR(255) NULL DEFAULT NULL AFTER `name`;
+UPDATE `land_attribute` SET `name_eng`= `land_attribute`.`name`;
+
+ALTER TABLE `land_attribute`
+  DROP `slug`,
+  DROP `language`;
+
+ALTER TABLE `land_attribute` ADD INDEX ( `name_eng` ) ;

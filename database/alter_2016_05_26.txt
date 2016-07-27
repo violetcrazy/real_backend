@@ -1,0 +1,33 @@
+ALTER TABLE `land_apartment_ceriterial`
+  DROP `energy_control_system`,
+  DROP `energy_control_system_eng`,
+  DROP `entertaining_control_system`,
+  DROP `environment_control_system`,
+  DROP `environment_control_system_eng`,
+  DROP `security_control_system`,
+  DROP `security_control_system_eng`;
+  DROP `property_type_eng`,
+  DROP `property_view_eng`,
+  DROP `property_utility_eng`,
+  DROP `room_type_eng`,
+  DROP `best_for_eng`,
+  DROP `suitable_for_eng`,
+  DROP `project_ids_eng`,
+  DROP `bedroom_count_eng`,
+  DROP `bathroom_count_eng`,
+  DROP `area_eng`,
+  DROP `space_eng`,
+  DROP `trend_eng`,
+  DROP `type_eng`,
+  DROP `is_new_eng`,
+  DROP `is_home_eng`,
+  DROP `template_eng`;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `property_type`  `atrribute_type` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `property_view`  `attribute_view` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `property_utility`  `attribute_utility` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `room_type`  `attribute_room_type` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `best_for`  `attribute_best_for` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `suitable_for`  `attribute_suitable_for` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `area`  `total_area` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `space`  `green_space` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+ALTER TABLE  `land_apartment_ceriterial` CHANGE  `trend`  `direction` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;

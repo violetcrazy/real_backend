@@ -1,0 +1,14 @@
+ALTER TABLE `land_block` ADD `meta_title` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_block` ADD `meta_title_eng` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_block` ADD `meta_description` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_block` ADD `meta_description_eng` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_block` ADD `meta_keywords` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_block` ADD `meta_keywords_eng` VARCHAR(255) NULL AFTER `updated_at`;
+
+
+ALTER TABLE `land_apartment` ADD `meta_title` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_apartment` ADD `meta_title_eng` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_apartment` ADD `meta_description` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_apartment` ADD `meta_description_eng` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_apartment` ADD `meta_keywords` VARCHAR(255) NULL AFTER `updated_at`;
+ALTER TABLE `land_apartment` ADD `meta_keywords_eng` VARCHAR(255) NULL AFTER `updated_at`;

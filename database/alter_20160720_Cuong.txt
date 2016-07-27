@@ -1,0 +1,22 @@
+ALTER TABLE `land_user` CHANGE `membership` `membership` TINYINT( 2 ) NULL DEFAULT NULL COMMENT '11 - root, 12 - admin, 13 - sale, 14 - seo, 15 - marketing, 21 - agent, 31 - user';
+
+DROP TABLE IF EXISTS `land_system_log`;
+CREATE TABLE IF NOT EXISTS `land_system_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(10) unsigned NOT NULL,
+  `itemId` int(10) unsigned NOT NULL,
+  `itemType` tinyint(3) unsigned NOT NULL COMMENT '1 - project, 2 - block, 3 - apartment, 4 - article, 5 - request',
+  `action` tinyint(3) unsigned NOT NULL COMMENT '1 - create, 2 - edit, 3 - delete, 4 - active, 5 - inactive',
+  `ip` varchar(50) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`,`itemId`,`itemType`,`action`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+DROP TABLE IF EXISTS `land_user_project`;
+CREATE TABLE IF NOT EXISTS `land_user_project` (
+  `userId` int(10) unsigned NOT NULL,
+  `projectId` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`userId`,`projectId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
