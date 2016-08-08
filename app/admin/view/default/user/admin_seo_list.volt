@@ -15,16 +15,16 @@
             <div class="page-header">
                 {%
                 if
-                    user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
-                    or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
                 %}
-                    <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_list'})}) }}" class="btn btn-primary pull-right">
+                    <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_seo_list'})}) }}" class="btn btn-primary pull-right">
                         <i class="fa fa-plus"></i>
-                        Thêm Admin
+                        Thêm Admin SEO
                     </a>
                 {% endif %}
 
-                <h3>Danh sách Admin</h3>
+                <h3>Danh sách Admin SEO</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -73,7 +73,7 @@
                             </td>
                             <td>{{ userStatus[item['status']] }}</td>
                             <td class="text-center">
-                                <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_seo_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
                                     <i class="fa fa-times fa fa-white"></i>
                                 </a>
                             </td>
