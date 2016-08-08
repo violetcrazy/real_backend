@@ -1020,18 +1020,22 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function editAdminAction()
     {
         parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
 
-        $filter = $this->request->getQuery('filter', array('striptags', 'trim'), '');
-        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $filter      = $this->request->getQuery('filter', array('striptags', 'trim'), '');
+        $q           = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $userSession = $this->session->get('USER');
-        $id = $this->request->getQuery('id', array('int'), '');
+        $id          = $this->request->getQuery('id', array('int'), '');
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
-            'conditions' => 'id = :id: AND type = :type:',
+            'conditions' => '
+                id       = :id: 
+                AND type = :type:
+            ',
             'bind' => array(
-                'id' => $id,
+                'id'   => $id,
                 'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
             )
         ));
@@ -1039,11 +1043,23 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         if (!$user) {
             throw new \Phalcon\Exception('Không tồn tại tài khoản này.');
         }
+
         if ($user->id == $userSession['id']) {
-            return $this->response->redirect(array('for' => 'user_profile_admin', 'query' => '?' . http_build_query(array('q' => $q, 'filter' => $filter))));
+            return $this->response->redirect(array('for' => 'user_profile_admin', 'query' => '?' . http_build_query(array('q' => $q))));
         }
 
-        $form = new \ITECH\Admin\Form\AdminForm($user, array('edit' => true));
+        if (
+            $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+            && $user->membership == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+        ) {
+            throw new \Exception('Bạn không có quyền chỉnh sửa tài khoản Super Admin');
+        }
+
+        $form = new \ITECH\Admin\Form\AdminForm($user, array(
+            'edit'        => true,
+            'userSession' => $userSession
+        ));
+
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $user);
 
@@ -1051,11 +1067,15 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
                 $has = 0;
+
                 if ($this->request->getPost('email') != '') {
                     $has = \ITECH\Data\Model\UserModel::count(array(
-                        'conditions' => 'email = :email: AND id <> :user_id:',
+                        'conditions' => '
+                            email  = :email: 
+                            AND id <> :user_id:
+                        ',
                         'bind' => array(
-                            'email' => $this->request->getPost('email'),
+                            'email'   => $this->request->getPost('email'),
                             'user_id' => $user->id
                         )
                     ));
@@ -1066,20 +1086,23 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 } else {
                     if ($this->request->hasFiles() == true) {
                         $file = $this->request->getUploadedFiles('file_avatar');
+
                         if (isset($file[0]) && $file[0]->getName() != '') {
                             parent::deleteImageFromCdn('avatar', $user->avatar);
+
                             $user->avatar = null;
                             $user->update();
 
                             $resource = array(
-                                'name' => $file[0]->getName(),
-                                'type' => $file[0]->getType(),
+                                'name'     => $file[0]->getName(),
+                                'type'     => $file[0]->getType(),
                                 'tmp_name' => $file[0]->getTempName(),
-                                'error' => $file[0]->getError(),
-                                'size' => $file[0]->getSize()
+                                'error'    => $file[0]->getError(),
+                                'size'     => $file[0]->getSize()
                             );
 
                             $response = parent::uploadImageToLocal(ROOT . '/web/admin/asset/upload/', '', 200, $resource);
+
                             if (isset($response['status']) && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
                                 $user->avatar = date('Y') . '/' . date('m') . '/' . date('d') . '/' . $response['result'];
                                 parent::uploadImageToCdn(ROOT . '/web/admin/asset/upload/', 'avatar', $response['result']);
@@ -1098,25 +1121,26 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                         $user->birthday = null;
                     }
 
-                    $user->name = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
-                    $user->display = $user->name;
-                    $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
-                    $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
+                    $user->name        = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
+                    $user->display     = $user->name;
+                    $user->slug        = \ITECH\Data\Lib\Util::slug($user->name);
+                    $user->type        = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
-                    $user->updated_at = date('Y-m-d H:i:s');
+                    $user->updated_at  = date('Y-m-d H:i:s');
 
                     if ($user->status == \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED) {
-                        $user->display = md5(uniqid() . $user->username);
+                        $user->display  = md5(uniqid() . $user->username);
                         $user->username = md5(uniqid() . $user->username);
                     }
 
                     if ($this->request->getPost('new_password') != '') {
-                        $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
+                        $user->password     = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
                     if (!$user->update()) {
                         $messages = $user->getMessages();
+
                         if (isset($messages[0])) {
                             $this->flashSession->error($messages[0]->getMessage());
                         }
@@ -1128,57 +1152,94 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                             $referralUrl = $this->url->get(array('for' => 'home'));
                         }
 
-                        $userLogModel = new \ITECH\Data\Model\UserLogModel();
-                        $userLogModel->user_id = $userSession['id'];
-                        $userLogModel->action = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_EDIT_USER;
+                        $userLogModel               = new \ITECH\Data\Model\UserLogModel();
+                        $userLogModel->user_id      = $userSession['id'];
+                        $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_EDIT_USER;
                         $userLogModel->referral_url = $referralUrl;
-                        $userLogModel->user_agent = $this->request->getUserAgent();
-                        $userLogModel->ip = $this->request->getClientAddress();
+                        $userLogModel->user_agent   = $this->request->getUserAgent();
+                        $userLogModel->ip           = $this->request->getClientAddress();
 
                         $post = array(
-                            'id' => $user->id,
-                            'username' => $user->username,
+                            'id'           => $user->id,
+                            'username'     => $user->username,
                             'referral_url' => $referralUrl,
-                            'user_agent' => $this->request->getUserAgent(),
-                            'ip' => $this->request->getClientAddress(),
-                            'logined_at' => $user->logined_at
+                            'user_agent'   => $this->request->getUserAgent(),
+                            'ip'           => $this->request->getClientAddress(),
+                            'logined_at'   => $user->logined_at
                         );
-                        $userLogModel->log_data = json_encode(array(
-                            '[UserController][editAdminAction]' => $post
-                        ), JSON_UNESCAPED_UNICODE);
+
+                        $userLogModel->log_data   = json_encode(array('[UserController][editAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
                         $userLogModel->created_at = date('Y-m-d H:i:s');
+
                         if (!$userLogModel->create()) {
                             $messages = $userLogModel->getMessages();
+
                             if (isset($messages[0])) {
                                 $this->logger->log('[UserController][editAdminAction] ' . $messages[0]->getMessage(), \Phalcon\Logger::ERROR);
                             }
                         }
 
                         $this->flashSession->success('Cập nhật thành công.');
+
                         return $this->response->redirect(array('for' => 'user_edit_admin', 'query' => '?' . http_build_query(array('id' => $id, 'q' => $q, 'filter' => $filter))));
                     }
                 }
             }
         }
 
+        $for       = 'userSuperAdminList';
+        $title     = 'Danh sách Super Admin';
+        $editTitle = 'Chỉnh sửa Super Admin';
+
+        switch ($filter) {
+            default:
+            case 'super_admin_list':
+                $for      = 'userSuperAdminList';
+                $title    = 'Danh sách Super Admin';
+                $editTitle = 'Chỉnh sửa Super Admin';
+                break;
+
+            case 'admin_list':
+                $for      = 'userAdminList';
+                $title    = 'Danh sách Admin';
+                $editTitle = 'Chỉnh sửa Admin';
+                break;
+
+            case 'admin_editor_list':
+                $for      = 'userAdminEditorList';
+                $title    = 'Danh sách Admin Editor';
+                $editTitle = 'Chỉnh sửa Admin Editor';
+                break;
+
+            case 'admin_seo_list':
+                $for      = 'userAdminSeoList';
+                $title    = 'Danh sách Admin SEO';
+                $editTitle = 'Chỉnh sửa Admin SEO';
+                break;
+
+            case 'admin_marketing_list':
+                $for      = 'userAdminMarketingList';
+                $title    = 'Danh sách Admin Marketing';
+                $editTitle = 'Chỉnh sửa Admin Marketing';
+                break;
+        }
+
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách quản trị viên',
-                'url' => $this->url->get([
-                    'for' => 'userAdminList',
-                ]),
+                'title'  => $title,
+                'url'    => $this->url->get(['for' => $for]),
                 'active' => false
             ],
             [
-                'title' => $user->name,
-                'url' => $this->url->get([
-                    'for' => 'user_edit_admin',
-                    'id' => $user->id
+                'title' => $editTitle,
+                'url'   => $this->url->get([
+                    'for'   => 'user_edit_admin',
+                    'query' => '?' . http_build_query(['id' => $user->id, 'filter' => $filter])
                 ]),
                 'active' => true
             ]
@@ -1186,11 +1247,13 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'q' => $q,
-            'filter' => $filter,
-            'user' => $user,
-            'form' => $form,
-            'userSession' => $userSession
+            'q'           => $q,
+            'filter'      => $filter,
+            'user'        => $user,
+            'form'        => $form,
+            'userSession' => $userSession,
+            'urlFor'      => $for,
+            'editTitle'   => $editTitle
         ));
         $this->view->pick(parent::$theme . '/user/edit_admin');
     }

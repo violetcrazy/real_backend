@@ -48,7 +48,7 @@
                         <th>Loại</th>
                         <th>Đăng ký</th>
                         <th>Đăng nhập</th>
-                        <th></th>
+                        <th>Trạng thái</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -56,7 +56,7 @@
                     {% for item in result %}
                         <tr>
                             <td>
-                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q})}) }}">
+                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'super_admin_list'})}) }}">
                                     {{ item.username }}
                                 </a>
                             </td>

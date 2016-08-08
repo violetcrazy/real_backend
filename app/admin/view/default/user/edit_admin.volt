@@ -7,7 +7,7 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <h3>Chỉnh sửa quản trị viên</h3>
+                <h3>{{ editTitle }}</h3>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN') %}
+                {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
                             Loại
@@ -85,8 +85,6 @@
                             {{ form.render('membership', {'class': 'form-control'}) }}
                             {% include 'default/element/layout/form_message' with {'form': form, 'element': 'membership'} %}
                         </div>
-
-
                     </div>
                 {% endif %}
 
@@ -112,7 +110,7 @@
                         <button type="submit" class="btn btn-bricky">
                             Cập nhật
                         </button>
-                        <a href="{{ url({'for': 'userAdminList', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
+                        <a href="{{ url({'for': urlFor, 'query': '?' ~ http_build_query({'q': q})}) }}" class="btn btn-primary">
                             Trở lại
                         </a>
                     </div>

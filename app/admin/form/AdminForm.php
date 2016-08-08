@@ -55,7 +55,16 @@ class AdminForm extends \Phalcon\Forms\Form
         $email->setFilters(array('striptags', 'trim', 'lower'));
         $this->add($email);
 
-        $membership = new \Phalcon\Forms\Element\Select('membership', \ITECH\Data\Lib\Constant::getUserMembershipAdministrator());
+        $membershipArray = \ITECH\Data\Lib\Constant::getUserMembershipAdministrator();
+
+        if (
+            isset($option['userSession']['membership'])
+            && $option['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ) {
+            unset($membershipArray[\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
+        }
+
+        $membership = new \Phalcon\Forms\Element\Select('membership', $membershipArray);
         $this->add($membership);
 
         $status = new \Phalcon\Forms\Element\Select('status', \ITECH\Data\Lib\Constant::getUserStatus());
