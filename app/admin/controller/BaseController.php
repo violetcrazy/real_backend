@@ -11,36 +11,40 @@ class BaseController extends \Phalcon\Mvc\Controller
     {
         $this->authorizedToken();
 
-        self::$theme = 'default';
+        self::$theme    = 'default';
         self::$mainView = 'default/';
 
         $url = $this->config->application->api_url . 'option/list?cache=true';
-        $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url), true);
+        $r   = json_decode(\ITECH\Data\Lib\Util::curlGet($url), true);
+
         $options = array();
+
         if ($r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
             $options = $r['result'];
         }
 
         self::$options = $options;
+
         $this->view->setVars(array(
             'options' => self::$options
         ));
-
         $this->view->setMainView(self::$mainView);
     }
 
     public function authenticateUser()
     {
         $authenticate = true;
-        $hasCookie = false;
+        $hasCookie    = false;
+
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
+        $user            = [];
 
         if (!$this->session->has('USER')) {
             if (!$this->cookies->has('USER')) {
                 $authenticate = false;
             } else {
                 $cookie = $this->cookies->get('USER');
-                $user = @unserialize($cookie->getValue());
+                $user   = @unserialize($cookie->getValue());
 
                 if ($user && is_array($user) && count($user)) {
                     $hasCookie = true;
@@ -57,12 +61,13 @@ class BaseController extends \Phalcon\Mvc\Controller
 
             $get = array(
                 'authorized_token' => $authorizedToken,
-                'id' => $user['id'],
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'cache' => 'false'
+                'id'               => $user['id'],
+                'type'             => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'cache'            => 'false'
             );
 
             $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url, $get), true);
+
             if (isset($r['result']) && count($r['result']) && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
                 if ($hasCookie) {
                     $requestUri = $this->config->application->protocol . $this->request->getHttpHost() . $this->request->getServer('REQUEST_URI');
@@ -73,6 +78,7 @@ class BaseController extends \Phalcon\Mvc\Controller
                         $referralUrl = $this->url->get(array('for' => 'home'));
                     }
                 }
+
                 self::setUserSession($r['result']);
             } else {
                 $authenticate = false;
@@ -81,10 +87,12 @@ class BaseController extends \Phalcon\Mvc\Controller
 
         if (!$authenticate) {
             $this->session->remove('USER');
+
             $cookie = $this->cookies->get('USER');
             $cookie->delete();
 
             $requestUri = $this->config->application->protocol . $this->request->getHttpHost() . $this->request->getServer('REQUEST_URI');
+
             if ($requestUri != $this->url->get(array('for' => 'home')) && $requestUri != $this->url->get(array('for' => 'user_login'))) {
                 $referralUrl = $requestUri;
             } else {
@@ -92,7 +100,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             }
 
             $query = http_build_query(array('referral_url' => $referralUrl));
-            $url = $this->url->get(array('for' => 'user_login', 'query' => '?' . $query));
+            $url   = $this->url->get(array('for' => 'user_login', 'query' => '?' . $query));
 
             header('Location: ' . $url);
             exit;
@@ -103,21 +111,24 @@ class BaseController extends \Phalcon\Mvc\Controller
     {
         if ($user && is_array($user) && count($user)) {
             $session = array(
-                'id' => $user['id'],
-                'username' => $user['username'],
-                'name' => $user['name'],
-                'type' => $user['type'],
-                'membership' => $user['membership'],
-                'avatar_image' => isset($user['avatar_image']) ? $user['avatar_image'] : '',
+                'id'               => (int)$user['id'],
+                'username'         => $user['username'],
+                'name'             => $user['name'],
+                'type'             => (int)$user['type'],
+                'membership'       => (int)$user['membership'],
+                'avatar'           => isset($user['avatar']) ? $user['avatar'] : '',
+                'avatar_image'     => isset($user['avatar_image']) ? $user['avatar_image'] : '',
                 'avatar_image_url' => isset($user['avatar_image_url']) ? $user['avatar_image_url'] : '',
-                'logined_at' => $user['logined_at']
+                'logined_at'       => $user['logined_at']
             );
 
             $this->session->set('USER', $session);
             $this->cookies->set('USER', serialize($session), strtotime('+1 hour'));
+
             return true;
         } else {
             $this->session->remove('USER');
+
             $cookie = $this->cookies->get('USER');
             $cookie->delete();
         }
@@ -129,20 +140,24 @@ class BaseController extends \Phalcon\Mvc\Controller
     {
         if ($user && is_object($user) && count($user)) {
             $session = array(
-                'id' => $user->id,
-                'username' => $user->username,
-                'name' => $user->name,
-                'membership' => $user->membership,
-                'type' => $user->type,
-                'avatar' => $user->avatar,
-                'logined_at' => $user->logined_at
+                'id'               => (int)$user->id,
+                'username'         => $user->username,
+                'name'             => $user->name,
+                'membership'       => (int)$user->membership,
+                'type'             => $user->type,
+                'avatar'           => isset($user->avatar) ? $user->avatar : '',
+                'avatar_image'     => isset($user->avatar_image) ? $user->avatar_image : '',
+                'avatar_image_url' => isset($user->avatar_image_url) ? $user->avatar_image_url : '',
+                'logined_at'       => $user->logined_at
             );
 
             $this->session->set('USER', $session);
             $this->cookies->set('USER', serialize($session), strtotime('+1 hour'));
+
             return true;
         } else {
             $this->session->remove('USER');
+
             $cookie = $this->cookies->get('USER');
             $cookie->delete();
         }
@@ -165,6 +180,7 @@ class BaseController extends \Phalcon\Mvc\Controller
         if ($roles && is_array($roles) && count($roles)) {
             if (!in_array($user['membership'], $roles)) {
                 $this->flashSession->error('Tài khoản của bạn không có quyền truy cập.');
+
                 return $this->response->redirect(array('for' => 'access'));
             }
         }
@@ -178,7 +194,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             if (!$this->cookies->has('AUTHORIZED_TOKEN')) {
                 $hasAuthorizedToken = false;
             } else {
-                $cookie = $this->cookies->get('AUTHORIZED_TOKEN');
+                $cookie          = $this->cookies->get('AUTHORIZED_TOKEN');
                 $authorizedToken = @unserialize($cookie->getValue());
 
                 if ($authorizedToken != '') {
@@ -189,7 +205,7 @@ class BaseController extends \Phalcon\Mvc\Controller
                 }
             }
         } else {
-            $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
+            $authorizedToken    = $this->session->get('AUTHORIZED_TOKEN');
             $hasAuthorizedToken = true;
         }
 
@@ -197,12 +213,17 @@ class BaseController extends \Phalcon\Mvc\Controller
             $url = $this->config->application->api_url . 'authenticate';
             $post = array(
                 'application' => \ITECH\Data\Lib\Constant::SESSION_TOKEN_APPLICATION_WEB,
-                'secret' => $this->config->application->secret
+                'secret'      => $this->config->application->secret
             );
 
             $authorizedToken = false;
             $response = json_decode(\ITECH\Data\Lib\Util::curlPostJson($url, $post), true);
-            if (isset($response['status']) && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS && isset($response['result'])) {
+
+            if (
+                isset($response['status'])
+                && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS
+                && isset($response['result'])
+            ) {
                 $authorizedToken = $response['result'];
             }
 
@@ -232,6 +253,7 @@ class BaseController extends \Phalcon\Mvc\Controller
         $this->response->setContentType('application/json', 'UTF-8');
         $this->response->setJsonContent($response);
         $this->response->send();
+
         exit;
     }
 
@@ -429,7 +451,7 @@ class BaseController extends \Phalcon\Mvc\Controller
         $aParams['authorized_token'] = $authorizedToken;
         $url = $this->config->application->api_url . 'home/attribute-list?cache=false';
         $url = $url . '&' . http_build_query($aParams);
-        
+
         $output = array();
         $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url), true);
         if (isset($r['status']) && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS && isset($r['result']) && count($r['result'])) {
@@ -467,11 +489,12 @@ class BaseController extends \Phalcon\Mvc\Controller
         return $attributeOutput;
     }
 
-    public function saveMapImage($args) {
+    public function saveMapImage($args)
+    {
         if (count($args) > 0) {
             $userSession = $this->session->get('USER');
-            if (isset($args['item_id']) && isset($args['module'])) {
 
+            if (isset($args['item_id']) && isset($args['module'])) {
                 if ($args['module'] == \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT) {
                     $itemParentMapImage = \ITECH\Data\Model\ProjectModel::findFirst($args['item_id']);
                 } else if ($args['module'] == \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK) {
@@ -487,42 +510,43 @@ class BaseController extends \Phalcon\Mvc\Controller
                 $old = \ITECH\Data\Model\MapImageModel::find(array(
                     'conditions' => 'item_id = :item_id: AND module = :module:',
                     'bind' => array(
-                        'item_id'=> $args['item_id'],
-                        'module'=> $args['module'],
+                        'item_id' => $args['item_id'],
+                        'module'  => $args['module']
                     )
                 ));
 
                 $new = $args['images'];
+
                 foreach ($old as $itemOld) {
-                    $_id = $itemOld->id;
+                    $_id   = $itemOld->id;
                     $check = false;
+
                     foreach ($new as $itemNew) {
                         if (is_array($itemNew) && isset($itemNew['id']) && $_id == $itemNew['id']) {
                             $check = true;
                             continue;
                         }
                     }
+
                     if (!$check) {
                         $itemOld->delete();
                     }
                 }
 
-                $out = array();
+                $out         = array();
                 $out['meta'] = $args['images'];
 
                 foreach ($new as $itemNew) {
                     if (isset($itemNew['id'])) {
                         $mapImage = \ITECH\Data\Model\MapImageModel::findFirst(array(
                             'conditions' => 'id = :id_map_image:',
-                            'bind' => array(
-                                'id_map_image' => $itemNew['id']
-                            )
+                            'bind'       => array('id_map_image' => $itemNew['id'])
                         ));
 
                         if ($mapImage) {
-                            $mapImage->type = (int)strip_tags(trim($itemNew['type']));
-                            $mapImage->position = (int)strip_tags(trim($itemNew['position']));
-                            $mapImage->updated_by = $userSession['id'];
+                            $mapImage->type       = (int)strip_tags(trim($itemNew['type']));
+                            $mapImage->position   = (int)strip_tags(trim($itemNew['position']));
+                            $mapImage->updated_by = (int)$userSession['id'];
                             $mapImage->updated_at = date('Y-m-d H:i:s');
 
                             if (isset($itemNew['floor'])) {
@@ -539,19 +563,19 @@ class BaseController extends \Phalcon\Mvc\Controller
                                 $out['update_error'][] = array(strip_tags(trim($itemNew['image'])), $e->getMessage());
                             }
                         }
-
                     } else {
                         $mapImage = new \ITECH\Data\Model\MapImageModel();
-                        if (isset($itemNew['image'])) {
-                            $mapImage->image = strip_tags(trim($itemNew['image']));
-                            $mapImage->type = (int)strip_tags(trim($itemNew['type']));
-                            $mapImage->position = (int)strip_tags(trim($itemNew['position']));
-                            $mapImage->module = (int)$args['module'];
-                            $mapImage->item_id = (int)$args['item_id'];
 
-                            $mapImage->created_by = $userSession['id'];
+                        if (isset($itemNew['image'])) {
+                            $mapImage->image    = strip_tags(trim($itemNew['image']));
+                            $mapImage->type     = (int)strip_tags(trim($itemNew['type']));
+                            $mapImage->position = (int)strip_tags(trim($itemNew['position']));
+                            $mapImage->module   = (int)$args['module'];
+                            $mapImage->item_id  = (int)$args['item_id'];
+
+                            $mapImage->created_by = (int)$userSession['id'];
                             $mapImage->created_at = date('Y-m-d H:i:s');
-                            $mapImage->updated_by = $userSession['id'];
+                            $mapImage->updated_by = (int)$userSession['id'];
                             $mapImage->updated_at = date('Y-m-d H:i:s');
 
                             try {
@@ -565,15 +589,18 @@ class BaseController extends \Phalcon\Mvc\Controller
                             }
                         }
                     }
-
                 }
 
                 $defaultImage = \ITECH\Data\Model\MapImageModel::findFirst(array(
-                    'conditions' => 'item_id = :item_id: AND module = :module: AND type = :type:',
+                    'conditions' => '
+                        item_id    = :item_id: 
+                        AND module = :module: 
+                        AND type   = :type:
+                    ',
                     'bind' => array(
-                        'item_id'=> $args['item_id'],
-                        'type'=> \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
-                        'module'=> $args['module'],
+                        'item_id' => $args['item_id'],
+                        'type'    => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
+                        'module'  => $args['module']
                     )
                 ));
 
@@ -582,6 +609,7 @@ class BaseController extends \Phalcon\Mvc\Controller
                 } else {
                     $itemParentMapImage->default_image = '';
                 }
+
                 $itemParentMapImage->update();
 
                 return $out;
@@ -589,41 +617,54 @@ class BaseController extends \Phalcon\Mvc\Controller
                 return $args;
             }
         }
-        return 'Param is require';
+
+        return 'Parameter is required';
     }
 
-    public function getMapImage($args) {
+    public function getMapImage($args)
+    {
         $out = array();
+
         if (isset($args['module']) && isset($args['item_id'])) {
             $out = \ITECH\Data\Model\MapImageModel::find(array(
                 'conditions' => 'item_id = :item_id: AND module = :module:',
                 'order' => 'id DESC',
                 'bind' => array(
-                    'item_id'=> (int)$args['item_id'],
-                    'module'=> (int)$args['module'],
+                    'item_id' => (int)$args['item_id'],
+                    'module'  => (int)$args['module']
                 )
             ));
         }
+
         return $out;
     }
 
-    public function saveAttr($args) {
+    public function saveAttr($args)
+    {
         $res = array();
-        if ($args['value'] != '') {
 
-            $array = array_filter(array_unique(explode(',', $args['value'])));
+        if ($args['value'] != '') {
+            $array      = array_filter(array_unique(explode(',', $args['value'])));
             $conditions = 'name = :attribute_name: AND type = :attribute_type:';
-            $bind = array(
-                'attribute_type' => $args['type'],
-            );
+            $bind       = array('attribute_type' => $args['type']);
 
             if (isset($args['module'])) {
                 if ($args['module'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_BLOCK) {
-                    $conditions = 'name = :attribute_name: AND type = :attribute_type: AND (module = :module_project: OR module = :module_block:)';
+                    $conditions = '
+                        name        = :attribute_name: 
+                        AND type    = :attribute_type: 
+                        AND (module = :module_project: OR module = :module_block:)
+                    ';
+
                     $bind['module_project'] = \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT;
-                    $bind['module_block'] = \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK;
+                    $bind['module_block']   = \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK;
                 } else {
-                    $conditions = 'name = :attribute_name: AND type = :attribute_type: AND module = :module_project:';
+                    $conditions = '
+                        name       = :attribute_name: 
+                        AND type   = :attribute_type: 
+                        AND module = :module_project:
+                    ';
+
                     $bind['module_project'] = \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT;
                 }
             }
@@ -633,9 +674,10 @@ class BaseController extends \Phalcon\Mvc\Controller
 
                 if ($item != '') {
                     $bind['attribute_name'] = $item;
+
                     $attribute = \ITECH\Data\Model\AttributeModel::findFirst(array(
                         'conditions' => $conditions,
-                        'bind' => $bind
+                        'bind'       => $bind
                     ));
 
                     $bind['attribute_name'] = '';
