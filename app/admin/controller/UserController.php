@@ -130,58 +130,81 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/profile');
     }
 
+    public function superAdminListAction()
+    {
+        $q     = $this->request->getQuery('q', ['striptags', 'trim'], '');
+        $page  = $this->request->getQuery('page', ['int'], 1);
+        $limit = $this->config->application->pagination_limit;
+
+        $params = [
+            'conditions' => [
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+            ],
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $userRepo = new \ITECH\Data\Repo\UserRepo;
+        $result   = $userRepo->getPaginationList($params);
+    }
+
     public function adminListAction()
     {
         //$user = $this->session->get('USER');
-        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page = $this->request->getQuery('page', array('int'), 1);
+
+        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
+
         $params = array(
             'conditions' => array(
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
             ),
-            'page' => $page,
+            'page'  => $page,
             'limit' => $limit
         );
-        $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result = $userRepo->getPaginationList($params);
 
-        $query = array();
+        $userRepo = new \ITECH\Data\Repo\UserRepo();
+        $result   = $userRepo->getPaginationList($params);
+
+        $query         = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'userAdminList'));
+
         $options = array(
-            'url' => $url,
-            'query' => $query,
-            'total_pages' => isset($result->total_pages) ? $result->total_pages : 0,
-            'page' => $page,
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
             'pages_display' => 3
         );
 
-        $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách quản trị viên',
-                'url' => $this->url->get([
-                    'for' => 'userAdminList',
-                ]),
+                'title'  => 'Danh sách quản trị viên',
+                'url'    => $this->url->get(['for' => 'userAdminList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs' => $breadcrumbs,
-            'result' => $result->items,
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result->items,
             'paginationLayout' => $paginationLayout,
-            'q' => $q,
+            'q'                => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user/list-admin');

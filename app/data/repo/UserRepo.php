@@ -73,8 +73,8 @@ class UserRepo extends \ITECH\Data\Model\UserModel
 
         $paginator = new \Phalcon\Paginator\Adapter\QueryBuilder(array(
             'builder' => $b,
-            'page' => $params['page'],
-            'limit' => $params['limit']
+            'page'    => $params['page'],
+            'limit'   => $params['limit']
         ));
 
         return $paginator->getPaginate();
@@ -84,16 +84,14 @@ class UserRepo extends \ITECH\Data\Model\UserModel
     {
         $b = \ITECH\Data\Model\UserModel::getModelsManager()->createBuilder();
 
-        $b->columns(array(
-            'u1.id',
-        ));
+        $b->columns(array('u1.id'));
 
         $b->from(array('u1' => 'ITECH\Data\Model\UserModel'));
 
         $paginator = new \Phalcon\Paginator\Adapter\QueryBuilder(array(
             'builder' => $b,
-            'page' => $params['page'],
-            'limit' => $params['limit']
+            'page'    => $params['page'],
+            'limit'   => $params['limit']
         ));
 
         return $paginator->getPaginate();
