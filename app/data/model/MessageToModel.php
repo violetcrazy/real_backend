@@ -12,12 +12,12 @@ class MessageToModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_message_to');
 
         $this->belongsTo('message_id', 'ITECH\Data\Model\MessageModel', 'id', array(
-            'alias' => 'Message',
+            'alias'      => 'Message',
             'foreignKey' => true
         ));
 
         $this->belongsTo('user_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'      => 'User',
             'foreignKey' => true
         ));
     }

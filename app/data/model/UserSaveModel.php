@@ -16,7 +16,7 @@ class UserSaveModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_user_save');
 
         $this->belongsTo('user_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'      => 'User',
             'foreignKey' => true
         ));
     }

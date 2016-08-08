@@ -12,12 +12,12 @@ class ProjectAttributeModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_project_attribute');
 
         $this->belongsTo('project_id', 'ITECH\Data\Model\ProjectModel', 'id', array(
-            'alias' => 'Project',
+            'alias'      => 'Project',
             'foreignKey' => true
         ));
 
         $this->belongsTo('attribute_id', 'ITECH\Data\Model\AttributeModel', 'id', array(
-            'alias' => 'Attribute',
+            'alias'      => 'Attribute',
             'foreignKey' => true
         ));
     }

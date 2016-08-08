@@ -19,7 +19,7 @@ class MediaModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_media');
 
         $this->belongsTo('category_id', 'ITECH\Data\Model\MediaTermModel', 'category_id', array(
-            'alias' => 'Category',
+            'alias'      => 'Category',
             'foreignKey' => true
         ));
     }

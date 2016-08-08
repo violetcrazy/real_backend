@@ -34,17 +34,17 @@ class ArticleModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_article');
 
         $this->hasMany('id', 'ITECH\Data\Model\ArticleCategoryModel', 'article_id', array(
-            'alias' => 'ArticleCategory',
+            'alias'    => 'ArticleCategory',
             'reusable' => true
         ));
 
         $this->belongsTo('category_id', 'ITECH\Data\Model\CategoryModel', 'id', array(
-            'alias' => 'Category',
+            'alias'    => 'Category',
             'reusable' => true
         ));
 
         $this->belongsTo('project_id', 'ITECH\Data\Model\ProjectModel', 'id', array(
-            'alias' => 'Project',
+            'alias'    => 'Project',
             'reusable' => true
         ));
     }

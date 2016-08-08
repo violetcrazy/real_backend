@@ -42,12 +42,12 @@ class UserModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_user');
 
         $this->belongsTo('province_id', 'ITECH\Data\Model\LocationModel', 'id', array(
-            'alias' => 'Province',
+            'alias'    => 'Province',
             'reusable' => true
         ));
 
         $this->belongsTo('district_id', 'ITECH\Data\Model\LocationModel', 'id', array(
-            'alias' => 'District',
+            'alias'    => 'District',
             'reusable' => true
         ));
     }
@@ -55,7 +55,7 @@ class UserModel extends \ITECH\Data\Model\BaseModel
     public function validation()
     {
         $this->validate(new \Phalcon\Mvc\Model\Validator\Uniqueness(array(
-            'field' => 'username',
+            'field'   => 'username',
             'message' => 'DUPLICATED_USERNAME'
         )));
 

@@ -52,12 +52,12 @@ class ApartmentModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_apartment');
 
         $this->belongsTo('user_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'    => 'User',
             'reusable' => true
         ));
 
         $this->belongsTo('block_id', 'ITECH\Data\Model\BlockModel', 'id', array(
-            'alias' => 'Block',
+            'alias'      => 'Block',
             'foreignKey' => true
         ));
     }

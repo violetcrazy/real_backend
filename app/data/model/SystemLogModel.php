@@ -17,7 +17,7 @@ class SystemLogModel extends BaseModel
         $this->setSource('land_system_log');
 
         $this->belongsTo('userId', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'      => 'User',
             'foreignKey' => true
         ));
     }

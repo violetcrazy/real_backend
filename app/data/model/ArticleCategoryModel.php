@@ -12,12 +12,12 @@ class ArticleCategoryModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_article_category');
 
         $this->belongsTo('article_id', 'ITECH\Data\Model\ArticleModel', 'id', array(
-            'alias' => 'Article',
+            'alias'      => 'Article',
             'foreignKey' => true
         ));
 
         $this->belongsTo('category_id', 'ITECH\Data\Model\CategoryModel', 'id', array(
-            'alias' => 'Category',
+            'alias'      => 'Category',
             'foreignKey' => true
         ));
     }

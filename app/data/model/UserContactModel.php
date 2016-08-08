@@ -13,7 +13,7 @@ class UserContactModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_user_contact');
 
         $this->belongsTo('user_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'      => 'User',
             'foreignKey' => true
         ));
     }

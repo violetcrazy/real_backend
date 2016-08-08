@@ -20,17 +20,17 @@ class ApartmentRequestModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_apartment_request');
 
         $this->belongsTo('user_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'User',
+            'alias'      => 'User',
             'foreignKey' => true
         ));
 
         $this->belongsTo('agent_id', 'ITECH\Data\Model\UserModel', 'id', array(
-            'alias' => 'Agent',
+            'alias'      => 'Agent',
             'foreignKey' => true
         ));
 
         $this->belongsTo('apartment_id', 'ITECH\Data\Model\ApartmentModel', 'id', array(
-            'alias' => 'Apartment',
+            'alias'      => 'Apartment',
             'foreignKey' => true
         ));
     }

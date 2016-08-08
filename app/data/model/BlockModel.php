@@ -43,7 +43,7 @@ class BlockModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_block');
 
         $this->belongsTo('project_id', 'ITECH\Data\Model\ProjectModel', 'id', array(
-            'alias' => 'Project',
+            'alias'      => 'Project',
             'foreignKey' => true
         ));
     }

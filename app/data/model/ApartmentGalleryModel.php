@@ -17,7 +17,7 @@ class ApartmentGalleryModel extends \ITECH\Data\Model\BaseModel
         $this->setSource('land_apartment_gallery');
 
         $this->belongsTo('apartment_id', 'ITECH\Data\Model\ApartmentModel', 'id', array(
-            'alias' => 'Apartment',
+            'alias'      => 'Apartment',
             'foreignKey' => true
         ));
     }
