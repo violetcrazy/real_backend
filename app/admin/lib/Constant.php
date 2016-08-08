@@ -11,7 +11,13 @@ class Constant
                 'title'      => 'Dashboard',
                 'controller' => 'home',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                )
             ),
             'project_list' => array(
                 'icon_class' => 'clip-database',
@@ -19,8 +25,11 @@ class Constant
                 'controller' => 'project',
                 'action'     => 'index',
                 'roles'      => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                 ),
                 'sub_menu' => array(
                     'project_list' => array(
@@ -28,8 +37,11 @@ class Constant
                         'controller' => 'project',
                         'action'     => 'index',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                         )
                     ),
                     'project_list_attribute' => array(
@@ -37,6 +49,7 @@ class Constant
                         'controller' => 'project',
                         'action'     => 'listAttribute',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -49,8 +62,11 @@ class Constant
                 'controller' => 'block',
                 'action'     => 'index',
                 'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                 ),
                 'sub_menu' => array(
                     'block_list' => array(
@@ -58,8 +74,11 @@ class Constant
                         'controller' => 'block',
                         'action'     => 'index',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                         )
                     ),
                     'block_list_attribute' => array(
@@ -67,6 +86,7 @@ class Constant
                         'controller' => 'block',
                         'action'     => 'listAttribute',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -79,8 +99,11 @@ class Constant
                 'controller' => 'apartment',
                 'action'     => 'index',
                 'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                 ),
                 'sub_menu' => array(
                     'apartment_list' => array(
@@ -88,8 +111,11 @@ class Constant
                         'controller' => 'apartment',
                         'action'     => 'index',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
                         )
                     ),
                     'apartment_list_attribute' => array(
@@ -97,6 +123,7 @@ class Constant
                         'controller' => 'apartment',
                         'action'     => 'listAttribute',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -105,13 +132,20 @@ class Constant
                         'title'      => 'Danh sách yêu cầu',
                         'controller' => 'apartment',
                         'action'     => 'requestList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'apartment_furniture_list' => array(
                         'title'      => 'DS nhà cung cấp nội thất',
                         'controller' => 'apartment',
                         'action'     => 'furnitureList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     )
                 )
             ),
@@ -121,6 +155,7 @@ class Constant
                 'controller' => 'ceriterial',
                 'action'     => 'index',
                 'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                 ),
@@ -130,6 +165,7 @@ class Constant
                         'controller' => 'ceriterial',
                         'action'     => 'buyList',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -139,6 +175,7 @@ class Constant
                         'controller' => 'ceriterial',
                         'action'     => 'rentList',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -148,6 +185,7 @@ class Constant
                         'controller' => 'ceriterial',
                         'action'     => 'smartSearchList',
                         'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
@@ -159,31 +197,48 @@ class Constant
                 'title'      => 'Danh mục/Nhóm',
                 'controller' => 'category',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN),
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                ),
                 'sub_menu' => array(
                     'category' => array(
                         'title'      => 'Danh mục',
                         'controller' => 'category',
                         'action'     => 'index',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'category_list_group' => array(
                         'title'      => 'Nhóm',
                         'controller' => 'category',
                         'action'     => 'groupList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'category_list_link' => array(
                         'title'      => 'Liên kết',
                         'controller' => 'category',
                         'action'     => 'linkList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'category_fengshui' => array(
                         'title'      => 'Phong thủy',
                         'controller' => 'category',
                         'action'     => 'fengShui',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     )
                 )
             ),
@@ -192,31 +247,51 @@ class Constant
                 'title'      => 'Quản lý bài viết',
                 'controller' => 'article',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN),
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                ),
                 'sub_menu' => array(
                     'article' => array(
                         'title'      => 'DS bài viết',
                         'controller' => 'article',
                         'action'     => 'index',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     ),
                     'article_list_page' => array(
                         'title'      => 'DS trang tĩnh',
                         'controller' => 'article',
                         'action'     => 'page',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     ),
                     'article_list_fengshui' => array(
                         'title'      => 'DS phong thủy',
                         'controller' => 'article',
                         'action'     => 'fengshui',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     ),
                     'article_special_list' => array(
                         'title'      => 'DS tin special',
                         'controller' => 'article',
                         'action'     => 'specialList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     )
                 )
             ),
@@ -225,20 +300,32 @@ class Constant
                 'title'      => 'Quản lý hình ảnh',
                 'controller' => 'image',
                 'action'     => 'manager',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                )
             ),
             'banner' => array(
                 'icon_class' => 'clip-banknote',
                 'title'      => 'Quản lý banner',
                 'controller' => 'banner',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN),
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                ),
                 'sub_menu' => array(
                     'banner' => array(
                         'title'      => 'Danh sách banner',
                         'controller' => 'banner',
                         'action'     => 'index',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                        )
                     )
                 )
             ),
@@ -264,7 +351,6 @@ class Constant
                     )
                 )
             ),
-            */
             'analytic' => array(
                 'icon_class' => 'clip-health',
                 'title'      => 'Quản lý thống kê',
@@ -272,36 +358,52 @@ class Constant
                 'action'     => 'index',
                 'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
             ),
+            */
             'system_seo' => array(
                 'icon_class' => 'clip-settings',
                 'title'      => 'Quản lý hệ thống',
                 'controller' => 'system',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN),
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                ),
                 'sub_menu' => array(
                     'system_seo' => array(
                         'title'      => 'Cấu hình SEO',
                         'controller' => 'system',
                         'action'     => 'index',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'system_email' => array(
                         'title'      => 'Cấu hình Email',
                         'controller' => 'system',
                         'action'     => 'email',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'system_option' => array(
                         'title'      => 'Tùy chỉnh',
                         'controller' => 'system',
                         'action'     => 'option',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     ),
                     'system_data' => array(
                         'title'      => 'Nhập/Xuất Excel',
                         'controller' => 'system',
                         'action'     => 'data',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles' => array(
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
                     )
                 )
             ),
@@ -310,25 +412,70 @@ class Constant
                 'title'      => 'Quản lý thành viên',
                 'controller' => 'user',
                 'action'     => 'index',
-                'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN),
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                ),
                 'sub_menu' => array(
-                    'user_admin' => array(
-                        'title'      => 'Danh sách quản trị viên',
+                    'userSuperAdminList' => [
+                        'title'      => 'DS Super Admin',
+                        'controller' => 'user',
+                        'action'     => 'superAdminList',
+                        'roles'      => [\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]
+                    ],
+                    'userAdminList' => array(
+                        'title'      => 'Danh sách Admin',
                         'controller' => 'user',
                         'action'     => 'adminList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
                     ),
-                    'user_member' => array(
+                    'userAdminEditorList' => array(
+                        'title'      => 'DS Admin Editor',
+                        'controller' => 'user',
+                        'action'     => 'adminEditorList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ),
+                    'userAdminSeoList' => array(
+                        'title'      => 'DS Admin SEO',
+                        'controller' => 'user',
+                        'action'     => 'adminSeoList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ),
+                    'userAdminMarketingList' => array(
+                        'title'      => 'DS Admin Marketing',
+                        'controller' => 'user',
+                        'action'     => 'adminMarketingList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ),
+                    'userMemberList' => array(
                         'title'      => 'Danh sách thành viên',
                         'controller' => 'user',
                         'action'     => 'memberList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
                     ),
-                    'user_agent' => array(
+                    'userAgentList' => array(
                         'title'      => 'Danh sách đại lý',
                         'controller' => 'user',
                         'action'     => 'agentList',
-                        'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
                     )
                 )
             )

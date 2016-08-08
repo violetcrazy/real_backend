@@ -73,7 +73,7 @@
                 <button type="submit" class="btn btn-bricky">
                     Thêm
                 </button>
-                <a href="{{ url({'for': 'user_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
+                <a href="{{ url({'for': 'userAdminList', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
                     Trở lại
                 </a>
             </div>

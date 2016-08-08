@@ -903,7 +903,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function requestListAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         $filter = $this->request->getQuery('filter', array('int'), 2);
         $page = $this->request->getQuery('page', array('int'), 1);
@@ -963,7 +966,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function requestEditAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         $id = $this->request->getQuery('id', array('int'), '');
 
@@ -1016,7 +1022,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function requestApproveAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
@@ -1078,7 +1087,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function requestRejectAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
@@ -1128,7 +1140,11 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function listFurnitureAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
 
         $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -1179,7 +1195,11 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function addFurnitureAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
 
         $furniture = new \ITECH\Data\Model\FurnitureModel();
         $form = new \ITECH\Admin\Form\FurnitureForm();
@@ -1237,7 +1257,11 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function editFurnitureAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
 
         $id = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
@@ -1307,7 +1331,11 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function deleteFurnitureAction()
     {
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
 
         $id = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);

@@ -20,11 +20,11 @@
                             Gửi
                         </button>
                         {% if user.type is defined and user.type == constant('\ITECH\Data\Lib\Constant::USER_TYPE_AGENT') %}
-                            <a href="{{ url({'for': 'user_agent'}) }}" class="btn btn-primary">
+                            <a href="{{ url({'for': 'userAgentList'}) }}" class="btn btn-primary">
                                 Trở lại
                             </a>
-                        {% elseif user.type is defined and user.type == constant('\ITECH\Data\Lib\Constant::USER_TYPE_MEMBER') %} 
-                            <a href="{{ url({'for': 'user_member'}) }}" class="btn btn-primary">
+                        {% elseif user.type is defined and user.type == constant('\ITECH\Data\Lib\Constant::USER_TYPE_MEMBER') %}
+                            <a href="{{ url({'for': 'userMemberList'}) }}" class="btn btn-primary">
                                 Trở lại
                             </a>
                         {% endif %}

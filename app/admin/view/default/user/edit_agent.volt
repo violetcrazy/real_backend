@@ -110,7 +110,7 @@
                         <button type="submit" class="btn btn-bricky">
                             Cập nhật
                         </button>
-                        <a href="{{ url({'for': 'user_agent'}) }}" class="btn btn-primary">
+                        <a href="{{ url({'for': 'userAgentList'}) }}" class="btn btn-primary">
                             Trở lại
                         </a>
                     </div>

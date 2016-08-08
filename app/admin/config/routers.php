@@ -30,23 +30,53 @@ $router->add('/user/list{query:(/.*)*}', array(
     'action'     => 'list'
 ))->setName('user_list');
 
-$router->add('/user/list-admin{query:(/.*)*}', array(
+$router->add('/user/super-admin-list{query:(/.*)*}', [
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'superAdminList'
+])->setName('userSuperAdminList');
+
+$router->add('/user/admin-list{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
     'action'     => 'adminList'
-))->setName('user_admin');
+))->setName('userAdminList');
 
-$router->add('/user/profile-admin{query:(/.*)*}', array(
+$router->add('/user/admin-editor-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'adminEditorList'
+))->setName('userAdminEditorList');
+
+$router->add('/user/admin-seo-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'adminSeoList'
+))->setName('userAdminSeoList');
+
+$router->add('/user/admin-marketing-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'adminMarketingList'
+))->setName('userAdminMarketingList');
+
+$router->add('/user/agent-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'agentList'
+))->setName('userAgentList');
+
+$router->add('/user/member-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'memberList'
+))->setName('userMemberList');
+
+$router->add('/user/admin-profile{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
     'action'     => 'adminProfile'
 ))->setName('user_profile_admin');
-
-$router->add('/user/list-agent{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'agentList'
-))->setName('user_agent');
 
 $router->add('/user/edit{query:(/.*)*}', array(
     'module'     => 'admin',
@@ -59,12 +89,6 @@ $router->add('/user/edit-agent{query:(/.*)*}', array(
     'controller' => 'user',
     'action'     => 'editAgent'
 ))->setName('user_edit_agent');
-
-$router->add('/user/list-member{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'memberList'
-))->setName('user_member');
 
 $router->add('/user/edit-member{query:(/.*)*}', array(
     'module'     => 'admin',

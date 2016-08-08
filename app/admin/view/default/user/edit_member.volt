@@ -112,7 +112,7 @@
                         <button type="submit" class="btn btn-bricky">
                             Cập nhật
                         </button>
-                        <a href="{{ url({'for': 'user_member', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
+                        <a href="{{ url({'for': 'userMemberList', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
                             Trở lại
                         </a>
                     </div>

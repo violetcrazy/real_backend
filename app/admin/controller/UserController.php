@@ -150,7 +150,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $query = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'user_admin'));
+        $url = $this->url->get(array('for' => 'userAdminList'));
         $options = array(
             'url' => $url,
             'query' => $query,
@@ -171,7 +171,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách quản trị viên',
                 'url' => $this->url->get([
-                    'for' => 'user_admin',
+                    'for' => 'userAdminList',
                 ]),
                 'active' => true
             ]
@@ -207,7 +207,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $query = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'user_admin'));
+        $url = $this->url->get(array('for' => 'userAdminList'));
         $options = array(
             'url' => $url,
             'query' => $query,
@@ -228,7 +228,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách thành viên',
                 'url' => $this->url->get([
-                    'for' => 'user_member',
+                    'for' => 'userMemberList',
                 ]),
                 'active' => true
             ]
@@ -389,7 +389,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             $this->flashSession->success('Xoá thành công.');
         }
 
-        return $this->response->redirect(array('for' => 'user_admin', 'query' => '?' . http_build_query(array('q' => $q, 'filter' => $filter))));
+        return $this->response->redirect(array('for' => 'userAdminList', 'query' => '?' . http_build_query(array('q' => $q, 'filter' => $filter))));
     }
 
     public function deleteAvatarAction()
@@ -510,7 +510,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách quản trị viên',
                 'url' => $this->url->get([
-                    'for' => 'user_admin',
+                    'for' => 'userAdminList',
                 ]),
                 'active' => false
             ],
@@ -628,7 +628,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách quản trị viên',
                 'url' => $this->url->get([
-                    'for' => 'user_admin',
+                    'for' => 'userAdminList',
                 ]),
                 'active' => false
             ],
@@ -803,7 +803,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách quản trị viên',
                 'url' => $this->url->get([
-                    'for' => 'user_admin',
+                    'for' => 'userAdminList',
                 ]),
                 'active' => false
             ],
@@ -923,7 +923,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách quản trị viên',
                 'url' => $this->url->get([
-                    'for' => 'user_agent',
+                    'for' => 'userAgentList',
                 ]),
                 'active' => false
             ],
@@ -967,7 +967,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $query = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'user_agent'));
+        $url = $this->url->get(array('for' => 'userAgentList'));
         $options = array(
             'url' => $url,
             'query' => $query,
@@ -988,7 +988,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách đại lý',
                 'url' => $this->url->get([
-                    'for' => 'user_member',
+                    'for' => 'userMemberList',
                 ]),
                 'active' => true
             ]
@@ -1157,7 +1157,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách đại lý',
                 'url' => $this->url->get([
-                    'for' => 'user_agent',
+                    'for' => 'userAgentList',
                 ]),
                 'active' => false
             ],
@@ -1335,7 +1335,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách thành viên',
                 'url' => $this->url->get([
-                    'for' => 'user_member',
+                    'for' => 'userMemberList',
                 ]),
                 'active' => false
             ],
@@ -1455,7 +1455,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             [
                 'title' => 'Danh sách thành viên',
                 'url' => $this->url->get([
-                    'for' => 'user_member',
+                    'for' => 'userMemberList',
                 ]),
                 'active' => false
             ],
@@ -1775,9 +1775,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                     $this->flashSession->success('Gửi thành công.');
 
                     if ($user->type == \ITECH\Data\Lib\Constant::USER_TYPE_AGENT) {
-                        return $this->response->redirect(array('for' => 'user_agent'));
+                        return $this->response->redirect(array('for' => 'userAgentList'));
                     } elseif ($user->type == \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER) {
-                       return $this->response->redirect(array('for' => 'user_member'));
+                       return $this->response->redirect(array('for' => 'userMemberList'));
                     }
                 }
             }
