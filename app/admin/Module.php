@@ -8,14 +8,14 @@ class Module
         $loader = new \Phalcon\Loader();
 
         $loader->registerNamespaces(array(
-            'ITECH\Data\Model' => ROOT . '/app/data/model/',
-            'ITECH\Data\Repo' => ROOT . '/app/data/repo/',
-            'ITECH\Data\Lib' => ROOT . '/app/data/lib/',
-            'ITECH\Admin\Controller' => ROOT . '/app/admin/controller/',
-            'ITECH\Admin\Component' => ROOT . '/app/admin/component/',
-            'ITECH\Admin\Form' => ROOT . '/app/admin/form/',
+            'ITECH\Data\Model'           => ROOT . '/app/data/model/',
+            'ITECH\Data\Repo'            => ROOT . '/app/data/repo/',
+            'ITECH\Data\Lib'             => ROOT . '/app/data/lib/',
+            'ITECH\Admin\Controller'     => ROOT . '/app/admin/controller/',
+            'ITECH\Admin\Component'      => ROOT . '/app/admin/component/',
+            'ITECH\Admin\Form'           => ROOT . '/app/admin/form/',
             'ITECH\Admin\Form\Validator' => ROOT . '/app/admin/form/validator/',
-            'ITECH\Admin\Lib' => ROOT . '/app/admin/lib/'
+            'ITECH\Admin\Lib'            => ROOT . '/app/admin/lib/'
         ));
         $loader->register();
     }
@@ -26,11 +26,12 @@ class Module
 
         $di->setShared('volt', function($view, $di) use ($config) {
             $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+
             $volt->setOptions(array(
-                'compiledPath' => ROOT . '/cache/admin/volt/',
+                'compiledPath'      => ROOT . '/cache/admin/volt/',
                 'compiledSeparator' => $config->volt->compiled_separator,
-                'compileAlways' => (bool)$config->volt->debug,
-                'stat' => (bool)$config->volt->stat
+                'compileAlways'     => (bool)$config->volt->debug,
+                'stat'              => (bool)$config->volt->stat
             ));
 
             $compiler = $volt->getCompiler();
@@ -179,9 +180,7 @@ class Module
         $di->setShared('view', function() {
             $view = new \Phalcon\Mvc\View();
             $view->setViewsDir(ROOT . '/app/admin/view/');
-            $view->registerEngines(array(
-                '.volt' => 'volt'
-            ));
+            $view->registerEngines(array('.volt' => 'volt'));
 
             return $view;
         });
