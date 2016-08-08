@@ -49,35 +49,56 @@
                 <div class="tab-pane" id="panel_tab5">
                     {% include 'default/system/element/_import_apartment_update.volt' %}
                 </div>
+
                 <div class="tab-pane" id="panel_tab6">
                     <div class="">
                         <p><b>ID tương ứng các Hướng</b></p>
-                        1 => Đông, <br>
-                        2 => Đông Nam, <br>
-                        3 => Nam, <br>
-                        4 => Tây Nam, <br>
-                        5 => Tây, <br>
-                        6 => Tây Bắc, <br>
-                        7 => Bắc, <br>
-                        8 => Đông Bắc, <br>
-                        9 => Tây Bắc - Tây Nam, <br>
-                        10 => Đông Bắc - Tây Bắc, <br>
-                        11 => Đông Bắc - Đông Nam, <br>
-                        12 => Đông Nam - Tây Nam, <br>
-                        13 => Đông Tây, <br>
-                        14 => Đông Nam - Tây Bắc, <br>
-                        15 => Đông Bắc - Tây Nam' <br>
+                        1 => Đông
+                        <br />
+                        2 => Đông Nam
+                        <br />
+                        3 => Nam
+                        <br />
+                        4 => Tây Nam
+                        <br />
+                        5 => Tây
+                        <br />
+                        6 => Tây Bắc
+                        <br />
+                        7 => Bắc
+                        <br />
+                        8 => Đông Bắc
+                        <br />
+                        9 => Tây Bắc - Tây Nam
+                        <br />
+                        10 => Đông Bắc - Tây Bắc
+                        <br />
+                        11 => Đông Bắc - Đông Nam
+                        <br />
+                        12 => Đông Nam - Tây Nam
+                        <br />
+                        13 => Đông Tây
+                        <br />
+                        14 => Đông Nam - Tây Bắc
+                        <br />
+                        15 => Đông Bắc - Tây Nam
                     </div>
-                    <hr>
+                    <hr />
 
                     <div class="">
                         <p><b>ID tỉnh thành tương ứng</b></p>
+
                         {% if location is defined %}
                             {% for key, item in location['result'] %}
-                                <b class="text-danger">{{ item['id'] }} => {{ item['name'] }}</b> ,<br>
+                                <b class="text-danger">{{ item['id'] }} => {{ item['name'] }}</b>
+                                <br />
+
                                 {% for skey, sitem in item['district'] %}
-                                    &#160&#160&#160&#160 {{ sitem['id'] }} => {{ sitem['name'] }} ,<br>
+                                    &#160&#160&#160&#160 {{ sitem['id'] }} => {{ sitem['name'] }}
+                                    <br />
                                 {% endfor %}
+
+                                <br />
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -88,10 +109,10 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
+    <script type="text/javascript">
+        $(document).ready(function () {
             $('form').trigger('reset');
-            saveTab($,'tab_data_import');
+            saveTab($, 'tab_data_import');
         });
     </script>
 {% endblock %}

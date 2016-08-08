@@ -15,7 +15,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             'conditions' => 'status = :status:',
             'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
         ));
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -30,7 +30,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'active' => true
             ]
         ];
-        
+
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
             'projects' => $projects,
@@ -58,7 +58,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         if (count($apartments) > 0) {
             foreach ($apartments as $apartment) {
                 $urlEditApartment = '<a role="menuitem" href="'. $this->url->get(array('for' => 'apartment_edit', 'query' => '?' .  http_build_query(array('block_id' => $apartment->block_id, 'id' => $apartment->id )) )) .'">'. $apartment->name .'</a>';
-                $urlDeleteApartment = '<div class="text-center"><a href="'. $this->url->get(array('for' => 'apartment_delete', 'query' => '?' . http_build_query(array('id' => $apartment->id)) )) .'" onclick="javascript:return confirm(\'Đồng ý xoá.?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
+                $urlDeleteApartment = '<div class="text-center"><a href="'. $this->url->get(array('for' => 'apartment_delete', 'query' => '?' . http_build_query(array('id' => $apartment->id)) )) .'" onclick="return confirm(\'Đồng ý xoá.?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
                 $urlEditBlock = '<a href="'. $this->url->get(array("for" => "block_edit", "query" => "?" . http_build_query(array("id" => $apartment->block_id)) )) .'">'. $apartment->block_name .'</a>';
                 $urlEditProject = '<a href="'. $this->url->get(array("for" => "project_edit", "query" => "?" . http_build_query(array("id" => $apartment->project_id)) )) .'">'. $apartment->project_name .'</a>';
 
@@ -330,7 +330,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             }
         }
         // Get Attr
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -736,7 +736,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             'item_id' => (int)$apartment->id
         ));
         //var_dump($block->project->id); die;
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -832,7 +832,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         );
         $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -936,7 +936,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
         $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -951,7 +951,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'active' => true
             ]
         ];
-        
+
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
             'filter' => $filter,
@@ -1125,10 +1125,11 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         $this->flashSession->success('Cập nhật trạng thái yêu cầu thành công.');
         return $this->response->redirect(array('for' => 'apartment_request_list'));
     }
-    
-    public function listFurnitureAction() {
+
+    public function listFurnitureAction()
+    {
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
-        
+
         $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
         $furnitureRepo = new \ITECH\Data\Repo\FurnitureRepo();
@@ -1158,7 +1159,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'active' => false
             ],
             [
-                'title' => 'Danh sách nhà nội thất',
+                'title' => 'Danh sách nhà cung cấp nội thất',
                 'url' => $this->url->get([
                     'for' => 'apartment_furniture_list'
                 ]),
@@ -1172,16 +1173,17 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             'furniture' => $furniture,
             'page' => $page
         ));
-  
+
         $this->view->pick(parent::$theme . '/apartment/furniture_list');
     }
-    
-    public function addFurnitureAction() {
+
+    public function addFurnitureAction()
+    {
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
 
         $furniture = new \ITECH\Data\Model\FurnitureModel();
         $form = new \ITECH\Admin\Form\FurnitureForm();
-        
+
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $furniture);
 
@@ -1202,14 +1204,14 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                     $query = array(
                         'id' => $furniture->id,
                     );
-                    $this->flashSession->success('Thêm nhà nội thất thành công.');
+                    $this->flashSession->success('Thêm nhà cung cấp nội thất thành công.');
                     return $this->response->redirect(array('for' => 'apartment_furniture_edit', 'query' => '?' . http_build_query($query)));
                 } else {
                     $this->flashSession->error(implode(', ', $messages = $furniture->getMessages()));
                 }
             }
         }
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -1217,7 +1219,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'active' => false
             ],
             [
-                'title' => 'Thêm nhà nội thất',
+                'title' => 'Thêm nhà cung cấp nội thất',
                 'url' => $this->url->get([
                     'for' => 'apartment_furniture_add'
                 ]),
@@ -1227,24 +1229,25 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'form' => $form,
+            'form' => $form
         ));
-        
+
         $this->view->pick(parent::$theme . '/apartment/furniture_add');
     }
-    
-    public function editFurnitureAction() {
+
+    public function editFurnitureAction()
+    {
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
-        
+
         $id = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
         $from = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
-        
+
         $furniture = \ITECH\Data\Model\FurnitureModel::findFirst([
            'conditions' => 'id = :id:',
-            'bind' => array('id' => $id) 
+            'bind' => array('id' => $id)
         ]);
-        //var_dump($furniture->toArray()); die;
+
         $form = new \ITECH\Admin\Form\FurnitureForm($furniture);
 
         if ($this->request->isPost()) {
@@ -1264,13 +1267,13 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 $furniture->logo = '';
                 $furniture->status = $this->request->getPost('status');
                 if ($furniture->update()) {
-                    $this->flashSession->success('Cập nhật nhà nội thất thành công.');
+                    $this->flashSession->success('Cập nhật nhà cung cấp nội thất thành công.');
                 } else {
                     $this->flashSession->error(implode(', ', $messages = $furniture->getMessages()));
                 }
             }
         }
-                
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -1278,7 +1281,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'active' => false
             ],
             [
-                'title' => 'Danh sách nhà nội thất',
+                'title' => 'Danh sách nhà cung cấp nội thất',
                 'url' => $this->url->get([
                     'for' => 'apartment_furniture_list',
                 ]),
@@ -1297,27 +1300,28 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
             'form' => $form,
-            'page' => $page,
+            'page' => $page
         ));
         $this->view->pick(parent::$theme . '/apartment/furniture_edit');
     }
-    
-    public function deleteFurnitureAction() {
+
+    public function deleteFurnitureAction()
+    {
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
-        
+
         $id = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
-        
+
         $furniture = \ITECH\Data\Model\FurnitureModel::findFirst([
            'conditions' => 'id = :id:',
-            'bind' => array('id' => $id) 
+            'bind' => array('id' => $id)
         ]);
-        
+
         if ($furniture->delete()) {
             $query = array(
                 'page' => $page,
             );
-            $this->flashSession->success('Xóa nhà nội thất thành công.');
+            $this->flashSession->success('Xóa nhà cung cấp nội thất thành công.');
             return $this->response->redirect(array('for' => 'apartment_furniture_list', 'query' => '?' . http_build_query($query)));
         } else {
             $query = array(

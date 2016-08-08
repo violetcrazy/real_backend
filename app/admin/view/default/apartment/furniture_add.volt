@@ -5,12 +5,14 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <h3>Thêm nhà nội thất</h3>
+                <h3>Thêm nhà cung cấp nội thất</h3>
             </div>
         </div>
     </div>
+
     <form id="form-furniture" action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
         {{ flashSession.output() }}
+
         <h3>Tiếng Việt</h3>
         <hr />
         <div class="form-group">
@@ -37,7 +39,7 @@
                 {{ form.render('address', {'class': 'form-control'}) }}
             </div>
         </div>
-            
+
         <h3>Tiếng Anh</h3>
         <hr />
         <div class="form-group">

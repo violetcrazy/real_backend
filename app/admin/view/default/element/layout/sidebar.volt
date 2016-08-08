@@ -1,8 +1,8 @@
 {% set sidebar_menu = getSidebarMenu() %}
 
 {% set userSession = session.get('USER') %}
-{% set controller = router.getControllerName() %}
-{% set action = router.getActionName() %}
+{% set controller  = router.getControllerName() %}
+{% set action      = router.getActionName() %}
 
 <div class="main-navigation navbar-collapse collapse">
     <div class="navigation-toggler">
@@ -13,9 +13,11 @@
     <ul class="main-navigation-menu">
         {% for key, item in sidebar_menu %}
             {% set class = '' %}
+
             {% if (controller == item['controller']) %}
                 {% set class = 'active open' %}
             {% endif %}
+
             {% if (in_array(userSession['membership'], item['roles'])) %}
                 <li class="{{ class }}">
                     {% if (item['sub_menu'] is defined and item['sub_menu']|length) %}
@@ -27,6 +29,7 @@
 
                         <ul class="sub-menu">
                             {% set sub_menu = item['sub_menu'] %}
+
                             {% for sub_key, sub_item in sub_menu %}
                                 {% set sub_class = '' %}
                                 {% if (controller == sub_item['controller'] and action == sub_item['action']) %}
