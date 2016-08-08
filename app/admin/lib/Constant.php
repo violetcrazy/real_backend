@@ -424,7 +424,7 @@ class Constant
                         'roles'      => [\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]
                     ],
                     'userAdminList' => array(
-                        'title'      => 'Danh sách Admin',
+                        'title'      => 'DS Admin',
                         'controller' => 'user',
                         'action'     => 'adminList',
                         'roles'      => [
@@ -459,19 +459,19 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
                     ),
-                    'userMemberList' => array(
-                        'title'      => 'Danh sách thành viên',
+                    'userAgentList' => array(
+                        'title'      => 'Danh sách đại lý',
                         'controller' => 'user',
-                        'action'     => 'memberList',
+                        'action'     => 'agentList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
                     ),
-                    'userAgentList' => array(
-                        'title'      => 'Danh sách đại lý',
+                    'userMemberList' => array(
+                        'title'      => 'Danh sách thành viên',
                         'controller' => 'user',
-                        'action'     => 'agentList',
+                        'action'     => 'memberList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
