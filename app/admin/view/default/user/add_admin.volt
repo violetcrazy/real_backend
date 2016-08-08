@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <h3>Thêm quản trị viên</h3>
+                <h3>{{ addTitle }}</h3>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 Loại
             </label>
             <div class="col-sm-5">
-                {{ form.render('membership', {'class': 'form-control'}) }}
+                {{ form.render('membership', {'class': 'form-control', 'disabled': 'disabled'}) }}
                 {% include 'default/element/layout/form_message' with {'form': form, 'element': 'membership'} %}
             </div>
         </div>
@@ -63,7 +63,7 @@
                 Trạng thái
             </label>
             <div class="col-sm-5">
-                {{ form.render('status', {'class': 'form-control'}) }}
+                {{ form.render('status', {'class': 'form-control', 'disabled': 'disabled'}) }}
                 {% include 'default/element/layout/form_message' with {'form': form, 'element': 'status'} %}
             </div>
         </div>
@@ -73,7 +73,8 @@
                 <button type="submit" class="btn btn-bricky">
                     Thêm
                 </button>
-                <a href="{{ url({'for': 'userAdminList', 'query': '?' ~ http_build_query({'q': q, 'filter': filter})}) }}" class="btn btn-primary">
+
+                <a href="{{ url({'for': urlFor, 'query': '?' ~ http_build_query({'q': q})}) }}" class="btn btn-primary">
                     Trở lại
                 </a>
             </div>
