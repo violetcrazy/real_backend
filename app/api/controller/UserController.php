@@ -12,13 +12,14 @@ class UserController extends \ITECH\Api\Controller\BaseController
     public function loginAction()
     {
         $response = array(
-            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
             'message' => 'Success.',
-            'result' => array()
+            'result'  => array()
         );
 
         if ($this->request->isPost()) {
             $post = $this->request->getJsonRawBody();
+
             if ($post == '') {
                 $post = $this->request->getPost();
             }
@@ -55,13 +56,15 @@ class UserController extends \ITECH\Api\Controller\BaseController
             $messages = $validator->validate($post);
             if (count($messages)) {
                 $result = array();
+
                 foreach ($messages as $message) {
                     $result[$message->getField()] = $message->getMessage();
                 }
+
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                     'message' => 'Thông tin chưa hợp lệ.',
-                    'result' => $result
+                    'result'  => $result
                 );
 
                 goto RETURN_RESPONSE;
@@ -85,11 +88,14 @@ class UserController extends \ITECH\Api\Controller\BaseController
 
                         $email = $validator->getValue('username');
                         $user = \ITECH\Data\Model\UserModel::findFirst(array(
-                            'conditions' => '(username = :username: OR email = :email:) AND type = :type:',
+                            'conditions' => '
+                                (username = :username: OR email = :email:) 
+                                AND type = :type:
+                            ',
                             'bind' => array(
                                 'username' => $username,
-                                'email' => $email,
-                                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER
+                                'email'    => $email,
+                                'type'     => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER
                             )
                         ));
                     break;
@@ -104,10 +110,14 @@ class UserController extends \ITECH\Api\Controller\BaseController
 
                         $email = $validator->getValue('username');
                         $user = \ITECH\Data\Model\UserModel::findFirst(array(
-                            'conditions' => '(username = :username: OR email = :email:)',
+                            'conditions' => '
+                                (username = :username: OR email = :email:)
+                                AND type = :type:
+                            ',
                             'bind' => array(
                                 'username' => $username,
-                                'email' => $email
+                                'email'    => $email,
+                                'type'     => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT
                             )
                         ));
                     break;
@@ -120,7 +130,7 @@ class UserController extends \ITECH\Api\Controller\BaseController
                             'conditions' => 'username = :username: AND type = :type:',
                             'bind' => array(
                                 'username' => $username,
-                                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
+                                'type'     => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
                             )
                         ));
                     break;
@@ -130,41 +140,48 @@ class UserController extends \ITECH\Api\Controller\BaseController
 
                 $email = $validator->getValue('username');
                 $user = \ITECH\Data\Model\UserModel::findFirst(array(
-                    'conditions' => '(username = :username: OR email = :email:)',
+                    'conditions' => '
+                        (username = :username: OR email = :email:)
+                        AND type = :type:
+                    ',
                     'bind' => array(
                         'username' => $username,
-                        'email' => $email
+                        'email'    => $email,
+                        'type'     => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT
                     )
                 ));
             }
 
             if (!$user) {
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                     'message' => 'Không tồn tại tài khoản này.'
                 );
+
                 goto RETURN_RESPONSE;
             }
 
             if ($user->password != $password) {
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                     'message' => 'Mật khẩu không chính xác.'
                 );
+
                 goto RETURN_RESPONSE;
             }
 
             if ($user->status != \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE) {
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                     'message' => 'Tài khoản chưa được quyền sử dụng hoặc đã bị xóa.'
                 );
+
                 goto RETURN_RESPONSE;
             }
 
-            $token = md5(uniqid() . time());
-
+            $token       = md5(uniqid() . time());
             $application = \ITECH\Data\Lib\Constant::USER_AUTHENTICATE_APPLICATION_WEB;
+
             if ($validator->getValue('application') != '') {
                 switch ($validator->getValue('application')) {
                     default:
@@ -186,69 +203,75 @@ class UserController extends \ITECH\Api\Controller\BaseController
                 }
             }
 
-            $userAuthenticateModel = new \ITECH\Data\Model\UserAuthenticateModel();
-            $userAuthenticateModel->user_id = $user->id;
+            $userAuthenticateModel              = new \ITECH\Data\Model\UserAuthenticateModel();
+            $userAuthenticateModel->user_id     = $user->id;
             $userAuthenticateModel->application = $application;
-            $userAuthenticateModel->token = $token;
-            $userAuthenticateModel->created_at = date('Y-m-d H:i:s');
-            $userAuthenticateModel->expired_at = date('Y-m-d H:i:s', strtotime('+7 days'));
+            $userAuthenticateModel->token       = $token;
+            $userAuthenticateModel->created_at  = date('Y-m-d H:i:s');
+            $userAuthenticateModel->expired_at  = date('Y-m-d H:i:s', strtotime('+7 days'));
 
-            $userLogModel = new \ITECH\Data\Model\UserLogModel();
-            $userLogModel->user_id = $user->id;
-            $userLogModel->action = $actionLog;
+            $userLogModel               = new \ITECH\Data\Model\UserLogModel();
+            $userLogModel->user_id      = $user->id;
+            $userLogModel->action       = $actionLog;
             $userLogModel->referral_url = $validator->getValue('referral_url');
-            $userLogModel->user_agent = $validator->getValue('user_agent');
-            $userLogModel->ip = $validator->getValue('ip');
-            $userLogModel->created_at = date('Y-m-d H:i:s');
+            $userLogModel->user_agent   = $validator->getValue('user_agent');
+            $userLogModel->ip           = $validator->getValue('ip');
+            $userLogModel->created_at   = date('Y-m-d H:i:s');
 
             $user->logined_at = date('Y-m-d H:i:s');
 
             try {
                 if (!$user->update()) {
                     $messages = $user->getMessages();
+
                     if (isset($messages[0])) {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => $messages[0]->getMessage()
                         );
                     } else {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => 'Lỗi, không thể đăng nhập.'
                         );
                     }
+
                     goto RETURN_RESPONSE;
                 }
 
                 if (!$userAuthenticateModel->create()) {
                     $messages = $userAuthenticateModel->getMessages();
+
                     if (isset($messages[0])) {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => $messages[0]->getMessage()
                         );
                     } else {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => 'Lỗi, không thể đăng nhập.'
                         );
                     }
+
                     goto RETURN_RESPONSE;
                 }
 
                 if (!$userLogModel->create()) {
                     $messages = $userLogModel->getMessages();
+
                     if (isset($messages[0])) {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => $messages[0]->getMessage()
                         );
                     } else {
                         $response = array(
-                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                             'message' => 'Lỗi, không thể tạo dữ liệu log.'
                         );
                     }
+
                     goto RETURN_RESPONSE;
                 }
 
@@ -262,44 +285,44 @@ class UserController extends \ITECH\Api\Controller\BaseController
                     $cover_image_url = $this->config->asset->frontend_url . 'upload/cover/' . $user->cover_image;
                 }
 
-                $userGender = \ITECH\Data\Lib\Constant::getUserGender();
-                //$userStatus = \ITECH\Data\Lib\Constant::getUserStatus();
+                $userGender     = \ITECH\Data\Lib\Constant::getUserGender();
                 $userMembership = \ITECH\Data\Lib\Constant::getUserMembership();
 
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
                     'message' => 'Success.',
-                    'result' => array(
-                        'id' => (int)$user->id,
-                        'username' => $user->username,
-                        'name' => $user->name,
-                        'slug' => $user->slug,
-                        'email' => $user->email,
-                        'phone' => $user->phone,
-                        'avatar_image' => $user->avatar_image,
+                    'result'  => array(
+                        'id'               => (int)$user->id,
+                        'username'         => $user->username,
+                        'name'             => $user->name,
+                        'slug'             => $user->slug,
+                        'email'            => $user->email,
+                        'phone'            => $user->phone,
+                        'avatar_image'     => $user->avatar_image,
                         'avatar_image_url' => $avatar_image_url,
-                        'cover_image' => $user->cover_image,
-                        'cover_image_url' => $cover_image_url,
-                        'gender' => (int)$user->gender,
-                        'gender_text' => isset($userGender[$user->gender]) ? $userGender[$user->gender] : null,
-                        'type' => $user->type,
-                        'membership' => (int)$user->membership,
-                        'membership_text' => isset($userMembership[$user->membership]) ? $userMembership[$user->membership] : null,
-                        'is_verified' => $user->is_verified,
-                        'logined_at' => $user->logined_at,
-                        'token' => $token
+                        'cover_image'      => $user->cover_image,
+                        'cover_image_url'  => $cover_image_url,
+                        'gender'           => (int)$user->gender,
+                        'gender_text'      => isset($userGender[$user->gender]) ? $userGender[$user->gender] : null,
+                        'type'             => $user->type,
+                        'membership'       => (int)$user->membership,
+                        'membership_text'  => isset($userMembership[$user->membership]) ? $userMembership[$user->membership] : null,
+                        'is_verified'      => $user->is_verified,
+                        'logined_at'       => $user->logined_at,
+                        'token'            => $token
                     )
                 );
             } catch (\Phalcon\Exception $e) {
                 $this->logger->log('[UserController][loginAction]: ' . $e->getMessage(), \Phalcon\Logger::ERROR);
+
                 $response = array(
-                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                     'message' => $e->getMessage()
                 );
             }
         } else {
             $response = array(
-                'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                 'message' => 'Invalid POST method.'
             );
         }

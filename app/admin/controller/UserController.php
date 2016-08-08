@@ -11,31 +11,38 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function loginAction()
     {
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
-        $referralUrl = $this->request->getQuery('referral_url', array('striptags', 'trim'), '');
+        $referralUrl     = $this->request->getQuery('referral_url', array('striptags', 'trim'), '');
+
         $form = new \ITECH\Admin\Form\LoginForm();
 
         if ($this->request->isPost()) {
             if (!$form->isValid($this->request->getPost())) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
-                $username = $this->request->getPost('username');
-                $password = $this->request->getPost('password');
+                $username  = $this->request->getPost('username');
+                $password  = $this->request->getPost('password');
                 $userAgent = $this->request->getUserAgent();
-                $ip = $this->request->getClientAddress();
+                $ip        = $this->request->getClientAddress();
 
                 $url = $this->config->application->api_url . 'user/login?authorized_token=' . $authorizedToken;
                 $post = array(
-                    'username' => $username,
-                    'password' => $password,
-                    'application' => 'web',
+                    'username'     => $username,
+                    'password'     => $password,
+                    'application'  => 'web',
                     'referral_url' => $this->url->get(array('for' => 'home')),
-                    'user_agent' => $userAgent,
-                    'ip' => $ip,
-                    'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
+                    'user_agent'   => $userAgent,
+                    'ip'           => $ip,
+                    'type'         => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
                 );
 
                 $r = json_decode(\ITECH\Data\Lib\Util::curlPostJson($url, $post), true);
-                if (isset($r['result']) && count($r['result']) && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
+
+                if (
+                    isset($r['result'])
+                    && count($r['result'])
+                    && isset($r['status'])
+                    && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS
+                ) {
                     if (!parent::setUserSession($r['result'])) {
                         $this->flashSession->error('Không thể tạo session hoặc cookie.');
                     } else {
@@ -478,7 +485,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 }
             }
         }
-        
+
         switch ($filter) {
             case 'admin' :
                 $view = '/user/add_admin';
