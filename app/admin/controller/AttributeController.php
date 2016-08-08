@@ -7,6 +7,12 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
     {
         parent::initialize();
         parent::authenticateUser();
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
     }
 
     public function listAttributeAjaxAction()

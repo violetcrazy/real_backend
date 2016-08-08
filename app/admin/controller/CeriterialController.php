@@ -7,7 +7,12 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
     {
         parent::initialize();
         parent::authenticateUser();
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+        ));
     }
 
     public function indexAction()
@@ -73,7 +78,7 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
 
         $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
-                        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -348,7 +353,7 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
                 }
             }
         }
-                                
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -383,7 +388,7 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
             'conditions' => 'id = :id:',
             'bind' => array('id' => $id)
         ));
-    
+
         if (!$apartmentCeriterial) {
             throw new \Phalcon\Exception('Không tồn tại box hiển thị này.');
         }
@@ -431,11 +436,11 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
             } else {
                 $apartmentCeriterial->name = $this->request->getPost('name');
                 $apartmentCeriterial->name_eng = $this->request->getPost('name_eng');
-                
+
                 if ($for != 'smart-search') {
                     $apartmentCeriterial->type = $this->request->getPost('type');
                 }
-                
+
                 $apartmentCeriterial->status = $this->request->getPost('status');
                 $apartmentCeriterial->updated_by = $userSession['id'];
                 $apartmentCeriterial->updated_at = date('Y-m-d H:i:s');

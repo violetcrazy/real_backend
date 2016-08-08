@@ -1360,7 +1360,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/edit_member');
     }
 
-    public function addMemberAction() {
+    public function addMemberAction()
+    {
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');
@@ -1477,7 +1478,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/add_member');
     }
 
-    public function adminProfileAction() {
+    public function adminProfileAction()
+    {
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
@@ -1561,7 +1563,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/profile');
     }
 
-    public function addMessageAction() {
+    public function addMessageAction()
+    {
         $userSession = $this->session->get('USER');
         $uid = $this->request->getQuery('uid', array('int'), '');
 
@@ -1638,7 +1641,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/add_message');
     }
 
-    public function editMessageAction() {
+    public function editMessageAction()
+    {
         $userSession = $this->session->get('USER');
         $mid = $this->request->getQuery('mid', array('int'), '');
         $uid = $this->request->getQuery('uid', array('int'), '');
@@ -1698,7 +1702,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/edit_message');
     }
 
-    public function addEmailAction() {
+    public function addEmailAction()
+    {
         $userSession = $this->session->get('USER');
 
         $uid = $this->request->getQuery('uid', array('int'), '');
@@ -1806,7 +1811,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/add_email');
     }
 
-    public function editEmailAction() {
+    public function editEmailAction()
+    {
         $userSession = $this->session->get('USER');
 
         $id = $this->request->getQuery('id', array('int'), '');

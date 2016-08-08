@@ -14,8 +14,7 @@ class Constant
 
     const USER_MEMBERSHIP_ADMIN_SUPERADMIN = 11;
     const USER_MEMBERSHIP_ADMIN_ADMIN      = 12;
-    const USER_MEMBERSHIP_ADMIN_EDITOR     = 12;
-    const USER_MEMBERSHIP_ADMIN_SALE       = 13;
+    const USER_MEMBERSHIP_ADMIN_EDITOR     = 13;
     const USER_MEMBERSHIP_ADMIN_SEO        = 14;
     const USER_MEMBERSHIP_ADMIN_MARKETING  = 15;
 
@@ -530,7 +529,7 @@ class Constant
         return array(
             self::USER_MEMBERSHIP_ADMIN_SUPERADMIN => 'Super Admin',
             self::USER_MEMBERSHIP_ADMIN_ADMIN      => 'Admin',
-            self::USER_MEMBERSHIP_ADMIN_SALE       => 'Admin Sale',
+            self::USER_MEMBERSHIP_ADMIN_EDITOR     => 'Admin Editor',
             self::USER_MEMBERSHIP_ADMIN_SEO        => 'Admin SEO',
             self::USER_MEMBERSHIP_ADMIN_MARKETING  => 'Admin Marketing'
         );

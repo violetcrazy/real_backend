@@ -1,17 +1,21 @@
 <?php
 namespace ITECH\Admin\Controller;
 
-class InteractionController extends \ITECH\Admin\Controller\BaseController {
-    public function initialize() {
+class InteractionController extends \ITECH\Admin\Controller\BaseController
+{
+    public function initialize()
+    {
         parent::initialize();
         parent::authenticateUser();
+
         parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
     }
 
-    public function indexAction() {
-        
+    public function indexAction()
+    {
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -41,11 +45,12 @@ class InteractionController extends \ITECH\Admin\Controller\BaseController {
             'paginationLayout' => $paginationLayout,
             'result' => $result->items,
         ));
-        
+
         $this->view->pick(parent::$theme . '/interaction/index');
     }
-    
-    public function addAction() {
+
+    public function addAction()
+    {
         $userSession = $this->session->get('USER');
 
         $message = new \ITECH\Data\Model\MessageModel();
@@ -81,9 +86,9 @@ class InteractionController extends \ITECH\Admin\Controller\BaseController {
 
         $this->view->pick(parent::$theme . '/interaction/add');
     }
-    
-    public function editAction() {
 
+    public function editAction()
+    {
         $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
 
@@ -129,9 +134,9 @@ class InteractionController extends \ITECH\Admin\Controller\BaseController {
 
         $this->view->pick(parent::$theme . '/interaction/edit');
     }
-    
-    public function emailListAction() {
-        
+
+    public function emailListAction()
+    {
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -164,13 +169,14 @@ class InteractionController extends \ITECH\Admin\Controller\BaseController {
             'paginationLayout' => $paginationLayout,
             'result' => $result->items,
         ));
-        
+
         $this->view->pick(parent::$theme . '/interaction/email_list');
     }
-    
-    public function emailAddAction() {
+
+    public function emailAddAction()
+    {
         $userSession = $this->session->get('USER');
-        
+
         $message = new \ITECH\Data\Model\MessageModel();
         $form = new \ITECH\Admin\Form\EmailForm($message, $this);
         if ($this->request->isPost()) {
@@ -206,10 +212,11 @@ class InteractionController extends \ITECH\Admin\Controller\BaseController {
 
         $this->view->pick(parent::$theme . '/interaction/email_add');
     }
-    
-    public function emailEditAction() {
+
+    public function emailEditAction()
+    {
         $userSession = $this->session->get('USER');
-        
+
         $id = $this->request->getQuery('id', array('int'), '');
 
         $message = \ITECH\Data\Model\MessageModel::findFirst(array(

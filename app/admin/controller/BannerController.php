@@ -1,17 +1,22 @@
 <?php
 namespace ITECH\Admin\Controller;
 
-class BannerController extends \ITECH\Admin\Controller\BaseController {
-    public function initialize() {
+class BannerController extends \ITECH\Admin\Controller\BaseController
+{
+    public function initialize()
+    {
         parent::initialize();
         parent::authenticateUser();
+
         parent::allowRole(array(
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
         ));
     }
 
-    public function indexAction() {
-
+    public function indexAction()
+    {
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -64,8 +69,8 @@ class BannerController extends \ITECH\Admin\Controller\BaseController {
         $this->view->pick(parent::$theme . '/banner/index');
     }
 
-    public function addAction() {
-
+    public function addAction()
+    {
         $userSession = $this->session->get('USER');
 
         $banner = new \ITECH\Data\Model\BannerModel();
@@ -142,8 +147,8 @@ class BannerController extends \ITECH\Admin\Controller\BaseController {
         $this->view->pick(parent::$theme . '/banner/add');
     }
 
-    public function editAction() {
-
+    public function editAction()
+    {
         $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
 
@@ -201,7 +206,7 @@ class BannerController extends \ITECH\Admin\Controller\BaseController {
                         }
 
                         $response = parent::uploadImageToLocal(ROOT . '/web/admin/asset/upload/', '', $size, $resource);
-                        
+
                         if (!empty($response['status']) && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
                             $banner->image = $response['result'];
                             parent::uploadImageToCdn(ROOT . '/web/admin/asset/upload/', 'banner', $banner->image);
@@ -210,7 +215,7 @@ class BannerController extends \ITECH\Admin\Controller\BaseController {
                         }
                     }
                 }
-                
+
                 $banner->name = $this->request->getPost('name');
                 $banner->slug = \ITECH\Data\Lib\Util::slug($banner->name);
                 $banner->created_by = $userSession['id'];

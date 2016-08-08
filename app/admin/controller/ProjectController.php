@@ -7,6 +7,14 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
     {
         parent::initialize();
         parent::authenticateUser();
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+        ));
     }
 
     public function indexAction()
@@ -15,7 +23,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             'conditions' => 'status = :status:',
             'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
         ));
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -62,7 +70,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         $gallery = array();
         $direction = \ITECH\Data\Lib\Constant::getDirection();
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -84,7 +92,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
                 'active' => true
             ]
         ];
-        
+
         $this->view->setVars(array(
             'addAction' => true,
             'provinces' => $provinces,
@@ -239,7 +247,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT,
             'item_id' => (int)$project->id
         ));
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -261,7 +269,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
                 'active' => true
             ]
         ];
-  
+
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
             'project' => $project,

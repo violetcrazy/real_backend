@@ -7,8 +7,11 @@ class ArticleController extends \ITECH\Admin\Controller\BaseController
     {
         parent::initialize();
         parent::authenticateUser();
+
         parent::allowRole(array(
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
         ));
     }
 
@@ -61,7 +64,7 @@ class ArticleController extends \ITECH\Admin\Controller\BaseController
 
         $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
-                
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
@@ -966,7 +969,7 @@ class ArticleController extends \ITECH\Admin\Controller\BaseController
 
         $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url), true);
         $categoryList = $r['result'];
-        
+
         $breadcrumbs = [
             [
                 'title' => 'Dashboard',
