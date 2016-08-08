@@ -1,4 +1,4 @@
-ALTER TABLE `land_user` CHANGE `membership` `membership` TINYINT( 2 ) NULL DEFAULT NULL COMMENT '11 - root, 12 - admin, 13 - sale, 14 - seo, 15 - marketing, 21 - agent, 31 - user';
+ALTER TABLE `land_user` CHANGE `membership` `membership` TINYINT( 2 ) NULL DEFAULT NULL COMMENT '11 - super admin, 12 - admin, 13 - editor, 14 - seo, 15 - marketing, 21 - agent, 31 - user';
 
 DROP TABLE IF EXISTS `land_system_log`;
 CREATE TABLE IF NOT EXISTS `land_system_log` (
@@ -19,4 +19,3 @@ CREATE TABLE IF NOT EXISTS `land_user_project` (
   `projectId` int(10) unsigned NOT NULL,
   PRIMARY KEY (`userId`,`projectId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
