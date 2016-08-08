@@ -437,19 +437,24 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         $user = new \ITECH\Data\Model\UserModel();
+        $type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
+        $form = new \ITECH\Admin\Form\AdminForm($user);
+
         switch ($filter) {
             case 'admin' :
                 $form = new \ITECH\Admin\Form\AdminForm($user);
                 $type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
-                break;
+            break;
+
             case 'agent' :
                 $form = new \ITECH\Admin\Form\AgentForm($user);
                 $type = \ITECH\Data\Lib\Constant::USER_TYPE_AGENT;
-                break;
+            break;
+
             case 'member' :
                 $form = new \ITECH\Admin\Form\MemberForm($user);
                 $type = \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER;
-                break;
+            break;
         }
 
         if ($this->request->isPost()) {
@@ -486,19 +491,24 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             }
         }
 
+        $view             = '/user/add_admin';
+        $titleBreadcrumbs = 'Thêm Thành viên';
+
         switch ($filter) {
             case 'admin' :
                 $view = '/user/add_admin';
                 $titleBreadcrumbs = 'Thêm Thành viên';
-                break;
+            break;
+
             case 'agent' :
                 $view = '/user/add_agent';
                 $titleBreadcrumbs = 'Thêm Đại lí';
-                break;
+            break;
+
             case 'member' :
                 $view = '/user/add_member';
                 $titleBreadcrumbs = 'Thêm quản trị viên';
-                break;
+            break;
         }
 
         $breadcrumbs = [
