@@ -4,15 +4,17 @@
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
+
             <div class="page-header">
+                <a href="{{ url({'for': 'load_attribute_add_ajax'}) }}?module_attr={{ constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_APARTMENT') }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm thuộc tính
+                </a>
+
                 <h3>Danh sách thuộc tính</h3>
             </div>
         </div>
-
-        <div class="col-sm-12 m-b-20">
-            <a href="{{ url({'for': 'load_attribute_add_ajax'}) }}?module_attr={{ constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_APARTMENT') }}" class="btn btn-primary float-right btn-add-attr">Thêm thuộc tính</a>
-            <div class="clearfix"></div>
-        </div>
+        <div class="clearfix"></div>
 
         <div class="col-sm-12">
             {{ flashSession.output() }}

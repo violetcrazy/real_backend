@@ -6,15 +6,18 @@
 
     <div class="row">
         <div class="col-sm-12">
+            {% include 'default/element/layout/breadcrumbs.volt' %}
+
             <div class="page-header">
+                <a href="{{ url({'for': 'ceriterial_add', 'query': '?' ~ http_build_query({'for': 'rent'})}) }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm
+                </a>
+
                 <h3>Box hiển thị sản phẩm cho thuê</h3>
             </div>
         </div>
-
-        <div class="col-sm-12 m-b-20">
-            <a href="{{ url({'for': 'ceriterial_add', 'query': '?' ~ http_build_query({'for': 'rent'})}) }}" class="btn btn-primary float-right">Thêm</a>
-            <div class="clearfix"></div>
-        </div>
+        <div class="clearfix"></div>
 
         <div class="col-sm-12">
             {{ flashSession.output() }}

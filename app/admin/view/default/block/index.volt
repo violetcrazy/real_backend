@@ -7,13 +7,19 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <a href="{{ url({'for': 'block_add'}) }}" class="btn btn-primary pull-right">Thêm block/khu</a>
+                <a href="{{ url({'for': 'block_add'}) }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm Block/Khu
+                </a>
+
                 <h3>Danh sách Block/Khu</h3>
             </div>
         </div>
+        <div class="clearfix"></div>
 
         <div class="col-sm-12">
             {{ flashSession.output() }}
+
             <div class="wrap-table-scroll" style="overflow: auto">
                 <table class="table table-striped table-hover table-jquery display nowrap" id="table-list-block" cellspacing="0" width="100%">
                 <thead>

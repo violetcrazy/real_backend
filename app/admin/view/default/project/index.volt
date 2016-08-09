@@ -7,7 +7,11 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <a href="{{ url({'for': 'project_add'}) }}" class="btn btn-primary pull-right">Thêm dự án</a>
+                <a href="{{ url({'for': 'project_add'}) }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm dự án
+                </a>
+
                 <h3>Danh sách dự án</h3>
             </div>
         </div>
@@ -15,6 +19,7 @@
 
         <div class="col-sm-12">
             {{ flashSession.output() }}
+
             <table class="table table-striped table-hover table-jquery display nowrap" id="table-list-project" cellspacing="0" width="100%">
                 <thead>
                     <tr>

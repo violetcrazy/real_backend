@@ -7,10 +7,17 @@
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <a href="{{ url({'for': 'apartment_add'}) }}" class="btn btn-primary pull-right">Thêm sản phẩm</a>
+                <a href="{{ url({'for': 'apartment_add'}) }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm sản phẩm
+                </a>
+
                 <h3>Danh sách sản phẩm</h3>
             </div>
+        </div>
+        <div class="clearfix"></div>
 
+        <div class="col-sm-12">
             <form action="" method="GET" class="sidebar-search-form">
                 <select id="project-filter" name="" class="form-control" id="">
                     <option value="">5.000 sản phẩm mới nhất</option>
@@ -21,12 +28,13 @@
                     {% endif %}
                 </select>
             </form>
-            <div class="clearfix"></div>
-            <hr/>
+            <br />
         </div>
+        <div class="clearfix"></div>
 
         <div class="col-sm-12">
             {{ flashSession.output() }}
+
             <div class="wrap-table-scroll" style="overflow: auto">
                 <table class="table table-striped table-hover table-jquery display nowrap" id="table-list-apartment" cellspacing="0" width="100%">
                 <thead>

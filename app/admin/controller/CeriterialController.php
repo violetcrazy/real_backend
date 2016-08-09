@@ -52,91 +52,103 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
 
     public function buyListAction()
     {
-        $page = $this->request->getQuery('page', array('int'), 1);
+        $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
+
         $params = array(
-            'conditions' => array(
-                'type' => \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_BUY
-            ),
-            'page' => $page,
+            'conditions' => array('type' => \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_BUY),
+            'page'  => $page,
             'limit' => $limit
         );
+
         $apartmentCeriterialRepo = new \ITECH\Data\Repo\ApartmentCeriterialRepo();
-        $ceriterials = $apartmentCeriterialRepo->getPaginationList($params);
+        $ceriterials             = $apartmentCeriterialRepo->getPaginationList($params);
 
         $query = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'ceriterial_buy_list'));
+
         $options = array(
-            'url' => $url,
-            'query' => $query,
-            'total_pages' => isset($ceriterials->total_pages) ? $ceriterials->total_pages : 0,
-            'page' => $page,
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($ceriterials->total_pages) ? $ceriterials->total_pages : 0,
+            'page'          => $page,
             'pages_display' => 3
         );
 
-        $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Box hiển thị sản phẩm cần bán',
-                'url' => $this->url->get([
-                    'for' => 'ceriterial_buy_list',
-                ]),
+                'title'  => 'Box hiển thị sản phẩm cần bán',
+                'url'    => $this->url->get(['for' => 'ceriterial_buy_list']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars(array(
-            'breadcrumbs' => $breadcrumbs,
+            'breadcrumbs'      => $breadcrumbs,
             'paginationLayout' => $paginationLayout,
-            'ceriterials' => $ceriterials->items
+            'ceriterials'      => $ceriterials->items
         ));
-
         $this->view->pick(parent::$theme . '/ceriterial/buy_list');
     }
 
     public function rentListAction()
     {
-        $page = $this->request->getQuery('page', array('int'), 1);
+        $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
+
         $params = array(
-            'conditions' => array(
-                'type' => \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_RENT
-            ),
-            'page' => $page,
+            'conditions' => array('type' => \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_RENT),
+            'page'  => $page,
             'limit' => $limit
         );
+
         $apartmentCeriterialRepo = new \ITECH\Data\Repo\ApartmentCeriterialRepo();
-        $ceriterials = $apartmentCeriterialRepo->getPaginationList($params);
+        $ceriterials             = $apartmentCeriterialRepo->getPaginationList($params);
 
         $query = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'ceriterial_rent_list'));
+
         $options = array(
-            'url' => $url,
-            'query' => $query,
-            'total_pages' => isset($ceriterials->total_pages) ? $ceriterials->total_pages : 0,
-            'page' => $page,
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($ceriterials->total_pages) ? $ceriterials->total_pages : 0,
+            'page'          => $page,
             'pages_display' => 3
         );
 
-        $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
 
-        $this->view->setVars(array(
-            'paginationLayout' => $paginationLayout,
-            'ceriterials' => $ceriterials->items
-        ));
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Box hiển thị sản phẩm cho thuê',
+                'url'    => $this->url->get(['for' => 'ceriterial_rent_list']),
+                'active' => true
+            ]
+        ];
 
+        $this->view->setVars(array(
+            'breadcrumbs'      => $breadcrumbs,
+            'paginationLayout' => $paginationLayout,
+            'ceriterials'      => $ceriterials->items
+        ));
         $this->view->pick(parent::$theme . '/ceriterial/rent_list');
     }
 
@@ -194,25 +206,27 @@ class CeriterialController extends \ITECH\Admin\Controller\BaseController
     public function addAction()
     {
         $userSession = $this->session->get('USER');
+
         $for = $this->request->getQuery('for', array('striptags', 'trim', 'lower'), '');
 
         $apartmentCeriterial = new \ITECH\Data\Model\ApartmentCeriterialModel();
+        $titleBreadcrumbs    = 'Thêm box hiển thị sản phẩm cần bán';
 
         switch ($for) {
             case 'buy':
                 $apartmentCeriterial->type = \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_BUY;
-                $titleBreadcrumbs = 'Thêm box hiển thị sản phẩm cần bán';
-            break;
+                $titleBreadcrumbs          = 'Thêm box hiển thị sản phẩm cần bán';
+                break;
 
             case 'rent':
                 $apartmentCeriterial->type = \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_RENT;
-                $titleBreadcrumbs = 'Thêm box hiển thị sản phẩm cho thuê';
-            break;
+                $titleBreadcrumbs          = 'Thêm box hiển thị sản phẩm cho thuê';
+                break;
 
             case 'smart-search':
                 $apartmentCeriterial->type = \ITECH\Data\Lib\Constant::CERITERIAL_TYPE_SMART_SEARCH;
-                $titleBreadcrumbs = 'Thêm smart search';
-            break;
+                $titleBreadcrumbs          = 'Thêm smart search';
+                break;
         }
 
         $form = new \ITECH\Admin\Form\ApartmentCeriterialForm($apartmentCeriterial);
