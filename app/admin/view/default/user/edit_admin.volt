@@ -83,13 +83,23 @@
                     </div>
                 </div>
 
-                {% if user.membership != constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Dự án</label>
-                        <div class="col-sm-8">
-                            {{ form.render('projectIds', {'class': 'form-control search-select', 'multiple': 'multiple', 'name': 'projectIds[]', 'value': projectIds}) }}
+                {% if user.membership == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
+                {% else %}
+                    {%
+                    if
+                        userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                        or (
+                            userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                            and user.membership != constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                        )
+                    %}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Dự án</label>
+                            <div class="col-sm-8">
+                                {{ form.render('projectIds', {'class': 'form-control search-select', 'multiple': 'multiple', 'name': 'projectIds[]', 'value': projectIds}) }}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endif %}
 
                 {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
