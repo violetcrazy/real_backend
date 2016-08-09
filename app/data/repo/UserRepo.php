@@ -33,14 +33,14 @@ class UserRepo extends \ITECH\Data\Model\UserModel
         $b->from(array('u1' => 'ITECH\Data\Model\UserModel'));
 
         if (isset($params['conditions']['q'])) {
-            $query = array();
+            $query   = array();
             $query[] = 'u1.username LIKE :q1:';
             $query[] = 'u1.slug LIKE :q2:';
             $query[] = 'u1.email LIKE :q3:';
 
             $b->andWhere(implode(' OR ', $query), array(
-                'q1' => '%' . \MBN\Data\Lib\Util::numberOnly($params['conditions']['q']) . '%',
-                'q2' => '%' . \MBN\Data\Lib\Util::slug($params['conditions']['q']) . '%',
+                'q1' => '%' . $params['conditions']['q'] . '%',
+                'q2' => '%' . \ITECH\Data\Lib\Util::slug($params['conditions']['q']) . '%',
                 'q3' => '%' . $params['conditions']['q'] . '%'
             ));
         }
