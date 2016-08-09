@@ -1161,10 +1161,20 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
-                    $query = 'DELETE FROM `land_user_project` WHERE `userId` = ' . $user->id;
+                    if (
+                        $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+                        ||
+                        (
+                            $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                            && $user->membership != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+                            && $user->membership != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        )
+                    ) {
+                        $query = 'DELETE FROM `land_user_project` WHERE `userId` = ' . $user->id;
 
-                    $userProject = new \ITECH\Data\Model\UserProjectModel;
-                    $userProject->getWriteConnection()->query($query);
+                        $userProject = new \ITECH\Data\Model\UserProjectModel;
+                        $userProject->getWriteConnection()->query($query);
+                    }
 
                     if ($user->membership != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
                         if ($this->request->getPost('projectIds')) {

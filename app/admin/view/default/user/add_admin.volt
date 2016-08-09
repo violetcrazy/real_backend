@@ -58,7 +58,7 @@
             <label class="col-sm-2 control-label">
                 Loại
             </label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 {{ form.render('membership', {'class': 'form-control', 'disabled': 'disabled'}) }}
                 {% include 'default/element/layout/form_message' with {'form': form, 'element': 'membership'} %}
             </div>
@@ -68,7 +68,7 @@
             <label class="col-sm-2 control-label">
                 Trạng thái
             </label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 {{ form.render('status', {'class': 'form-control', 'disabled': 'disabled'}) }}
                 {% include 'default/element/layout/form_message' with {'form': form, 'element': 'status'} %}
             </div>

@@ -56,6 +56,22 @@ class AdminForm extends \Phalcon\Forms\Form
         $this->add($email);
 
         if (isset($options['edit'])) {
+            $projects     = [];
+            $haveProjects = [];
+
+            $userProjects = \ITECH\Data\Model\UserProjectModel::find([
+                'conditions' => 'userId = :userId:',
+                'bind'       => ['userId' => $options['userSession']['id']]
+            ]);
+
+            if ($options['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN) {
+                if (count($userProjects)) {
+                    foreach ($userProjects as $item) {
+                        $haveProjects[] = $item->projectId;
+                    }
+                }
+            }
+
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
                 'conditions' => 'status = :project_status:',
                 'bind'       => array('project_status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
@@ -66,6 +82,18 @@ class AdminForm extends \Phalcon\Forms\Form
             if (count($projects)) {
                 foreach ($projects as $item) {
                     $projectList[$item->id] = $item->name;
+                }
+
+                if ($options['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN) {
+                    $newList = [];
+
+                    foreach ($projectList as $key => $value) {
+                        if (in_array($key, $haveProjects)) {
+                            $newList[$key] = $value;
+                        }
+                    }
+
+                    $projectList = $newList;
                 }
             }
 
