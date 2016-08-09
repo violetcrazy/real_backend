@@ -1080,7 +1080,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $form = new \ITECH\Admin\Form\AdminForm($user, array(
             'edit'        => true,
-            'userSession' => $userSession
+            'userSession' => $userSession,
+            'user'        => $user
         ));
 
         if ($this->request->isPost()) {

@@ -72,6 +72,19 @@ class AdminForm extends \Phalcon\Forms\Form
                 }
             }
 
+            $userProjects = \ITECH\Data\Model\UserProjectModel::find([
+                'conditions' => 'userId = :userId:',
+                'bind'       => ['userId' => $options['user']->id]
+            ]);
+
+            if (count($userProjects)) {
+                foreach ($userProjects as $item) {
+                    $haveProjects[] = $item->projectId;
+                }
+            }
+
+            $haveProjects = array_unique($haveProjects);
+
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
                 'conditions' => 'status = :project_status:',
                 'bind'       => array('project_status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
