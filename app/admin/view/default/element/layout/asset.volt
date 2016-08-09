@@ -21,8 +21,8 @@
 <![endif]-->
 
 <script type="text/javascript">
-	var url_uload_media = '{{ url({'for': 'load_iframe'}) }}';
-	var url_upload_multiple = '{{ url({'for': 'upload_multiple'}) }}';
+	var url_uload_media       = '{{ url({'for': 'load_iframe'}) }}';
+	var url_upload_multiple   = '{{ url({'for': 'upload_multiple'}) }}';
     var url_thumbnail_default = '{{ config.asset.backend_url ~ 'img/choose.png?' ~ config.asset.version }}';
 </script>
 
@@ -30,6 +30,7 @@
     <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/respond.min.js?' ~ config.asset.version }}"></script>
     <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/excanvas.min.js?' ~ config.asset.version }}"></script>
 <![endif]-->
+
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/jquery.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/jquery_number.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js?' ~ config.asset.version }}"></script>
@@ -46,24 +47,25 @@
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/datepicker/js/bootstrap-datepicker.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/main.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/bootstrap-fileupload/bootstrap-fileupload.min.js?' ~ config.asset.version }}"></script>
-<script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/fancybox/jquery.fancybox.js' }}"></script>
-<script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/toast/jquery.toast.min.js' }}"></script>
+<script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/fancybox/jquery.fancybox.js?' ~ config.asset.version }}"></script>
+<script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/toast/jquery.toast.min.js?' ~ config.asset.version }}"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.format-number').number(true, 0, '.' , ',');
         $('.format-number2').number(true, 0, '' , '');
     });
 
-    function saveTab($,key) {
-        if(typeof(Storage) !== "undefined") {
-            $('.nav-tabs a').click(function(){
-                var  href = $(this).attr('href');
+    function saveTab($, key)
+    {
+        if (typeof(Storage) !== "undefined") {
+            $('.nav-tabs a').click(function () {
+                var href = $(this).attr('href');
                 localStorage.setItem(key, href);
             });
 
             var active = localStorage.getItem(key);
-            $('[href="'+ active +'"]').trigger('click');
+            $('[href="' + active + '"]').trigger('click');
         } else {
             console.log('Sorry! No Web Storage support.');
         }

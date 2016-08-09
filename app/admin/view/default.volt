@@ -23,9 +23,10 @@
                 'load_attribute_edit_ajax': '{{ url({"for": "load_attribute_edit_ajax"}) }}'
             };
 
-            var t = {};
+            var t     = {};
             var check = false;
             var tryOk = true;
+
             setInterval(function () {
                 $.get('/', function () {
                     if (check) {

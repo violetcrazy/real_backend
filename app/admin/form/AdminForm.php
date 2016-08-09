@@ -55,6 +55,24 @@ class AdminForm extends \Phalcon\Forms\Form
         $email->setFilters(array('striptags', 'trim', 'lower'));
         $this->add($email);
 
+        if (isset($options['edit'])) {
+            $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => 'status = :project_status:',
+                'bind'       => array('project_status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
+            ));
+
+            $projectList = array();
+
+            if (count($projects)) {
+                foreach ($projects as $item) {
+                    $projectList[$item->id] = $item->name;
+                }
+            }
+
+            $projectIds = new \Phalcon\Forms\Element\Select('projectIds', $projectList);
+            $this->add($projectIds);
+        }
+
         $membershipArray = \ITECH\Data\Lib\Constant::getUserMembershipAdministrator();
 
         if (

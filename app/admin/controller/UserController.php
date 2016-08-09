@@ -1149,6 +1149,25 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
+                    $query = 'DELETE FROM `land_user_project` WHERE `userId` = ' . $user->id;
+
+                    $userProject = new \ITECH\Data\Model\UserProjectModel;
+                    $userProject->getWriteConnection()->query($query);
+
+                    if ($this->request->getPost('projectIds')) {
+                        $projectIds = $this->request->getPost('projectIds');
+                        $projectIds = array_unique(array_filter($projectIds));
+
+                        if (count($projectIds)) {
+                            foreach ($projectIds as $item) {
+                                $userProject = new \ITECH\Data\Model\UserProjectModel;
+                                $userProject->userId    = $user->id;
+                                $userProject->projectId = $item;
+                                $userProject->save();
+                            }
+                        }
+                    }
+
                     if (!$user->update()) {
                         $messages = $user->getMessages();
 
