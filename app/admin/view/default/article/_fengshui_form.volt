@@ -45,7 +45,7 @@
 
         {% if article.image_default is defined and article.image_default != '' %}
             {% set value = article.image_default %}
-            {% set src = config.cdn.dir_upload ~ 'thumbnail/' ~ article.image_default %}
+            {% set src = config.cdn.file_url ~  article.image_default %}
         {% endif %}
 
         {{ templateUpload('image_default', src, value) }}
@@ -64,7 +64,7 @@
                 {% for item in article.gallery %}
                     <div class="thumbnail thumbnail-upload-tools inlineB item">
                         <div class="clear-image-multiple  clip-close" data-clear="gallery"></div>
-                        <img height="100px;" src="{{ config.cdn.dir_upload }}thumbnail/{{ item.image  }}" alt="" id="view_gallery">
+                        <img height="100px;" src="{{ config.cdn.file_url }}{{ item.image  }}" alt="" id="view_gallery">
                         <input name="gallery[]" value="{{ item.image }} " type="hidden" />
                     </div>
                 {% endfor %}
@@ -149,7 +149,7 @@
             event.preventDefault();
             var elGetData = $(this).attr('data-sendValue');
 
-            var url = url_uload_media + '?callback=getFileEditor&sendToElement=' + elGetData;
+            var url = url_uload_media + '?callback=getFileEditor&input-receive=' + elGetData;
             $.fancybox({
                 'width': '90%',
                 'height': '90%',
@@ -162,19 +162,16 @@
         });
 
         function getFileEditor(option) {
-            console.log(option);
-            var html = buildImageEditor(option.result);
+            var html = buildImageEditor(option.data);
             tinyMCE.activeEditor.insertContent(html);
             $.fancybox.close();
         }
         function buildImageEditor(data) {
             var html = '';
-            if (typeof data.attribute.link != 'undefined') {
-                html = '<a href="' + data.attribute.link + '" title="' + data.attribute.title + '">\
-                            <img src="' + data.url + '" alt="' + data.attribute.title + '">\
-                        </a>';
-            } else {
-                html = '<img src="' + data.url + '" alt="' + data.attribute.title + '">';
+            for (i in data) {
+                if (typeof data[i].link != 'undefined') {
+                    html += '<p><img src="' + data[i].link + '" alt=""></p>';
+                }
             }
             return html;
         }

@@ -95,5 +95,7 @@
         </script>
 
         {% block bottom_js %}{% endblock %}
+
+    <script src="{{ config.application.base_url }}asset/js/upload_progress.js"></script>
     </body>
 </html>

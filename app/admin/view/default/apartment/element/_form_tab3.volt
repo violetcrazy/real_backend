@@ -4,7 +4,7 @@
 <div id="form_tab3_error_message" class="alert alert-danger" style="display: none;"></div>
 <div class="form-group">
     <div class="col-sm-12 text-right">
-        <button class="btn btn-primary btn-upload-multiple" data-sendValue="gallery" data-callback="uploadDone">Thêm hình ảnh</button>
+        <button class="btn btn-primary add-gallery" data-callback="createGallery">Thêm hình ảnh</button>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -26,7 +26,7 @@
         {% for image in mapImage %}
             <tr>
                 <td>
-                    <img height="60px;" src="{{ config.cdn.dir_upload ~ image.image }}">
+                    <img height="60px;" src="{{ config.cdn.file_url ~ image.image }}">
                     <input type="hidden" name="galleries[{{ loop.index }}][image]" value="{{ image.image }}">
                     <input type="hidden" name="galleries[{{ loop.index }}][id]" value="{{ image.id }}">
                 </td>
@@ -57,11 +57,7 @@
 </table>
 <div class="clearfix"></div>
 <script>
-    $(document).ready(function(){
-        $('table').on('click', '.delete-row', function (event) {
-            event.preventDefault();
-            deleteRow($(this));
-        });
+    $(document).ready(function() {
     }).on('change', 'td.type select', function(){
         var _vl = $(this).val();
         $.each($('td.type select'), function (index, el) {
@@ -72,26 +68,26 @@
         $(this).val(_vl);
     });
 
-    function uploadDone(data){
-        if (data.result) {
-            $.each(data.result, function(index, value){
-                $('#list-gallery').find('tbody').prepend(templateTr(value, index));
+    //Callback on upload
+    function createGallery(result) {
+        $(document).ready(function(){
+            $.each(result.data, function(index, value){
+                $('#list-gallery').find('tbody').prepend(templateGallery(value));
             });
-        }
-        $.fancybox.close();
+            $.fancybox.close();
+        });
     }
-
-    function templateTr(item, index) {
+    function templateGallery(item, index) {
         var uniq = 'id' + index + (new Date()).getTime();
 
         var html = '\
             <tr>\
                 <td>\
-                    <img height="60px;" src="'+ item.thumbnail +'">\
-                    <input type="hidden" name="galleries['+ uniq +'][image]" value="'+ item.relative_path + '/' + item.name +'">\
+                    <img height="60px;" src="'+ item.link +'">\
+                    <input type="hidden" name="galleries['+ uniq +'][image]" value="'+ item.path +'">\
                 </td>\
                 <td>\
-                    '+ item.name +'\
+                    '+ item.path +'\
                 </td>\
                 <td class="type">\
                     <select class="form-control" name="galleries['+ uniq +'][type]" id="">\
@@ -108,12 +104,6 @@
                 </td>\
             </tr>';
         return html;
-    }
-
-    function deleteRow(el) {
-        el.closest('tr').fadeOut('fast', function () {
-            $(this).remove();
-        })
     }
 
 </script>

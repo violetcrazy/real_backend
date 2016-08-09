@@ -3,17 +3,15 @@
         Ảnh đại diện
     </label>
     <div class="col-sm-5">
-        <div>
-            {% if article.image_default is defined and article.image_default is not empty %}
-                <img width="150px" src="{{ article.image_default}}" id="view_thumbnail">
-                 <input type="hidden" name="thumbnail" id="thumbnail" value="{{ article.image_default}}"/>
-            {% else %}
-                <img width="150px" src="{{ config.asset.backend_url}}images/choose.png" id="view_thumbnail">
-                 <input type="hidden" name="thumbnail" id="thumbnail"/>
-            {% endif %}
-        </div>
-        <br>
-        <button type="button" class="open-upload btn btn-primary btn-sm" data-sendValue="thumbnail">Chọn ảnh đại diện</button>
+        {% set value = '' %}
+        {% set src = '' %}
+
+        {% if article.image_default is defined and article.image_default != '' %}
+            {% set value = article.image_default %}
+            {% set src = config.cdn.file_url ~  article.image_default %}
+        {% endif %}
+
+        {{ templateUpload('thumbnail', src, value) }}
     </div>
 </div>
 <h3>Tiếng Việt</h3>
@@ -137,55 +135,8 @@
             $('.search-select').select2({
                 allowClear: true
             });
-            
-            $(document).on('click', '.add-gallery', function() {
-                $('.article-box-show-gallery').append(
-                    '<div class="block-upload-img">'
-                    +    '<div class="col-sm-3 col-0">'
-                    +    '        <div class="thumbnail-img" style="width: 120px; height: 120px">'
-                    +    '            <img src={{ config.asset.backend_url ~ "img/choose.png?" ~ config.asset.version }}" alt="Icon" />'
-                    +    '            <input type="file" class="hidden" accept="image/*" value="" />'
-                    +    '            <input type="hidden" class="input_image" name="image[1]" value="" />'
-                    +    '            <span class="fa delete-img"></span>'
-                    +    '        </div>'
-                    +    '</div>'
-                    +    '<button type="button" class="open-upload-galery btn btn-primary btn-sm" data-sendValue="image[1]">Chọn ảnh đại diện</button>'
-                    +    '    <div class="col-sm-9 col-0">'
-                    +    '        <textarea class="gallery_description form-control float-left" name="image_description[]"></textarea>'
-                    +    '    </div>'
-                    +    '</div>'
-                    +    '<div class="clearfix m-b-15"></div>'
-                );
-            });
-        });
     </script>
     <script>
-
-        function getFile(option) {
-            $('#' + option.element).val(option.result.url);
-            $('#view_' + option.element).attr('src', option.result.url);
-            $.fancybox.close();
-        }
-
-        function getFileEditor(option) {
-            console.log(option);
-            var html = buildImageEditor(option.result);
-            tinyMCE.activeEditor.insertContent(html);
-            $.fancybox.close();
-        }
-
-        function buildImageEditor(data) {
-            var html = '';
-            if (typeof data.attribute.link != 'undefined') {
-                html = '<a href="' + data.attribute.link + '" title="' + data.attribute.title + '">\
-                            <img src="' + data.url + '" alt="' + data.attribute.title + '">\
-                        </a>';
-            } else {
-                html = '<img src="' + data.url + '" alt="' + data.attribute.title + '">';
-            }
-            return html;
-        }
-
         $(document).ready(function () {
             tinyMCE.init({
                 selector: "textarea.editor",
@@ -206,39 +157,11 @@
             $('.search-select').select2({
                 allowClear: true
             });
-        }).on('click', '.open-upload', function (event) {
-            event.preventDefault();
-            var elGetData = $(this).attr('data-sendValue');
-
-            var url = url_uload_media + '?callback=getFile&sendToElement=' + elGetData;
-            $.fancybox({
-                'width': '90%',
-                'height': '90%',
-                'autoScale': true,
-                'transitionIn': 'fade',
-                'transitionOut': 'fade',
-                'type': 'iframe',
-                'href': url
-            });
-        }).on('click', '.open-upload-galery', function (event) {
-            event.preventDefault();
-            var elGetData = $(this).attr('data-sendValue');
-
-            var url = url_uload_media + '?callback=getFile&sendToElement=' + elGetData;
-            $.fancybox({
-                'width': '90%',
-                'height': '90%',
-                'autoScale': true,
-                'transitionIn': 'fade',
-                'transitionOut': 'fade',
-                'type': 'iframe',
-                'href': url
-            });
         }).on('click', '.open-upload-editor', function (event) {
             event.preventDefault();
             var elGetData = $(this).attr('data-sendValue');
 
-            var url = url_uload_media + '?callback=getFileEditor&sendToElement=' + elGetData;
+            var url = url_uload_media + '?callback=getFileEditor&input-receive=' + elGetData;
             $.fancybox({
                 'width': '90%',
                 'height': '90%',
@@ -248,7 +171,21 @@
                 'type': 'iframe',
                 'href': url
             });
-        })
-                ;
+        });
+
+        function getFileEditor(option) {
+            var html = buildImageEditor(option.data);
+            tinyMCE.activeEditor.insertContent(html);
+            $.fancybox.close();
+        }
+        function buildImageEditor(data) {
+            var html = '';
+            for (i in data) {
+                if (typeof data[i].link != 'undefined') {
+                    html += '<p><img src="' + data[i].link + '" alt=""></p>';
+                }
+            }
+            return html;
+        }
     </script>
 {% endblock %}

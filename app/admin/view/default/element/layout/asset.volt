@@ -21,9 +21,12 @@
 <![endif]-->
 
 <script type="text/javascript">
-	var url_uload_media       = '{{ url({'for': 'load_iframe'}) }}';
-	var url_upload_multiple   = '{{ url({'for': 'upload_multiple'}) }}';
+	var url_uload_media       = '{{ config.cdn.file_upload }}';
+	var url_upload_multiple   = '{{ config.cdn.file_upload }}';
     var url_thumbnail_default = '{{ config.asset.backend_url ~ 'img/choose.png?' ~ config.asset.version }}';
+
+    var file_upload       = '{{ config.cdn.file_upload }}';
+    var file_url       = '{{ config.cdn.file_url }}';
 </script>
 
 <!--[if lt IE 9]>

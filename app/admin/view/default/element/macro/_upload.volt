@@ -1,20 +1,29 @@
 <script type="text/javascript">
     function getFile(option)
     {
-        $('#' + option.element).val(option.result.relative_path + '/' + option.result.name);
-        $('#view_' + option.element).attr('src', option.result.url);
+        console.log(option.meta.inputreceive);
+        $('#' + option.meta.inputreceive).val(option.data[0].path);
+        $('#view_' + option.meta.inputreceive).attr('src', option.data[0].link);
         $.fancybox.close();
     }
 
     function getFileMultiple(option)
     {
-        if (option.result) {
-            for (index in option.result) {
-                $('.preview_'+option.element).prepend(templateHTMLPreviewUpload(option.result[index], option.element));
+        if (option.data) {
+            for (index in option.data) {
+                $('.preview_'+option.meta.inputreceive).prepend(templateHTMLPreviewUpload(option.data[index], option.meta.inputreceive));
             }
         }
 
         $.fancybox.close();
+    }
+    function templateHTMLPreviewUpload(data, name)
+    {
+        return '<div class="thumbnail thumbnail-upload-tools inlineB item">\
+                <div class="clear-image-multiple  clip-close" data-clear="' + name + '"></div>\
+                <img height="100px;" src="' + data.link + '" alt="" id="view_' + name + '" />\
+                <input name="' + name + '[]" value="' + data.path + '" type="hidden" />\
+            </div>';
     }
 
     $(document).ready(function() {
@@ -22,7 +31,7 @@
             event.preventDefault();
             var elGetData = $(this).attr('data-sendValue');
 
-            var url = url_uload_media + '?callback=getFile&sendToElement=' + elGetData;
+            var url = url_uload_media + '?callback=getFile&input-receive=' + elGetData;
             $.fancybox({
                 'width': '90%',
                 'height': '90%',
@@ -42,7 +51,7 @@
                 callBack = 'getFileMultiple';
             }
 
-            var url = url_upload_multiple + '?callback='+ callBack +'&sendToElement=' + elGetData;
+            var url = url_upload_multiple + '?callback='+ callBack +'&input-receive=' + elGetData;
             $.fancybox({
                 'width': '90%',
                 'height': '90%',
@@ -68,15 +77,6 @@
             $(this).remove();
         });
     });
-
-    function templateHTMLPreviewUpload(data, name)
-    {
-        return '<div class="thumbnail thumbnail-upload-tools inlineB item">\
-                <div class="clear-image-multiple  clip-close" data-clear="' + name + '"></div>\
-                <img height="100px;" src="' + data.thumbnail + '" alt="" id="view_' + name + '" />\
-                <input name="' + name + '[]" value="' + data.relative_path + '/' + data.name + '" type="hidden" />\
-            </div>';
-    }
 </script>
 
 {%- macro templateUpload(id, url = false, value = false)  %}
