@@ -79,13 +79,18 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $userSession = $this->session->get('USER');
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
-            'conditions' => 'id = :user_id: AND type = :user_type: AND status = :user_status:',
+            'conditions' => '
+                id         = :user_id: 
+                AND type   = :user_type: 
+                AND status = :user_status:
+            ',
             'bind' => array(
-                'user_id' => $userSession['id'],
-                'user_type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'user_id'     => $userSession['id'],
+                'user_type'   => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'user_status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
             )
         ));
+
         if (!$user) {
             throw new \Exception('Không tồn tại tài khoản này.');
         }
@@ -99,7 +104,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
             }
 
-            $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
+            $user->slug       = \ITECH\Data\Lib\Util::slug($user->name);
             $user->updated_at = date('Y-m-d H:i:s');
 
             if (!$form->isValid()) {
@@ -108,11 +113,11 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 try {
                     if (!$user->save()) {
                         $messages = $user->getMessages();
-                        $message = isset($messages[0]) ? $messages[0]->getMessage() : 'Không thể cập nhật.';
+                        $message  = isset($messages[0]) ? $messages[0]->getMessage() : 'Không thể cập nhật.';
+
                         $this->flashSession->error($message);
                     } else {
                         parent::setUserSessionOject($user);
-
                         $this->flashSession->success('Cập nhật thành công.');
                     }
 
@@ -140,6 +145,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = [
             'conditions' => [
+                'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                 'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
@@ -198,6 +204,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
+                'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                 'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
@@ -256,6 +263,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
+                'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                 'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
@@ -314,6 +322,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
+                'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
                 'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
@@ -372,6 +381,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
+                'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING,
                 'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
