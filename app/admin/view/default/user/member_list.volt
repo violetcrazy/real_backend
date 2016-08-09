@@ -11,9 +11,25 @@
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
+
             <div class="page-header">
-                <h3>Danh sách đại lý</h3>
+                {%
+                if
+                user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                %}
+                    <a href="{{ url({'for': 'user_add_member', 'query': '?' ~ http_build_query({'q': q, 'filter': 'member_list'})}) }}" class="btn btn-primary pull-right">
+                        <i class="fa fa-plus"></i>
+                        Thêm thành viên
+                    </a>
+                {% endif %}
+
+                <h3>Danh sách thành viên</h3>
             </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-sm-12">
             <form action="" method="GET" class="sidebar-search-form" enctype="multipart/form-data">
                 <div class="input-group">
                     <input type="text" name="q" value="{% if q is defined %}{{ q }}{% endif %}" class="form-control" placeholder="Tìm kiếm" />
@@ -22,32 +38,13 @@
                     </span>
                 </div>
             </form>
+            <br />
         </div>
-
         <div class="clearfix"></div>
-        <hr />
-        {{ flashSession.output() }}
 
         <div class="col-sm-12">
-            <div class="navbar-tools">
-                <div class="btn-group float-left">
-                    <a class="btn btn-primary border-tl-tr dropdown-toggle" data-hover="dropdown" href="#">
-                        <i class="clip-list-5"></i>
-                        Danh sách Đại lý
-                        <span class="caret"></span>
-                    </a>
-                </div>
-                <div class="float-left m-r-l-5">
-                    <div class="float-left m-r-l-5">
-                        <a href="{{ url({'for': 'user_add_agent', 'query': '?' ~ http_build_query({'q': q, 'filter': 'agent'})}) }}" class="btn btn-yellow border-tl-tr">
-                            <i class="fa fa-plus"></i>
-                            Thêm Đại lý
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12">
+            {{ flashSession.output() }}
+
             <table class="table table-striped table-bordered table-hover table-full-width">
                 <thead>
                     <tr>
@@ -57,7 +54,7 @@
                         <th>Đăng ký</th>
                         <th>Đăng nhập</th>
                         <th></th>
-                        <th></th>
+                        <th>Trạng thái</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -66,19 +63,19 @@
                         {% for item in result %}
                             <tr>
                                 <td>
-                                    <a href="{{ url({'for': 'user_edit_agent', 'query': '?' ~ http_build_query({'id': item['id']})}) }}">
-                                        {{ item['username'] }}
+                                    <a href="{{ url({'for': 'user_edit_member', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'member_list'})}) }}">
+                                        {{ item.username }}
                                     </a>
                                 </td>
-                                <td>{{ userMembershipAgent[item.membership] }}</td>
-                                <td>{{ item['membership'] }}</td>
-                                <td>{{ date('d-m-Y H:i:s', strtotime(item['created_at'])) }}</td>
+                                <td>{{ item['name'] }}</td>
+                                <td>{{ userMembership[item.membership] }}</td>
+                                <td>{{ date('d-m-Y H:i:s', strtotime(item.created_at)) }}</td>
                                 <td>
-                                    {% if strtotime(item['logined_at']) %}
-                                        {{ date('d-m-Y H:i:s', strtotime(item['logined_at'])) }}
+                                    {% if strtotime(item.logined_at) %}
+                                        {{ date('d-m-Y H:i:s', strtotime(item.logined_at)) }}
                                     {% endif %}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         <a class="btn btn-xs btn-teal tooltips" data-original-title="Gửi email" data-placement="top" href="{{ url({'for': 'user_add_email', 'query': '?' ~ http_build_query({'uid': item.id})}) }}">
                                             <i class="clip-image"></i>
@@ -90,9 +87,11 @@
                                 </td>
                                 <td>{{ userStatus[item['status']] }}</td>
                                 <td class="text-center">
-                                    <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item['id'], 'from': 'agent'})}) }}" onclick="javascript:return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
-                                        <i class="fa fa-times fa fa-white"></i>
-                                    </a>
+                                    {% if user_session['id'] != item['id'] %}
+                                        <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item['id'], 'q': q, 'filter': 'member_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                            <i class="fa fa-times fa fa-white"></i>
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

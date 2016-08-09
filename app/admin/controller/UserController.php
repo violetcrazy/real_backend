@@ -434,58 +434,59 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function memberListAction()
     {
-        //$user = $this->session->get('USER');
-        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page = $this->request->getQuery('page', array('int'), 1);
+        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
+
         $params = array(
             'conditions' => array(
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER,
+                'q'      => $q,
+                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER,
                 'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
             ),
-            'page' => $page,
+            'page'  => $page,
             'limit' => $limit
         );
-        $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result = $userRepo->getPaginationList($params);
 
-        $query = array();
+        $userRepo = new \ITECH\Data\Repo\UserRepo();
+        $result   = $userRepo->getPaginationList($params);
+
+        $query         = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'userAdminList'));
+        $url = $this->url->get(array('for' => 'userMemberList'));
+
         $options = array(
-            'url' => $url,
-            'query' => $query,
-            'total_pages' => isset($result->total_pages) ? $result->total_pages : 0,
-            'page' => $page,
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
             'pages_display' => 3
         );
 
-        $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách thành viên',
-                'url' => $this->url->get([
-                    'for' => 'userMemberList',
-                ]),
+                'title'  => 'Danh sách thành viên',
+                'url'    => $this->url->get(['for' => 'userMemberList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs' => $breadcrumbs,
-            'result' => $result->items,
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result->items,
             'paginationLayout' => $paginationLayout,
-            'q' => $q,
+            'q'                => $q
         ]);
-        $this->view->pick(parent::$theme . '/user/list-member');
+        $this->view->pick(parent::$theme . '/user/member_list');
     }
 
     /*
@@ -1388,60 +1389,59 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function agentListAction()
     {
-        //$user = $this->session->get('USER');
-        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page = $this->request->getQuery('page', array('int'), 1);
+        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
 
         $params = array(
             'conditions' => array(
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT,
+                'q'      => $q,
+                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT,
                 'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
             ),
-            'page' => $page,
+            'page'  => $page,
             'limit' => $limit
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getPaginationList($params);
 
-        $query = array();
+        $query         = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'userAgentList'));
+
         $options = array(
-            'url' => $url,
-            'query' => $query,
-            'total_pages' => isset($result->total_pages) ? $result->total_pages : 0,
-            'page' => $page,
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
             'pages_display' => 3
         );
 
-        $layoutComponent = new \ITECH\Admin\Component\LayoutComponent();
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
         $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách đại lý',
-                'url' => $this->url->get([
-                    'for' => 'userMemberList',
-                ]),
+                'title'  => 'Danh sách đại lý',
+                'url'    => $this->url->get(['for' => 'userMemberList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs' => $breadcrumbs,
-            'result' => $result->items,
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result->items,
             'paginationLayout' => $paginationLayout,
-            'q' => $q,
+            'q'                => $q
         ]);
-        $this->view->pick(parent::$theme . '/user/list-agent');
+        $this->view->pick(parent::$theme . '/user/agent_list');
     }
 
     public function editAgentAction()
