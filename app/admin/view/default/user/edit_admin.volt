@@ -94,7 +94,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Dự án</label>
                         <div class="col-sm-4">
-                            {{ form.render('projectIds', {'class': 'form-control search-select', 'multiple': 'multiple', 'name': 'projectIds[]'}) }}
+                            {{ form.render('projectIds', {'class': 'form-control search-select', 'multiple': 'multiple', 'name': 'projectIds[]', 'value': projectIds}) }}
                         </div>
                     </div>
                 {% endif %}

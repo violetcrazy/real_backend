@@ -1066,6 +1066,18 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             throw new \Exception('Bạn không có quyền chỉnh sửa tài khoản Super Admin');
         }
 
+        $projectIds = [];
+        $projects   = \ITECH\Data\Model\UserProjectModel::find([
+            'conditions' => 'userId = :userId:',
+            'bind'       => ['userId' => $user->id]
+        ]);
+
+        if (count($projects)) {
+            foreach ($projects as $item) {
+                $projectIds[] = $item->projectId;
+            }
+        }
+
         $form = new \ITECH\Admin\Form\AdminForm($user, array(
             'edit'        => true,
             'userSession' => $userSession
@@ -1154,16 +1166,18 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                     $userProject = new \ITECH\Data\Model\UserProjectModel;
                     $userProject->getWriteConnection()->query($query);
 
-                    if ($this->request->getPost('projectIds')) {
-                        $projectIds = $this->request->getPost('projectIds');
-                        $projectIds = array_unique(array_filter($projectIds));
+                    if ($user->membership != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+                        if ($this->request->getPost('projectIds')) {
+                            $projectIds = $this->request->getPost('projectIds');
+                            $projectIds = array_unique(array_filter($projectIds));
 
-                        if (count($projectIds)) {
-                            foreach ($projectIds as $item) {
-                                $userProject = new \ITECH\Data\Model\UserProjectModel;
-                                $userProject->userId    = $user->id;
-                                $userProject->projectId = $item;
-                                $userProject->save();
+                            if (count($projectIds)) {
+                                foreach ($projectIds as $item) {
+                                    $userProject = new \ITECH\Data\Model\UserProjectModel;
+                                    $userProject->userId = $user->id;
+                                    $userProject->projectId = $item;
+                                    $userProject->save();
+                                }
                             }
                         }
                     }
@@ -1283,7 +1297,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'form'        => $form,
             'userSession' => $userSession,
             'urlFor'      => $for,
-            'editTitle'   => $editTitle
+            'editTitle'   => $editTitle,
+            'projectIds'  => $projectIds
         ));
         $this->view->pick(parent::$theme . '/user/edit_admin');
     }
