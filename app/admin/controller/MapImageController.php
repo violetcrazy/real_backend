@@ -271,6 +271,67 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
             parent::outputJSON($response);
     }
 
+    public function updateLinkMapImageAction()
+    {
+        $response = array(
+            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+            'message' => 'Chỉ phương thức POST',
+            'result' => array()
+        );
+
+        if ($this->request->isPost()) {
+            $id = $this->request->getPost('id', ['trim', 'striptags', 'int'], 0);
+            $link = $this->request->getPost('newLink', ['trim', 'striptags'], 0);
+
+            $mapImage = \ITECH\Data\Model\MapImageModel::findFirst($id);
+            if (!$mapImage) {
+                $response = array(
+                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'message' => 'Không tồn tại Hình ảnh này: ' . $id,
+                    'result' => array()
+                );
+                goto RETURN_RESPONSE;
+            }
+
+            $mapImage->image = $link;
+
+            try {
+                if (!$mapImage->update()) {
+                    $messages = $mapImage->getMessages();
+                    if (isset($messages[0])) {
+                        $error_message = $messages[0]->getMessage();
+                        $response = array(
+                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'message' => $error_message
+                        );
+                    } else {
+                        $response = array(
+                            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                            'message' => 'Lỗi, không cập nhật được Map link.'
+                        );
+                    }
+
+                    goto RETURN_RESPONSE;
+                }
+            } catch (\Phalcon\Exception $e) {
+                $response = array(
+                    'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                    'message' => $e->getMessage()
+                );
+                goto RETURN_RESPONSE;
+            }
+
+            $response = array(
+                'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+                'message' => 'Cập nhật thành công.',
+                'result' => $mapImage
+            );
+        }
+
+        RETURN_RESPONSE:
+            parent::outputJSON($response);
+    }
+
     public function deleteAjaxAction()
     {
         $response = array(

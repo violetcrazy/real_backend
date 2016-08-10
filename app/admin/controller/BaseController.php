@@ -593,8 +593,8 @@ class BaseController extends \Phalcon\Mvc\Controller
 
                 $defaultImage = \ITECH\Data\Model\MapImageModel::findFirst(array(
                     'conditions' => '
-                        item_id    = :item_id: 
-                        AND module = :module: 
+                        item_id    = :item_id:
+                        AND module = :module:
                         AND type   = :type:
                     ',
                     'bind' => array(

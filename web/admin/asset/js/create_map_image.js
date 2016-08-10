@@ -336,3 +336,4 @@ function deleteMapImage(id, el) {
 
     return false;
 }
+ 

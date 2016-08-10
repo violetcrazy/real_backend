@@ -859,6 +859,12 @@ $router->add('/map-image/delete{query:(/.*)*}', array(
     'action'     => 'deleteAjax'
 ))->setName('map_image_delete');
 
+$router->add('/map-image/update-image{query:(/.*)*}', array(
+    'module' => 'admin',
+    'controller' => 'map_image',
+    'action' => 'updateLinkMapImage'
+))->setName('map_link_update_link');
+
 $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
 $router->notFound(array(
     'module'     => 'admin',

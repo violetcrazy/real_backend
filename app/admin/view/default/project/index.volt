@@ -103,7 +103,6 @@
                     {"bSortable": false},
                     {"bSortable": false},
                 ],
-                "scrollX": true,
                 "aaSorting": [[0,'desc']],
                 "pageLength": 25,
                 "language": {

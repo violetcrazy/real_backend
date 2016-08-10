@@ -8,7 +8,7 @@
 
         {% if apartment.position_image is defined and apartment.position_image != '' %}
             {% set value = apartment.position_image %}
-            {% set src = config.cdn.dir_upload ~ 'thumbnail/' ~ apartment.position_image %}
+            {% set src = config.cdn.dir_upload  ~ apartment.position_image %}
         {% endif %}
 
         {{ templateUpload('position_image', src,value) }}

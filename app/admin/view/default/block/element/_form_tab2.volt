@@ -4,7 +4,7 @@
 <div id="form_tab3_error_message" class="alert alert-danger" style="display: none;"></div>
 <div class="form-group">
     <div class="col-sm-12 text-right">
-        <button class="btn btn-primary btn-upload-multiple" data-sendValue="gallery" data-callback="uploadDone">Thêm hình ảnh</button>
+        <button class="btn btn-primary btn-upload-multiple" data-callback="createGallery">Thêm hình ảnh</button>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -78,10 +78,6 @@
 <div class="clearfix"></div>
 <script>
     $(document).ready(function(){
-        $('table').on('click', '.delete-row', function (event) {
-            event.preventDefault();
-            deleteRow($(this));
-        });
     }).on('change', 'td.type select', function(){
         var _vl = $(this).val();
         $.each($('td.type select'), function (index, el) {
@@ -92,33 +88,33 @@
         $(this).val(_vl);
     });
 
-    function uploadDone(data){
-        if (data.result) {
-            $.each(data.result, function(index, value){
-                $('#list-gallery').find('tbody').prepend(templateTr(value, index));
-            });
-        }
-        $.fancybox.close();
-    }
 
-    function templateTr(item, index) {
+    //Callback on upload
+    function createGallery(result) {
+        $(document).ready(function(){
+            $.each(result.data, function(index, value){
+                $('#list-gallery').find('tbody').prepend(templateGallery(value, index));
+            });
+            $.fancybox.close();
+        });
+    }
+    function templateGallery(item, index) {
         var uniq = 'id' + index + (new Date()).getTime();
 
         var html = '\
             <tr>\
                 <td>\
-                    <img height="60px;" src="'+ item.thumbnail +'">\
-                    <input type="hidden" name="galleries['+ uniq +'][image]" value="'+ item.relative_path + '/' + item.name +'">\
+                    <img height="60px;" src="'+ item.link +'">\
+                    <input type="hidden" name="galleries['+ uniq +'][image]" value="'+ item.path +'">\
                 </td>\
                 <td>\
-                    '+ item.name +'\
+                    '+ item.path +'\
                 </td>\
                 <td class="type">\
                     <select class="form-control" name="galleries['+ uniq +'][type]" id="">\
                         {% for key, item in getMapImageType %}<option value="{{ key }}">{{ item }}</option>{% endfor %}\
                     </select>\
                 </td>\
-                <td></td>\
                 <td>\
                     <select class="form-control" name="galleries['+ uniq +'][position]" id="">\
                         {% for key, item in getMapImagePosition %}<option value="{{ key }}">{{ item }}</option>{% endfor %}\
@@ -131,11 +127,6 @@
         return html;
     }
 
-    function deleteRow(el) {
-        el.closest('tr').fadeOut('fast', function () {
-            $(this).remove();
-        })
-    }
 
 </script>
 

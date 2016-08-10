@@ -50,7 +50,7 @@ $parameters = array(
         'upload_media_url' => 'http://localhost.cdn.land.com/upload',
         'upload_image_url' => 'http://localhost.cdn.land.com/image/upload',
         'delete_image_url' => 'http://localhost.cdn.land.com/image/delete',
-        'dir_upload'       => 'http://localhost.cdn.land.com/asset/frontend/upload/stories/',
+        'dir_upload'       => 'http://localhost.cdn.land.com/uploads/',
         'file_upload'       => 'http://localhost.file.land.com/',
         'file_url'       => 'http://localhost.file.land.com/uploads/'
     ),
@@ -58,7 +58,6 @@ $parameters = array(
         'download'       => 'http://localhost.admin.land.com/asset/download/',
         'version'        => '201608080825',
         'mobile_version' => '201608080825',
-        'frontend_url'   => 'http://localhost.cdn.land.com/asset/frontend/',
         'frontend_url'   => 'http://localhost.cdn.land.com/asset/frontend/',
         'backend_url'    => 'http://localhost.cdn.land.com/asset/backend/'
     ),

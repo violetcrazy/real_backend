@@ -72,7 +72,7 @@
     function createGallery(result) {
         $(document).ready(function(){
             $.each(result.data, function(index, value){
-                $('#list-gallery').find('tbody').prepend(templateGallery(value));
+                $('#list-gallery').find('tbody').prepend(templateGallery(value, index));
             });
             $.fancybox.close();
         });

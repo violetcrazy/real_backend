@@ -22,6 +22,7 @@
     </form>
     <br>
     <div class="text-right">
+        <a href="" class="btn btn-default change-img add-gallery"  data-callback="changeImgMap">Thay hình</a>
         <a href="" class="btn btn-danger add-map">Vẽ xong</a>
     </div>
     <hr>
@@ -79,6 +80,23 @@
             'update': '{{ url({'for': 'map_image_update'}) }}',
             'delete' : '{{ url({'for': 'map_image_delete'}) }}'
         }
+
+        function changeImgMap(result) {
+            var mapId = '{{ request.getQuery('map_image_id') }}';
+            var newLink = result.data[0].path;
+            $.ajax({
+                url: '{{ url({'for': 'map_link_update_link'}) }}',
+                method: 'post',
+                data: {
+                    'id': mapId,
+                    'newLink': newLink
+                },
+                success: function (data) {
+                    window.location.reload();
+                }
+            })
+        }
+
     </script>
     {{ javascript_include( config.application.base_url ~ 'asset/default/js/map/maphilight.js?' ~ config.asset.version) }}
     {{ javascript_include( config.application.base_url ~ "asset/js/create_map_image.js") }}
