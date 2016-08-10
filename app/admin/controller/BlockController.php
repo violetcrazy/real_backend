@@ -19,30 +19,35 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
     public function indexAction()
     {
-        $breadcrumbs = [
-            [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
-                'active' => false
-            ],
-            [
-                'title' => 'Danh sách Block/Khu',
-                'url' => $this->url->get([
-                    'for' => 'block_list'
-                ]),
-                'active' => true
-            ]
-        ];
+        $projectIds = parent::getPermissionProjects();
 
         $params = [];
+
+        if (is_array($projectIds)) {
+            $params['conditions']['projectIdsString'] = $projectIds['projectIdsString'];
+        }
+
         $params['conditions']['status'] = \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE;
 
         $blockRepo = new \ITECH\Data\Repo\BlockRepo();
         $blocks = $blockRepo->getList($params);
 
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Danh sách Block/Khu',
+                'url'    => $this->url->get(['for' => 'block_list']),
+                'active' => true
+            ]
+        ];
+
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'blocks' => $blocks,
+            'blocks'      => $blocks
         ));
         $this->view->pick(parent::$theme . '/block/index');
     }

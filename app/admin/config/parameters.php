@@ -59,7 +59,6 @@ $parameters = array(
         'version'        => '201608080825',
         'mobile_version' => '201608080825',
         'frontend_url'   => 'http://localhost.cdn.land.com/asset/frontend/',
-        'frontend_url'   => 'http://localhost.cdn.land.com/asset/frontend/',
         'backend_url'    => 'http://localhost.cdn.land.com/asset/backend/'
     ),
     'cache' => array(
