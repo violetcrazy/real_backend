@@ -19,30 +19,35 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
     public function indexAction()
     {
-        $breadcrumbs = [
-            [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
-                'active' => false
-            ],
-            [
-                'title' => 'Danh sách Block/Khu',
-                'url' => $this->url->get([
-                    'for' => 'block_list'
-                ]),
-                'active' => true
-            ]
-        ];
+        $projectIds = parent::getPermissionProjects();
 
         $params = [];
+
+        if (is_array($projectIds)) {
+            $params['conditions']['projectIdsString'] = $projectIds['projectIdsString'];
+        }
+
         $params['conditions']['status'] = \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE;
 
         $blockRepo = new \ITECH\Data\Repo\BlockRepo();
         $blocks = $blockRepo->getList($params);
 
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Danh sách Block/Khu',
+                'url'    => $this->url->get(['for' => 'block_list']),
+                'active' => true
+            ]
+        ];
+
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'blocks' => $blocks,
+            'blocks'      => $blocks
         ));
         $this->view->pick(parent::$theme . '/block/index');
     }
@@ -52,24 +57,33 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         $projectId = $this->request->getQuery('project_id', array('trim', 'int'), 0);
 
         $params = array();
+
         if ($projectId > 0) {
             $params = array('conditions' => array('project_id' => $projectId));
+        }
+
+        $projectIds = parent::getPermissionProjects();
+
+        if (is_array($projectIds)) {
+            $params['conditions']['projectIdsString'] = $projectIds['projectIdsString'];
         }
 
         $params['conditions']['status'] = \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE;
 
         $blockRepo = new \ITECH\Data\Repo\BlockRepo();
-        $blocks = $blockRepo->getList($params);
-        $out = array();
+        $blocks    = $blockRepo->getList($params);
+
+        $out         = array();
         $out['data'] = array();
 
         foreach ($blocks as $block) {
-            $projectUrl = '<a href="'. $this->url->get(array('for' => 'project_edit', 'query' => '?' . http_build_query(array('id' => $block->project_id) ))) . '">' . $block->project_name . '</a>';
-            $blockUrl = '<a href="'. $this->url->get(array('for' => 'block_edit', 'query' => '?' . http_build_query(array('id' => $block->id, 'project_id' => $block->project_id) ))) . '">' . $block->name . '</a>';
-            $deleteUrl = '<div class="text-center"><a href="'. $this->url->get(array("for" => "block_delete", "query" => "?" . http_build_query(array("id" => $block->id)) )) .'" onclick="javascript:return confirm(\'Đồng ý xoá?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
+            $projectUrl = '<a href="' . $this->url->get(array('for' => 'project_edit', 'query' => '?' . http_build_query(array('id' => $block->project_id) ))) . '">' . $block->project_name . '</a>';
+            $blockUrl   = '<a href="' . $this->url->get(array('for' => 'block_edit', 'query' => '?' . http_build_query(array('id' => $block->id, 'project_id' => $block->project_id) ))) . '">' . $block->name . '</a>';
+            $deleteUrl  = '<div class="text-center"><a href="' . $this->url->get(array("for" => "block_delete", "query" => "?" . http_build_query(array("id" => $block->id)))) .'" onclick="return confirm(\'Đồng ý xoá?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
 
             $_blockRepo = new \ITECH\Data\Repo\BlockRepo();
-            $mapLink = $_blockRepo->checkMapLink($block->id);
+            $mapLink    = $_blockRepo->checkMapLink($block->id);
+
             $map = false;
 
             foreach ($mapLink as $link) {
@@ -84,17 +98,18 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
             $apartmentCount = \ITECH\Data\Model\ApartmentModel::find(array(
                 'conditions' => 'block_id = :block_id:',
-                'bind' => array(
-                    'block_id' => $block->id
-                )
+                'bind'       => array('block_id' => $block->id)
             ));
             $apartmentCount = $apartmentCount->count();
 
             $apartmentSoldCount = \ITECH\Data\Model\ApartmentModel::find(array(
-                'conditions' => 'block_id = :block_id: AND condition = :condition:',
+                'conditions' => '
+                    block_id      = :block_id: 
+                    AND condition = :condition:
+                ',
                 'bind' => array(
-                    'block_id' => $block->id,
-                    'condition' => \ITECH\Data\Lib\Constant::APARTMENT_CONDITION_SOLD,
+                    'block_id'  => $block->id,
+                    'condition' => \ITECH\Data\Lib\Constant::APARTMENT_CONDITION_SOLD
                 )
             ));
             $apartmentSoldCount = $apartmentSoldCount->count();
@@ -107,7 +122,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
                 $projectUrl,
                 $block->floor_count,
                 $map,
-                '<div class="text-center"><span class="icon-status-'.$block->status.'"></span><span class="text-status-'.$block->status.'">'. $getStatus[$block->status] .'</span></span></div>',
+                '<div class="text-center"><span class="icon-status-' . $block->status . '"></span><span class="text-status-' . $block->status . '">' . $getStatus[$block->status] . '</span></span></div>',
                 $apartmentCount,
                 $apartmentSoldCount,
                 $deleteUrl

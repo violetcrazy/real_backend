@@ -691,4 +691,40 @@ class BaseController extends \Phalcon\Mvc\Controller
 
         return $res;
     }
+
+    public function getPermissionProjects()
+    {
+        $return = '';
+
+        if ($this->session->has('USER')) {
+            $userSession = $this->session->get('USER');
+
+            if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+                $projects = [];
+                $return   = [];
+
+                $return['projectIds']       = [];
+                $return['projectIdsString'] = '';
+
+                $userProjects = \ITECH\Data\Model\UserProjectModel::find([
+                    'conditions' => 'userId = :userId:',
+                    'bind'       => ['userId' => $userSession['id']]
+                ]);
+
+                if ($userProjects && count($userProjects)) {
+                    foreach ($userProjects as $item) {
+                        $return['projectIds'][] = (int)$item->projectId;
+                        $projects[] = '"' . (int)$item->projectId . '"';
+                    }
+                }
+
+                if (count($projects)) {
+                    $projects = implode(', ', $projects);
+                    $return['projectIdsString'] = $projects;
+                }
+            }
+        }
+
+        return $return;
+    }
 }

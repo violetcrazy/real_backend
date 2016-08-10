@@ -19,29 +19,39 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
     public function indexAction()
     {
-        $projects = \ITECH\Data\Model\ProjectModel::find(array(
-            'conditions' => 'status = :status:',
-            'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
-        ));
+        $projectIds = parent::getPermissionProjects();
+
+        if (!is_array($projectIds)) {
+            $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => 'status = :status:',
+                'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
+            ));
+        } else {
+            $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => '
+                    id IN (' . $projectIds['projectIdsString'] . ')
+                    AND status = :status:
+                ',
+                'bind'       => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
+            ));
+        }
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách dự án',
-                'url' => $this->url->get([
-                    'for' => 'project_list'
-                ]),
+                'title'  => 'Danh sách dự án',
+                'url'    => $this->url->get(['for' => 'project_list']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'projects' => $projects
+            'projects'    => $projects
         ));
         $this->view->pick(parent::$theme . '/project/index');
     }

@@ -56,13 +56,14 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="{{ config.application.base_url}}asset/plugins/datatables/css/jquery.dataTables.css">
-    <script type="text/javascript" src="{{ config.application.base_url}}asset/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script>
+    <link type="text/css" rel="stylesheet" href="{{ config.application.base_url }}asset/plugins/datatables/css/jquery.dataTables.css?{{ config.asset.version }}" />
+    <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
+
+    <script type="text/javascript">
         $(document).ready(function () {
             var blockDataTable = $('#table-list-block').DataTable({
-                "lengthMenu": [ [5,10, 25, 50, -1], [5,10, 25, 50, "Tất cả"] ],
-                "aoColumns":[
+                "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "Tất cả"]],
+                "aoColumns" : [
                     {"bSortable": false},
                     {"bSortable": false},
                     {"bSortable": false},
@@ -73,23 +74,21 @@
                     {"bSortable": true},
                     {"bSortable": false}
                 ],
-                "aaSorting": [[0,'desc']],
-                "pageLength": 25,
-                "drawCallback": function ( settings ) {
+                "aaSorting"   : [[0,'desc']],
+                "pageLength"  : 25,
+                "drawCallback": function (settings) {
                     var api = this.api();
-                    var rows = api.rows( {page:'current'} ).nodes();
+                    var rows = api.rows({page:'current'}).nodes();
                     var last=null;
 
-                    api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-                        if ( last !== group ) {
-                            $(rows).eq( i ).before(
-                                    '<tr class="group"><td colspan="10"> <b>Dự án:</b> '+group+'</td></tr>'
-                            );
+                    api.column(2, {page:'current'}).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="10"><b>Dự án:</b> ' + group + '</td></tr>');
                             last = group;
                         }
                     } );
                 },
-                "ajax": "{{ url({ 'for': 'block_list_block' }) }}?project_id={{ request.getQuery('project_id') }}",
+                "ajax": "{{ url({'for': 'block_list_block'}) }}?project_id={{ request.getQuery('project_id') }}",
                 "language": {
                     "decimal": "",
                     "emptyTable": "Không có Block/Khu",
@@ -104,32 +103,32 @@
                     "zeroRecords": "Không tìm thấy Block/Khu nào",
                     "info": "Hiển thị _PAGE_/_PAGES_",
                     "paginate": {
-                        "first": "«",
-                        "last": "»",
-                        "next": "›",
+                        "first"   : "«",
+                        "last"    : "»",
+                        "next"    : "›",
                         "previous": "‹"
                     },
                     "aria": {
-                        "sortAscending": ": activate to sort column ascending",
+                        "sortAscending" : ": activate to sort column ascending",
                         "sortDescending": ": activate to sort column descending"
                     }
                 }
             });
 
-            blockDataTable.columns().every( function () {
+            blockDataTable.columns().every(function () {
                 var that = this;
-                $( 'input', this.footer() ).on( 'keyup change', function () {
-                    if ( that.search() !== this.value ) {
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
                         that.search( this.value ).draw();
                     }
-                } );
+                });
 
                 $('input[type="checkbox"]', this.footer()).on('change', function () {
+                    blockDataTable.columns([4, 5, 6, 7]).search('').draw();
 
-                    blockDataTable.columns([4,5,6,7]).search('').draw();
-                    if ($(this).is(':checked')){
+                    if ($(this).is(':checked')) {
                         that.search(this.value).draw();
-                        $('input[type="checkbox"]').not($(this)).prop('checked', false)
+                        $('input[type="checkbox"]').not($(this)).prop('checked', false);
                     }
                 });
             });
