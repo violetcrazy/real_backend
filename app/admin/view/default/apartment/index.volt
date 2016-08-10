@@ -55,7 +55,7 @@
                     <tr>
                         <th></th>
                         <th><input class="form-control" type="text" placeholder="Nhập tên sản phẩm"></th>
-                        <th><input class="form-control" type="text" placeholder="Nhập tên block/khu"></th>
+                        <th><input class="form-control" type="text" placeholder="Nhập tên Block/Khu"></th>
                         <th><input class="form-control" type="text" placeholder="Nhập tên dự án"></th>
                         <th>
                             <label for="condition_1" class="custom-mark mark-condition-"><input name="filter_condition" class="filter-column" type="checkbox" id="condition_1" value="Còn trống"> <span class="mark-input"></span> Còn trống</label>
@@ -88,26 +88,25 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="{{ config.application.base_url }}asset/plugins/datatables/css/jquery.dataTables.css">
-    <script type="text/javascript"
-            src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
+    <link type="text/css" rel="stylesheet" href="{{ config.application.base_url }}asset/plugins/datatables/css/jquery.dataTables.css?{{ config.asset.version }}" />
+    <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
             var t = $.toast({
-                text : "Đang tải dữ liệu. Vui lòng đợi",
-                bgColor : '#2EA093',
-                textColor : '#fff',
+                text            : "Đang tải dữ liệu. Vui lòng đợi",
+                bgColor         : '#2EA093',
+                textColor       : '#fff',
                 allowToastClose : close,
-                stack: 0,
-                position : 'top-center',
-                hideAfter: false
+                stack           : 0,
+                position        : 'top-center',
+                hideAfter       : false
             });
 
             var apartmentDataTable = $('#table-list-apartment').DataTable({
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]],
                 "pagingType": "full_numbers",
-                "aoColumns": [
+                "aoColumns" : [
                     {"bSortable": false},
                     {"bSortable": false},
                     {"bSortable": false},
@@ -119,10 +118,10 @@
                     {"bSortable": false},
                     {"bSortable": false},
                 ],
-                "aaSorting": [[0,'desc']],
+                "aaSorting" : [[0,'desc']],
                 "pageLength": 25,
-                "ajax": "{{ url({'for': 'apartment_list_apartment'}) }}",
-                "initComplete": function(settings, json) {
+                "ajax"      : "{{ url({'for': 'apartment_list_apartment'}) }}",
+                "initComplete": function (settings, json) {
                    t.reset();
                 },
                 "language": {
@@ -139,9 +138,9 @@
                     "zeroRecords": "Không tìm thấy Sản phẩm nào",
                     "info": "Hiển thị _PAGE_/_PAGES_",
                     "paginate": {
-                        "first": "« Đầu tiên",
-                        "last": "Cuối cùng »",
-                        "next": "›",
+                        "first"   : "« Đầu tiên",
+                        "last"    : "Cuối cùng »",
+                        "next"    : "›",
                         "previous": "‹"
                     },
                     "aria": {
@@ -151,17 +150,15 @@
                 }
             });
 
-
-
             $('#project-filter').on('change', function (event) {
                 t = $.toast({
-                    text : "Đang tải dữ liệu. Vui lòng đợi",
-                    bgColor : '#2EA093',
-                    textColor : '#fff',
+                    text            : "Đang tải dữ liệu. Vui lòng đợi",
+                    bgColor         : '#2EA093',
+                    textColor       : '#fff',
                     allowToastClose : close,
-                    stack: 0,
-                    position : 'top-center',
-                    hideAfter: false
+                    stack           : 0,
+                    position        : 'top-center',
+                    hideAfter       : false
                 });
 
                 var url = "{{ url({ 'for': 'apartment_list_apartment' }) }}?project_id=" + $(this).val();
@@ -169,14 +166,14 @@
                     t.reset();
                     if (data.data[0][0] == '') {
                         $.toast({
-                            text : "Chưa có sản phẩm",
-                            bgColor : '#FFFB91',
-                            loader: false,
-                            textColor : '#000',
+                            text            : "Chưa có sản phẩm",
+                            bgColor         : '#FFFB91',
+                            loader          : false,
+                            textColor       : '#000',
                             allowToastClose : close,
-                            stack: 0,
-                            position : 'top-center',
-                            hideAfter: 3000
+                            stack           : 0,
+                            position        : 'top-center',
+                            hideAfter       : 3000
                         });
                         $('.table-jquery').find('tbody').find('tr').html('<td class="text-center" colspan="10">Chưa có sản phẩm cho dự án này</td>');
                         $('.table-jquery').find('tbody').find('tr.group').remove();
@@ -193,11 +190,10 @@
                 });
 
                 $('input[type="checkbox"]', this.footer()).on('change', function () {
-
-                    apartmentDataTable.columns([4,5,6,7]).search('').draw();
-                    if ($(this).is(':checked')){
+                    apartmentDataTable.columns([4, 5, 6, 7]).search('').draw();
+                    if ($(this).is(':checked')) {
                         that.search(this.value).draw();
-                        $('input[type="checkbox"]').not($(this)).prop('checked', false)
+                        $('input[type="checkbox"]').not($(this)).prop('checked', false);
                     }
                 });
 
@@ -217,14 +213,14 @@
                     t.reset();
                     if (data.data[0][0] == '') {
                         $.toast({
-                            text : "Chưa có sản phẩm",
-                            bgColor : '#FFFB91',
-                            loader: false,
-                            textColor : '#000',
+                            text            : "Chưa có sản phẩm",
+                            bgColor         : '#FFFB91',
+                            loader          : false,
+                            textColor       : '#000',
                             allowToastClose : close,
-                            stack: 0,
-                            position : 'top-center',
-                            hideAfter: 3000
+                            stack           : 0,
+                            position        : 'top-center',
+                            hideAfter       : 3000
                         });
                         $('.table-jquery').find('tbody').find('tr').html('<td class="text-center" colspan="10">Chưa có sản phẩm cho dự án này</td>');
                         $('.table-jquery').find('tbody').find('tr.group').remove();

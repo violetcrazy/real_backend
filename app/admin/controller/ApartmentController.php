@@ -19,10 +19,22 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
     public function indexAction()
     {
-        $projects = \ITECH\Data\Model\ProjectModel::find(array(
-            'conditions' => 'status = :status:',
-            'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
-        ));
+        $projectIds = parent::getPermissionProjects();
+
+        if (is_array($projectIds)) {
+            $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => '
+                    id IN (' . $projectIds['projectIdsString'] . ')
+                    AND status = :status:
+                ',
+                'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
+            ));
+        } else {
+            $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => 'status = :status:',
+                'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
+            ));
+        }
 
         $breadcrumbs = [
             [
@@ -41,39 +53,43 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'projects' => $projects,
+            'projects'    => $projects
         ));
         $this->view->pick(parent::$theme . '/apartment/index');
     }
 
     public function listApartmentAction()
     {
-        if ($this->request->get('project_id')){
-            $params = array(
-                "conditions" => array(
-                    "project_id" => $this->request->get('project_id')
-                )
-            );
+        $params = [];
+
+        $projectIds = parent::getPermissionProjects();
+
+        if (is_array($projectIds)) {
+            $params['conditions']['projectIdsString'] = $projectIds['projectIdsString'];
+        }
+
+        if ($this->request->get('project_id')) {
+            $params['conditions']['project_id'] = $this->request->get('project_id');
         } else {
-            $params = array(
-                "limit" => 5000
-            );
+            $params["limit"] = 5000;
         }
 
         $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
-        $apartments = $apartmentRepo->getList($params);
-        $out = array();
+        $apartments    = $apartmentRepo->getList($params);
+        $out           = array();
+
         if (count($apartments) > 0) {
             foreach ($apartments as $apartment) {
-                $urlEditApartment = '<a role="menuitem" href="'. $this->url->get(array('for' => 'apartment_edit', 'query' => '?' .  http_build_query(array('block_id' => $apartment->block_id, 'id' => $apartment->id )) )) .'">'. $apartment->name .'</a>';
-                $urlDeleteApartment = '<div class="text-center"><a href="'. $this->url->get(array('for' => 'apartment_delete', 'query' => '?' . http_build_query(array('id' => $apartment->id)) )) .'" onclick="return confirm(\'Đồng ý xoá.?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
-                $urlEditBlock = '<a href="'. $this->url->get(array("for" => "block_edit", "query" => "?" . http_build_query(array("id" => $apartment->block_id)) )) .'">'. $apartment->block_name .'</a>';
-                $urlEditProject = '<a href="'. $this->url->get(array("for" => "project_edit", "query" => "?" . http_build_query(array("id" => $apartment->project_id)) )) .'">'. $apartment->project_name .'</a>';
+                $urlEditApartment   = '<a role="menuitem" href="' . $this->url->get(array('for' => 'apartment_edit', 'query' => '?' .  http_build_query(array('block_id' => $apartment->block_id, 'id' => $apartment->id )) )) . '">' . $apartment->name . '</a>';
+                $urlDeleteApartment = '<div class="text-center"><a href="' . $this->url->get(array('for' => 'apartment_delete', 'query' => '?' . http_build_query(array('id' => $apartment->id)) )) . '" onclick="return confirm(\'Đồng ý xoá.?\');" class="btn btn-xs btn-bricky"><i class="fa fa-times fa fa-white"></i></a></div>';
+                $urlEditBlock       = '<a href="' . $this->url->get(array("for" => "block_edit", "query" => "?" . http_build_query(array("id" => $apartment->block_id)) )) . '">' . $apartment->block_name . '</a>';
+                $urlEditProject     = '<a href="' . $this->url->get(array("for" => "project_edit", "query" => "?" . http_build_query(array("id" => $apartment->project_id)) )) . '">' . $apartment->project_name . '</a>';
 
                 $getCondition = \ITECH\Data\Lib\Constant::getApartmentCondition();
-                $condition = '<div class="text-center"><span class="icon-condition-0"></span><span class="hidden">Không xác định</span></div>';
+                $condition    = '<div class="text-center"><span class="icon-condition-0"></span><span class="hidden">Không xác định</span></div>';
+
                 if ($apartment->condition > 0) {
-                    $condition = '<div class="text-center"><span class="icon-condition-'.$apartment->condition.'"></span><span class="hidden">' . $getCondition[$apartment->condition] . '</span></div>';
+                    $condition = '<div class="text-center"><span class="icon-condition-' . $apartment->condition.'"></span><span class="hidden">' . $getCondition[$apartment->condition] . '</span></div>';
                 }
 
                 $getStatus = \ITECH\Data\Lib\Constant::getApartmentStatus();
@@ -87,13 +103,14 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                     $apartment->condition == \ITECH\Data\Lib\Constant::APARTMENT_CONDITION_HOLD ? $condition : '',
                     $apartment->condition == \ITECH\Data\Lib\Constant::APARTMENT_CONDITION_SOLD ? $condition : '',
                     $apartment->condition == 0 || $apartment->condition == \ITECH\Data\Lib\Constant::APARTMENT_CONDITION_OTHER ? $condition : '',
-                    '<div class="text-center"><span class="icon-status-'.$apartment->status.'"></span><span class="text-status-'.$apartment->status.'">'. $getStatus[$apartment->status] .'</span></span></div>',
+                    '<div class="text-center"><span class="icon-status-' . $apartment->status . '"></span><span class="text-status-' . $apartment->status . '">' . $getStatus[$apartment->status] . '</span></span></div>',
                     $urlDeleteApartment
                 );
             }
         } else {
             $out['data'][] = array('','','','','','','','','','');
         }
+
         parent::outputJSON($out);
     }
 
