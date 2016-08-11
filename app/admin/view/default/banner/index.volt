@@ -19,7 +19,6 @@
                     <tr>
                         <th width="5%">ID</th>
                         <th>Tên</th>
-                        <th width="10%">Số Click</th>
                         <th width="10%">Trạng thái</th>
                     </tr>
                 </thead>
@@ -36,9 +35,6 @@
                                     </a>
                                     <br />
                                     {{ item.url }}
-                                </td>
-                                <td>
-                                    {{ item.click }}
                                 </td>
                                 <td>
                                     {{ statusSelect[item.status] }}

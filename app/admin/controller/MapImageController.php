@@ -180,12 +180,14 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
                         $error_message = $messages[0]->getMessage();
                         $response = array(
                             'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
-                            'message' => $error_message
+                            'message' => $error_message,
+                            'result' => array()
                         );
                     } else {
                         $response = array(
                             'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
-                            'message' => 'Lỗi, không thể tạo được Map link.'
+                            'message' => 'Lỗi, không thể tạo được Map link.',
+                            'result' => array()
                         );
                     }
 
@@ -194,7 +196,8 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
             } catch (\Phalcon\Exception $e) {
                 $response = array(
                     'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
-                    'message' => $e->getMessage()
+                    'message' => $e->getMessage(),
+                    'result' => array()
                 );
                 goto RETURN_RESPONSE;
             }
