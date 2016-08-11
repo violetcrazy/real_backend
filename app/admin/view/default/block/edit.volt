@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
+
             <div class="page-header">
                 <h3>{{ result is defined ? 'Chỉnh sửa block' : 'Thêm Block' }}</h3>
             </div>
@@ -23,6 +24,7 @@
 
     <form id="form-article" action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <span class="area_mess" id="area_mess"></span>
+
         {{ flashSession.output() }}
 
         <div class="tabbable">
@@ -40,6 +42,7 @@
                     <a href="#panel_tab4" data-toggle="tab">SEO</a>
                 </li>
             </ul>
+
             <div class="tab-content">
                 <div class="tab-pane in active" id="panel_tab1">
                     {% include 'default/block/element/_form_tab1.volt' %}
@@ -64,12 +67,12 @@
                 </button>
 
                 {% if from == 'list-by-project' %}
-                    <a href="{{ url({'for': 'block_list_by_project', 'query': '?' ~ http_build_query({'project_id': projectId, 'page': page})}) }}" class="btn btn-primary">
+                    <a href="{{ url({'for': 'block_list_by_project', 'query': '?' ~ http_build_query({'project_id': projectId})}) }}" class="btn btn-primary">
                         <span class="fa-mail-reply fa"></span>
                         Trở lại
                     </a>
                 {% else %}
-                    <a href="{{ url({'for': 'block_list', 'query': '?' ~ http_build_query({'page': page})}) }}" class="btn btn-primary">
+                    <a href="{{ url({'for': 'block_list'}) }}" class="btn btn-primary">
                         <span class="fa-mail-reply fa"></span>
                         Trở lại
                     </a>
@@ -102,38 +105,42 @@
 
 {% block bottom_js %}
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             var data_bind = false;
             var $modal = $('#edit_floor_name_list_index');
 
-            $('#save_edit').on('click', function() {
+            $('#save_edit').on('click', function () {
                 if (data_bind) {
                     var data = {};
-                    $modal.find('.item-data').each(function() {
-                        $this = $(this).find('input');
+
+                    $modal.find('.item-data').each(function () {
+                        var $this = $(this).find('input');
                         data[$this.attr('data-index')] = $.trim($this.val());
                     });
 
-                    $('#' + data_bind).val( JSON.stringify(data) );
+                    $('#' + data_bind).val(JSON.stringify(data));
                 }
             });
 
-            $('#floor_count, #apartment_count').on('change', function(event){
+            $('#floor_count, #apartment_count').on('change', function (event) {
                 var _data_bind = $(this).data('bind');
-                var _type = $(this).data('name');
-                var _mess = "";
+                var _type      = $(this).data('name');
+                var _mess      = "";
+
                 $('#' + _data_bind).val("");
+
                 if (_type == 'floor') {
                     _mess = "Số tầng đã thay đổi, tên tầng sẽ trả về mặc định, bấm SỬA TÊN TẦNG nếu muốn";
                 }
+
                 if (_type == 'index') {
                     _mess = "Số thứ tự sản phẩm đã thay đổi, tên thứ tự sẽ trả về mặc định, bấm SỬA TÊN VỊ TRÍ nếu muốn";
                 }
 
-                $('#area_mess').html('<div class="alert alert-warning">'+ _mess +'</div>');
+                $('#area_mess').html('<div class="alert alert-warning">' + _mess + '</div>');
             });
 
-            $('.popup-edit-name').on('click', function() {
+            $('.popup-edit-name').on('click', function () {
                 $modal.modal();
                 data_bind = false;
 
@@ -157,7 +164,7 @@
                 if (data_loop) {
                     var html = '';
                     var i = 1;
-                    $.each(data_loop, function(index, value){
+                    $.each(data_loop, function (index, value){
                         if (i > val) {
                             return false;
                         }
@@ -188,7 +195,7 @@
 
             var idBlock = '{{ result is defined ? result.id : '0' }}';
             if(typeof(Storage) !== "undefined") {
-                $('.nav-tabs a').click(function(event){
+                $('.nav-tabs a').click(function (event){
                     event.preventDefault();
                     var  href = $(this).attr('href');
                     var dataSave = JSON.stringify({id: idBlock, href: href});

@@ -11,84 +11,85 @@
 {% endblock %}
 
 {% block content %}
-<form action="" method="POST" id="form_tab" class="form-horizontal" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-sm-12">
-            {% include 'default/element/layout/breadcrumbs.volt' %}
-            <div class="page-header">
-                <h3>Thêm dự án</h3>
+    <form action="" method="POST" id="form_tab" class="form-horizontal" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-12">
+                {% include 'default/element/layout/breadcrumbs.volt' %}
+
+                <div class="page-header">
+                    <h3>Thêm dự án</h3>
+                </div>
             </div>
         </div>
-    </div>
 
-    {{ flashSession.output() }}
+        {{ flashSession.output() }}
 
-    <div class="tabbable">
-        <ul id="myTab" class="nav nav-tabs tab-bricky">
-            <li class="active">
-                <a href="#panel_tab1" data-toggle="tab">Thông tin</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane in active" id="panel_tab1">
-                {% include 'default/project/_form_tab1.volt' %}
+        <div class="tabbable">
+            <ul id="myTab" class="nav nav-tabs tab-bricky">
+                <li class="active">
+                    <a href="#panel_tab1" data-toggle="tab">Thông tin</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane in active" id="panel_tab1">
+                    {% include 'default/project/_form_tab1.volt' %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-sm-12 text-right">
-            <button type="submit" id="form-article-button" class="btn btn-bricky">
-                <span class="clip-download"></span>
-                {{ project is defined ? 'Cật nhật' : 'Thêm Dự án' }}
-            </button>
+        <div class="form-group">
+            <div class="col-sm-12 text-right">
+                <button type="submit" id="form-article-button" class="btn btn-bricky">
+                    <span class="clip-download"></span>
+                    {{ project is defined ? 'Cật nhật' : 'Thêm Dự án' }}
+                </button>
 
-            <a href="{{ url({'for': 'project_list', 'query': '?' ~ http_build_query({'page': page})}) }}" class="btn btn-primary">
-                <span class="fa-mail-reply fa"></span>
-                Trở lại
-            </a>
+                <a href="{{ url({'for': 'project_list'}) }}" class="btn btn-primary">
+                    <span class="fa-mail-reply fa"></span>
+                    Trở lại
+                </a>
+            </div>
         </div>
-    </div>
+    </form>
 
-</form>
+    <script type="text/javascript">
+        var process = false;
 
-<script type="text/javascript">
-    var process = false;
+        $(document).ready(function () {
+            $(document).on('submit', '#form_tab', function (e) {
+                e.preventDefault();
 
-    $(document).ready(function() {
-        $(document).on('submit', '#form_tab', function(e) {
-            e.preventDefault();
+                if (!process) {
+                    process = true;
 
-            if (!process) {
-                process = true;
-                $.ajax({
-                    url: '{{ url({'for': 'project_post_ajax'}) }}',
-                    type: 'POST',
-                    data: $('#form_tab').serialize(),
-                    success: function(response) {
-                        if (typeof response != 'undefined') {
-                            if (response.status == 200) {
-                                if (typeof response.result.redirect_url != 'undefined') {
-                                    window.location.href = response.result.redirect_url;
+                    $.ajax({
+                        url : '{{ url({'for': 'project_post_ajax'}) }}',
+                        type: 'POST',
+                        data: $('#form_tab').serialize(),
+                        success: function (response) {
+                            if (typeof response != 'undefined') {
+                                if (response.status == 200) {
+                                    if (typeof response.result.redirect_url != 'undefined') {
+                                        window.location.href = response.result.redirect_url;
+                                    }
+                                } else {
+                                    $('#form_tab3_error_message').text(response.message).show();
+
+                                    if (typeof response.result != 'undefined') {
+                                        $.each(response.result, function (key, value) {
+                                            $('#form_tab #error_' + key).text(value);
+                                        });
+                                    }
                                 }
                             } else {
-                                $('#form_tab3_error_message').text(response.message).show();
-
-                                if (typeof response.result != 'undefined') {
-                                    $.each(response.result, function(key, value) {
-                                        $('#form_tab #error_' + key).text(value);
-                                    });
-                                }
+                                alert('Lỗi, không thể Tạo mới.');
                             }
-                        } else {
-                            alert('Lỗi, không thể Tạo mới.');
                         }
-                    }
-                }).done(function() {
-                    process = false;
-                });
-            }
+                    }).done(function () {
+                        process = false;
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}
