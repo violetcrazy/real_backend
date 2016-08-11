@@ -144,14 +144,16 @@
                 $modal.modal();
                 data_bind = false;
 
-                var val = parseInt($(this).prev().val());
+                var val  = parseInt($(this).prev().val());
                 var type = $(this).data('name');
                 var text = {
                     "floor": "Tầng",
                     "index": ""
                 };
+
                 data_bind = $(this).data('bind');
                 var data_loop = false;
+
                 if (data_bind) {
                     var _json = $('#' + data_bind).val();
                     if (_json) {
@@ -163,28 +165,31 @@
 
                 if (data_loop) {
                     var html = '';
-                    var i = 1;
-                    $.each(data_loop, function (index, value){
+                    var i    = 1;
+
+                    $.each(data_loop, function (index, value) {
                         if (i > val) {
                             return false;
                         }
+
                         i ++;
                         html += '<div class="col-sm-3 item-data">\
-                                <input class="m-t-10" data-index="' + index + '" value="'+ value +'" type="text" class="form-control" />\
+                                <input class="m-t-10" data-index="' + index + '" value="' + value + '" type="text" class="form-control" />\
                             </div>';
                     });
                     $modal.find('.main-input').html(html);
-
                 } else if (val) {
                     var html = '';
+
                     for (i = 1 ; i <= val; i++) {
                         var _val = text[type] + ' ' + i;
+
                         if (i == 1 && type == "floor") {
-                            _val = text[type] +' trệt';
+                            _val = text[type] + ' trệt';
                         }
 
                         html += '<div class="col-sm-3 item-data">\
-                                <input class="m-t-10" data-index="' + i + '" value="'+ _val +'" type="text" class="form-control" />\
+                                <input class="m-t-10" data-index="' + i + '" value="' + _val + '" type="text" class="form-control" />\
                             </div>';
                     }
                     $modal.find('.main-input').html(html);
@@ -194,23 +199,25 @@
             });
 
             var idBlock = '{{ result is defined ? result.id : '0' }}';
-            if(typeof(Storage) !== "undefined") {
-                $('.nav-tabs a').click(function (event){
+
+            if (typeof(Storage) !== "undefined") {
+                $('.nav-tabs a').click(function (event) {
                     event.preventDefault();
-                    var  href = $(this).attr('href');
+                    var href     = $(this).attr('href');
                     var dataSave = JSON.stringify({id: idBlock, href: href});
+
                     localStorage.setItem('tab_block', dataSave);
                 });
 
                 var active = localStorage.getItem('tab_block');
+
                 if (typeof active != 'undefined' && active != '') {
                     active = JSON.parse(active);
 
                     if (active.id == idBlock) {
-                        $('[href="'+ active.href +'"]').trigger('click');
+                        $('[href="' + active.href + '"]').trigger('click');
                     }
                 }
-
             } else {
                 console.log('Sorry! No Web Storage support.');
             }
