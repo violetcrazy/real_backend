@@ -58,6 +58,8 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
     public function addAction()
     {
+        parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
+
         $location = \ITECH\Data\Model\LocationModel::find(array(
             'order' => 'ordering ASC'
         ));
@@ -116,12 +118,12 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
     public function editAction()
     {
-        $id = $this->request->getQuery('id', array('int'), '');
+        $id   = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
 
         $project = \ITECH\Data\Model\ProjectModel::findFirst(array(
             'conditions' => 'id = :project_id:',
-            'bind' => array('project_id' => $id)
+            'bind'       => array('project_id' => $id)
         ));
 
         if (!$project) {
@@ -129,9 +131,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
         }
 
         $direction = \ITECH\Data\Lib\Constant::getDirection();
-        $location = \ITECH\Data\Model\LocationModel::find(array(
-            'order' => 'ordering ASC'
-        ));
+        $location  = \ITECH\Data\Model\LocationModel::find(array('order' => 'ordering ASC'));
 
         $provinces = array();
         $districts = array();
@@ -281,30 +281,31 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
         ];
 
         $this->view->setVars(array(
-            'breadcrumbs' => $breadcrumbs,
-            'project' => $project,
-            'id' => $id,
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'gallery' => $gallery,
-            'trends' => $direction,
-            'mapImage' => $mapImage,
-            'projectPropertyTypeVie' => $projectPropertyTypeVie,
-            'projectPropertyViewVie' => $projectPropertyViewVie,
+            'breadcrumbs'               => $breadcrumbs,
+            'project'                   => $project,
+            'id'                        => $id,
+            'provinces'                 => $provinces,
+            'districts'                 => $districts,
+            'gallery'                   => $gallery,
+            'trends'                    => $direction,
+            'mapImage'                  => $mapImage,
+            'projectPropertyTypeVie'    => $projectPropertyTypeVie,
+            'projectPropertyViewVie'    => $projectPropertyViewVie,
             'projectPropertyUtilityVie' => $projectPropertyUtilityVie,
-            'propertyTypeVie' => $propertyTypeVie,
-            'propertyViewVie' => $propertyViewVie,
-            'propertyUtilityVie' => $propertyUtilityVie,
-
-            'page' => $page
+            'propertyTypeVie'           => $propertyTypeVie,
+            'propertyViewVie'           => $propertyViewVie,
+            'propertyUtilityVie'        => $propertyUtilityVie,
+            'page'                      => $page
         ));
         $this->view->pick(parent::$theme . '/project/edit');
     }
 
     public function deleteAction()
     {
+        parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
+
         $userSession = $this->session->get('USER');
-        $projectId = $this->request->getQuery('project_id', array('int'), '');
+        $projectId   = $this->request->getQuery('project_id', array('int'), '');
 
         $project = \ITECH\Data\Model\ProjectModel::findFirst(array(
             'conditions' => 'id = :project_id:',

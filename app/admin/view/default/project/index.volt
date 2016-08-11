@@ -2,15 +2,18 @@
 
 {% block content %}
     {% set projectStatus = getProjectStatus() %}
+    {% set userSession   = session.get('USER') %}
 
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
             <div class="page-header">
-                <a href="{{ url({'for': 'project_add'}) }}" class="btn btn-primary pull-right">
-                    <i class="fa fa-plus"></i>
-                    Thêm dự án
-                </a>
+                {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
+                    <a href="{{ url({'for': 'project_add'}) }}" class="btn btn-primary pull-right">
+                        <i class="fa fa-plus"></i>
+                        Thêm dự án
+                    </a>
+                {% endif %}
 
                 <h3>Danh sách dự án</h3>
             </div>
@@ -72,9 +75,11 @@
                                 <td>{{ project.processing_count }}</td>
                                 <td>{{ project.sold_count }}</td>
                                 <td class="text-center">
-                                    <a href="{{ url({'for': 'project_delete', 'query': '?' ~ http_build_query({'project_id': project.id })}) }}" onclick="javascript:return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Xóa">
-                                        <i class="fa fa-times fa fa-white"></i>
-                                    </a>
+                                    {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
+                                        <a href="{{ url({'for': 'project_delete', 'query': '?' ~ http_build_query({'project_id': project.id })}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Xóa">
+                                            <i class="fa fa-times fa fa-white"></i>
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
