@@ -721,6 +721,9 @@ class BaseController extends \Phalcon\Mvc\Controller
                 if (count($projects)) {
                     $projects = implode(', ', $projects);
                     $return['projectIdsString'] = $projects;
+                } else {
+                    $return['projectIds'] = [0];
+                    $return['projectIdsString'] = '"0"';
                 }
             }
         }
