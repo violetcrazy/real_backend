@@ -205,7 +205,7 @@
                                         {% set src = '' %}
 
                                         {% set value = noimage %}
-                                        {% set src = config.cdn.dir_upload ~ 'thumbnail/' ~ noimage %}
+                                        {% set src = config.cdn.dir_upload ~ noimage %}
 
                                         {{ templateUpload('no_image', src,value) }}
                                         <div class="clearfix"></div>

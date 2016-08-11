@@ -95,6 +95,7 @@
 
     <link rel="stylesheet" href="{{ config.application.base_url}}asset/plugins/datatables/css/jquery.dataTables.css">
     <script type="text/javascript" src="{{ config.application.base_url}}asset/plugins/datatables/js/jquery.dataTables.min.js"></script>
+
     <script>
         $(document).ready(function() {
             var tableProject = $('#table-list-project').DataTable({
@@ -106,7 +107,7 @@
                     {"bSortable": false},
                     {"bSortable": false},
                     {"bSortable": false},
-                    {"bSortable": false},
+                    {"bSortable": false}
                 ],
                 "aaSorting": [[0,'desc']],
                 "pageLength": 25,

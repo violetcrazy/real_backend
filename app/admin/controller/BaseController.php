@@ -535,6 +535,7 @@ class BaseController extends \Phalcon\Mvc\Controller
 
                 $out         = array();
                 $out['meta'] = $args['images'];
+                echo '<pre>';
 
                 foreach ($new as $itemNew) {
                     if (isset($itemNew['id'])) {

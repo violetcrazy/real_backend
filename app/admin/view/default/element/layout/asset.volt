@@ -49,7 +49,6 @@
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/tag_auto/fm.tagator.jquery.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/datepicker/js/bootstrap-datepicker.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/main.js?' ~ config.asset.version }}"></script>
-<script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/ImageTools.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/bootstrap-fileupload/bootstrap-fileupload.min.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/fancybox/jquery.fancybox.js?' ~ config.asset.version }}"></script>
 <script type="text/javascript" src="{{ config.asset.backend_url ~ 'plugins/toast/jquery.toast.min.js?' ~ config.asset.version }}"></script>

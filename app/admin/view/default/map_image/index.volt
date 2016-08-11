@@ -79,7 +79,7 @@
             'add' : '{{ url({'for': 'map_image_add'}) }}',
             'update': '{{ url({'for': 'map_image_update'}) }}',
             'delete' : '{{ url({'for': 'map_image_delete'}) }}'
-        }
+        };
 
         function changeImgMap(result) {
             var mapId = '{{ request.getQuery('map_image_id') }}';

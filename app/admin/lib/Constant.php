@@ -295,17 +295,6 @@ class Constant
                     )
                 )
             ),
-            'manager_image' => array(
-                'icon_class' => 'clip-images-3',
-                'title'      => 'Quản lý hình ảnh',
-                'controller' => 'image',
-                'action'     => 'manager',
-                'roles' => array(
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
-                )
-            ),
             'banner' => array(
                 'icon_class' => 'clip-banknote',
                 'title'      => 'Quản lý banner',
