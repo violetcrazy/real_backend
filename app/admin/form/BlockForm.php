@@ -12,9 +12,11 @@ class BlockForm extends \Phalcon\Forms\Form
         $projects = $loadComponent->getProjectAll();
         $projects = $projects['result'];
         $options_project = array('' => 'Chọn 1 dự án');
+
         foreach ($projects as $project){
             $options_project[$project['id']] = $project['name'];
         }
+
         $project_id = new \Phalcon\Forms\Element\Select('project_id', $options_project);
         $project_id->addValidators(array(
             new \Phalcon\Validation\Validator\PresenceOf(array(

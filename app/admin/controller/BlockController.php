@@ -134,12 +134,12 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
     public function addAction()
     {
-        $userSession = $this->session->get('USER');
+        $userSession     = $this->session->get('USER');
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
 
         $project_id = $this->request->getQuery('project_id', array('int'), -1);
-        $page = $this->request->getQuery('page', array('int'), 1);
-        $from = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
+        $page       = $this->request->getQuery('page', array('int'), 1);
+        $from       = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
 
         // Get project ---------
         if ($this->request->hasQuery('project_id')) {
@@ -147,8 +147,8 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             $url = $this->config->application->api_url . 'project/detail';
             $get = array(
                 'authorized_token' => $authorizedToken,
-                'id' => $project_id,
-                'cache' => 'false'
+                'id'               => $project_id,
+                'cache'            => 'false'
             );
             $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url, $get), true);
 
@@ -159,7 +159,8 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         // --------- Get project
 
         $block = new \ITECH\Data\Model\BlockModel();
-        $form = new \ITECH\Admin\Form\BlockForm($block);
+        $form  = new \ITECH\Admin\Form\BlockForm($block);
+
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $block);
 

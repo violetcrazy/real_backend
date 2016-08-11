@@ -122,11 +122,11 @@ class LoadComponent extends \Phalcon\Mvc\User\Component
     public function getProjectAll()
     {
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
+
         $url = $this->config->application->api_url . 'project/all';
-        $get = array(
-            'authorized_token' => $authorizedToken,
-        );
-        $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url, $get), true);
+        $get = array('authorized_token' => $authorizedToken);
+        $r   = json_decode(\ITECH\Data\Lib\Util::curlGet($url, $get), true);
+
         return $r;
     }
 }
