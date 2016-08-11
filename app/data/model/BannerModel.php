@@ -25,10 +25,5 @@ class BannerModel extends \ITECH\Data\Model\BaseModel
     {
         parent::initialize();
         $this->setSource('land_banner');
-
-        $this->belongsTo('group_id', 'ITECH\Data\Model\GroupModel', 'id', array(
-            'alias'      => 'Group',
-            'foreignKey' => true
-        ));
     }
 }

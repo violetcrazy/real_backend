@@ -535,9 +535,14 @@ class BaseController extends \Phalcon\Mvc\Controller
 
                 $out         = array();
                 $out['meta'] = $args['images'];
-                echo '<pre>';
 
+                $_new = array();
                 foreach ($new as $itemNew) {
+                    $_new[] = $itemNew;
+                }
+                $_new = array_reverse($_new);
+
+                foreach ($_new as $itemNew) {
                     if (isset($itemNew['id'])) {
                         $mapImage = \ITECH\Data\Model\MapImageModel::findFirst(array(
                             'conditions' => 'id = :id_map_image:',

@@ -511,6 +511,14 @@ $router->add('/folder-detail', array(
 // --- Upload
 
 
+// --- Banner
+$router->add('/banner-by-id{query:(/.*)*}', array(
+    'module' => 'api',
+    'controller' => 'banner',
+    'action' => 'getBannerById'
+))->setName('get_banner_by_id');
+// Banner ---
+
 // Category --------
 $router->add('/category/list', array(
     'module' => 'api',

@@ -32,7 +32,7 @@
                     <input type="hidden" name="galleries[{{ loop.index }}][id]" value="{{ image.id }}">
                 </td>
                 <td>
-                    {{ getNameImage(image.image) }}
+                    {{ image.image }}
                 </td>
                 <td class="type">
                     <select class="form-control" name="galleries[{{ loop.index }}][type]" id="">

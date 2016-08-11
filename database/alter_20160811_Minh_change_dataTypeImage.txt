@@ -1,0 +1,4 @@
+//Thay đổi kiểu dữ liệu table Banner để trường image có thể lưu chuỗi json các hình ảnh tương ưng với 1 banner.
+ALTER TABLE `land_banner` CHANGE `image` `image` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `land_banner` CHANGE `group_id` `group_id` INT(11) NULL;

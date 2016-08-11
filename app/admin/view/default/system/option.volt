@@ -30,6 +30,8 @@
 
     {% set noimage = response['no_image'] is defined and response['no_image']['value'] != '' ? response['no_image']['value'] : '' %}
 
+    {% set sliderHome = response['slider-home'] is defined and response['slider-home']['value'] != '' ? response['slider-home']['value'] : '' %}
+
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
@@ -45,6 +47,9 @@
                 <div class="tabbable tabs-left">
                     <ul id="myTab" class="nav nav-tabs tab-bricky">
                         <li class="active">
+                            <a href="#panel_home" data-toggle="tab">Trang chủ</a>
+                        </li>
+                        <li class="">
                             <a href="#panel_tab1" data-toggle="tab">Footer</a>
                         </li>
                         <li class="">
@@ -59,198 +64,11 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane in active" id="panel_tab1">
-                            <div class="">
-                                <div class="col-md-6">
-                                    <h3>Tiếng Việt</h3>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 1</b></p>
-                                    <textarea class="editor form-control" name="footer1_vi" id="footer1" rows="10" placeholder="Nội dung Footer cột 1">{{ footer1Vi }}</textarea>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 2</b></p>
-                                    <textarea class="editor form-control" name="footer2_vi" id="footer2" rows="10" placeholder="Nội dung Footer cột 2">{{ footer2Vi }}</textarea>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 3</b></p>
-                                    <textarea class="editor form-control" name="footer3_vi" id="footer3" rows="10" placeholder="Nội dung Footer cột 3">{{ footer3Vi }}</textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <h3>Tiếng Anh</h3>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 1</b></p>
-                                    <textarea class="editor form-control" name="footer1_en" id="footer1_en" rows="10" placeholder="Nội dung Footer cột 1">{{ footer1En }}</textarea>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 2</b></p>
-                                    <textarea class="editor form-control" name="footer2_en" id="footer2_en" rows="10" placeholder="Nội dung Footer cột 2">{{ footer2En }}</textarea>
-                                    <hr />
-
-                                    <p><b class="text-danger">Footer 3</b></p>
-                                    <textarea class="editor form-control" name="footer3_en" id="footer3_en" rows="10" placeholder="Nội dung Footer cột 3">{{ footer3En }}</textarea>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane in" id="panel_tab2">
-                            <div class="form-horizontal col-xs-12 clearfix">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        Facebook
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="facebook" class="form-control" value="{{ facebook }}" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        Google
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="google_plus" class="form-control" value="{{ google_plus }}" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        Twitter
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="twitter" class="form-control" value="{{ twitter }}" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane in" id="panel_tab3">
-                            <div class="form-horizontal col-xs-12 clearfix">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Thời gian hết hạn REQUEST
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group">
-                                            <input type="text" name="request_timeout" class="form-control format-number" value="{{ requestTimeout }}" />
-                                            <span class="input-group-addon">Giờ</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Giá cộng trừ.
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group">
-                                            <input type="text" name="range_price" class="form-control format-number" value="{{ rangePrice }}" />
-                                            <span class="input-group-addon">VND</span>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="text-right text-danger col-xs-12 m-t-5">
-                                        <i class="">Dùng để tính MIN - MAX trong tìm kiếm sản phẩm tương tự khi REJECT 1 REQUEST</i>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Tỷ lệ tính điểm
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group">
-                                            <input type="text" name="price_score" class="form-control format-number" value="{{ priceScore }}" />
-                                            <span class="input-group-addon">VND/1 điểm</span>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="text-right text-danger col-xs-12 m-t-5">
-                                        <i class="">Dùng để tính điểm của thành viên dựa trên doanh số bán hàng</i>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Mức giá MIN khi search
-                                    </label>
-                                    <div class="col-sm-8 build-option-json-single" data-bind="price_search_min" data-class="format-number">
-                                        <div class="clearfix endlist"></div>
-                                        <input type="text" class="form-control main-data" readonly name="price_search_min" value='{{ price_search_min }}'>
-                                        <div class="text-right m-t-10">
-                                            <a href="" class="btn btn-xs btn-primary btn-add">Thêm 1 dòng</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Mức giá MAX khi search
-                                    </label>
-                                    <div class="col-sm-8 build-option-json-single" data-bind="price_search_max" data-class="format-number">
-                                        <div class="clearfix endlist"></div>
-                                        <input type="text" class="form-control main-data" readonly name="price_search_max" value='{{ price_search_max }}'>
-                                        <div class="text-right m-t-10">
-                                            <a href="" class="btn btn-xs btn-primary btn-add">Thêm 1 dòng</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        Hình mặc định
-                                    </label>
-                                    <div class="col-sm-8">
-                                        {% set value = '' %}
-                                        {% set src = '' %}
-
-                                        {% set value = noimage %}
-                                        {% set src = config.cdn.dir_upload ~ noimage %}
-
-                                        {{ templateUpload('no_image', src,value) }}
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane in" id="panel_tab4">
-                            <div class="form-horizontal col-xs-12 clearfix">
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        <p><b>Thông báo từ chối REQUEST <span class="text-danger">Tiếng Việt</span></b>
-                                        </p>
-                                    </label>
-                                    <div class="">
-                                        <textarea class="editor form-control" name="mess_reject_vi" id="footer1" rows="10" placeholder="">{{ mess_reject_vi }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        <p><b>Thông báo từ chối REQUEST <span class="text-danger">Tiếng Anh</span></b></p>
-                                    </label>
-                                    <div class="">
-                                        <textarea class="editor form-control" name="mess_reject_en" id="footer1" rows="10" placeholder="">{{ mess_reject_en }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        <p><b>Đăng ký tài khoản thành công <span class="text-danger">Tiếng Việt</span></b></p>
-                                    </label>
-                                    <div class="">
-                                        <textarea class="editor form-control" name="mess_signin_success_vi" id="footer1" rows="10" placeholder="">{{ mess_signin_success_vi }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        <p><b>Đăng ký tài khoản thành công <span class="text-danger">English</span></b></p>
-                                    </label>
-                                    <div class="">
-                                        <textarea class="editor form-control" name="mess_signin_success_en" id="footer1" rows="10" placeholder="">{{ mess_signin_success_en }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% include 'default/system/tabs/_tab_panel_tab1.volt' %}
+                        {% include 'default/system/tabs/_tab_panel_tab2.volt' %}
+                        {% include 'default/system/tabs/_tab_panel_tab3.volt' %}
+                        {% include 'default/system/tabs/_tab_panel_tab4.volt' %}
+                        {% include 'default/system/tabs/_tab_panel_home.volt' %}
                     </div>
                 </div>
 

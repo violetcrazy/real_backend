@@ -17,12 +17,9 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th width="5%">
-                        </th>
+                        <th width="5%">ID</th>
                         <th>Tên</th>
-                        <th width="15%">Mô tả</th>
-                        <th width="10%">Click</th>
-                        <th width="10%">Hình ảnh</th>
+                        <th width="10%">Số Click</th>
                         <th width="10%">Trạng thái</th>
                     </tr>
                 </thead>
@@ -41,15 +38,7 @@
                                     {{ item.url }}
                                 </td>
                                 <td>
-                                    {{ item.description }}
-                                </td>
-                                <td>
                                     {{ item.click }}
-                                </td>
-                                <td>
-                                    {% if item.image is defined and item.image != '' %}
-                                        <img width="120px" src="{{ config.asset.frontend_url ~ 'upload/banner/' ~ item.image }}" alt="{{ item.name }}" />
-                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ statusSelect[item.status] }}

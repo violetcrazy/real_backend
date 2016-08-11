@@ -15,7 +15,7 @@
                 {% include 'default/banner/_form.volt' %}
                 <div class="form-group">
                     <label class="col-sm-2 control-label"></label>
-                    <div class="col-sm-5">
+                    <div class="text-right col-sm-10">
                         <button type="submit" class="btn btn-bricky">
                             Cập nhật
                         </button>

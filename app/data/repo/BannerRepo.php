@@ -38,7 +38,7 @@ class BannerRepo extends \ITECH\Data\Model\BannerModel
         if (isset($params['order'])) {
             $b->orderBy($params['order']);
         } else {
-            $b->orderBy('b1.id DESC');
+            $b->orderBy('b1.updated_at DESC');
         }
 
         $paginator = new \Phalcon\Paginator\Adapter\QueryBuilder(array(

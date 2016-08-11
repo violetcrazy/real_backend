@@ -81,46 +81,6 @@ class BannerController extends \ITECH\Admin\Controller\BaseController
             if (!$form->isValid()) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
-                if ($this->request->hasFiles()) {
-                    $file = $this->request->getUploadedFiles();
-
-                    if (isset($file[0]) && $file[0]->getName() != '') {
-                        $resource = array(
-                            'name' => $file[0]->getName(),
-                            'type' => $file[0]->getType(),
-                            'tmp_name' => $file[0]->getTempName(),
-                            'error' => $file[0]->getError(),
-                            'size' => $file[0]->getSize()
-                        );
-                        list($width, $height, $type, $attr) = getimagesize($file[0]->getTempName());
-
-                        $group_id = $this->request->getPost('group_id');
-                        $group = \ITECH\Data\Model\GroupModel::findFirst(array(
-                            'conditions' => 'id = :id:',
-                            'bind' => array(
-                                'id' => $group_id
-                            )
-                        ));
-
-                        if (isset($group_id->width) && $group_id->width != '') {
-                            $size = $group_id->width;
-                        } else {
-                            if (isset($width)) {
-                                $size = $width;
-                            } else {
-                                $size = (int)940;
-                            }
-                        }
-
-                        $response = parent::uploadImageToLocal(ROOT . '/web/admin/asset/upload/', '', $size, $resource);
-                        if (!empty($response['status']) && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
-                            $banner->image = date('Y') . '/' . date('m') . '/' . date('d') . '/' . $response['result'];
-                            parent::uploadImageToCdn(ROOT . '/web/admin/asset/images/', 'banner', $banner->image);
-                            parent::deleteImageFromLocal(ROOT . '/web/admin/asset/images/', $banner->image);
-                        }
-                    }
-                }
-
                 $banner->name = $this->request->getPost('name');
                 $banner->slug = \ITECH\Data\Lib\Util::slug($banner->name);
                 $banner->created_by = $userSession['id'];
@@ -128,6 +88,7 @@ class BannerController extends \ITECH\Admin\Controller\BaseController
                 $banner->created_at = date('Y-m-d H:i:s');
                 $banner->updated_at = date('Y-m-d H:i:s');
 
+                $banner->image = json_encode($this->request->getPost('image'));
                 if (!$banner->create()) {
                     $messages = $banner->getMessages();
                     if (isset($messages[0])) {
@@ -174,54 +135,13 @@ class BannerController extends \ITECH\Admin\Controller\BaseController
             if (!$form->isValid()) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
-                if ($this->request->hasFiles()) {
-                    $file = $this->request->getUploadedFiles();
-
-                    if (isset($file[0]) && $file[0]->getName() != '') {
-                        $resource = array(
-                            'name' => $file[0]->getName(),
-                            'type' => $file[0]->getType(),
-                            'tmp_name' => $file[0]->getTempName(),
-                            'error' => $file[0]->getError(),
-                            'size' => $file[0]->getSize()
-                        );
-                        list($width, $height, $type, $attr) = getimagesize($file[0]->getTempName());
-
-                        $group_id = $this->request->getPost('group_id');
-                        $group = \ITECH\Data\Model\GroupModel::findFirst(array(
-                            'conditions' => 'id = :id:',
-                            'bind' => array(
-                                'id' => $group_id
-                            )
-                        ));
-
-                        if (isset($group_id->width) && $group_id->width != '') {
-                            $size = $group_id->width;
-                        } else {
-                            if (isset($width)) {
-                                $size = $width;
-                            } else {
-                                $size = (int)940;
-                            }
-                        }
-
-                        $response = parent::uploadImageToLocal(ROOT . '/web/admin/asset/upload/', '', $size, $resource);
-
-                        if (!empty($response['status']) && $response['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
-                            $banner->image = $response['result'];
-                            parent::uploadImageToCdn(ROOT . '/web/admin/asset/upload/', 'banner', $banner->image);
-                            parent::deleteImageFromLocal(ROOT . '/web/admin/asset/upload/', $banner->image);
-                            $banner->image = date('Y') . '/' . date('m') . '/' . date('d') . '/' . $banner->image;
-                        }
-                    }
-                }
-
                 $banner->name = $this->request->getPost('name');
                 $banner->slug = \ITECH\Data\Lib\Util::slug($banner->name);
                 $banner->created_by = $userSession['id'];
                 $banner->updated_by = $userSession['id'];
                 $banner->created_at = date('Y-m-d H:i:s');
                 $banner->updated_at = date('Y-m-d H:i:s');
+                $banner->image = json_encode($this->request->getPost('image'));
 
                 if (!$banner->update()) {
                     $messages = $banner->getMessages();
@@ -237,7 +157,8 @@ class BannerController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'form' => $form,
-            'banner' => $banner
+            'banner' => $banner,
+            'imageList' => json_decode($banner->image)
         ));
 
         $this->view->pick(parent::$theme . '/banner/edit');
