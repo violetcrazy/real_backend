@@ -56,8 +56,8 @@ $parameters = array(
     ),
     'asset' => array(
         'download'       => 'http://localhost.admin.land.com/asset/download/',
-        'version'        => '201608080825',
-        'mobile_version' => '201608080825',
+        'version'        => '20160813_0024',
+        'mobile_version' => '20160813_0024',
         'frontend_url'   => 'http://localhost.cdn.land.com/asset/frontend/',
         'backend_url'    => 'http://localhost.cdn.land.com/asset/backend/'
     ),

@@ -334,6 +334,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'description_eng',
                         'default_image',
                         'images',
+                        'image_map',
+                        'image_perspective',
                         'property_type',
                         'property_view',
                         'property_utility',
@@ -375,7 +377,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
                                     if (!is_null($cell) && $i > 0) {
                                         $value = $cell->getCalculatedValue();
-                                        if ($keyMap[$i] == 'images') {
+                                        if ( $keyMap[$i] == 'images' || $keyMap[$i] == 'image_map' || $keyMap[$i] == 'image_perspective' ) {
                                             $data[$keyMap[$i]] = explode(',', $value);
                                         } else {
                                             $data[$keyMap[$i]] = $value;
@@ -430,9 +432,10 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
                                     if ($project->create()) {
                                         // IMAGE
-                                        $messageImage = array();
+                                        $rImage = array();
+                                        $_images = array();
+
                                         if ($project->id && isset($data['images'])) {
-                                            $_images = array();
                                             foreach ($data['images'] as $_image) {
                                                 $_images[] = array(
                                                     'image' => $_image,
@@ -445,12 +448,32 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                                 'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
                                                 'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
                                             );
-                                            $messageImage = parent::saveMapImage(array(
-                                                'images' => $_images,
-                                                'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT,
-                                                'item_id' => (int)$project->id
-                                            ));
                                         }
+
+                                        if ($project->id && isset($data['image_map'])) {
+                                            foreach ($data['image_map'] as $_image) {
+                                                $_images[] = array(
+                                                    'image' => $_image,
+                                                    'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR,
+                                                    'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_MAP,
+                                                );
+                                            }
+                                        }
+                                        if ($project->id && isset($data['image_perspective'])) {
+                                            foreach ($data['image_perspective'] as $_image) {
+                                                $_images[] = array(
+                                                    'image' => $_image,
+                                                    'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D,
+                                                    'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                );
+                                            }
+                                        }
+
+                                        $rImage = parent::saveMapImage(array(
+                                            'images' => $_images,
+                                            'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT,
+                                            'item_id' => (int)$project->id
+                                        ));
                                         // IMAGE
 
                                         //ATTR
@@ -576,6 +599,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'apartment_count',
                         'default_image',
                         'images',
+                        'image_map',
+                        'image_perspective',
                         'direction',
                         'total_area',
                         'green_area',
@@ -617,7 +642,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
                                     if (!is_null($cell) && $i > 0) {
                                         $value = $cell->getCalculatedValue();
-                                        if ($keyMap[$i] == 'images') {
+                                        if ( $keyMap[$i] == 'images' || $keyMap[$i] == 'image_map' || $keyMap[$i] == 'image_perspective' ) {
                                             $data[$keyMap[$i]] = explode(',', $value);
                                         } else {
                                             $data[$keyMap[$i]] = $value;
@@ -678,8 +703,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                     if ($block->create()) {
                                         // IMAGE
                                         $messageImage = array();
+                                        $_images = array();
                                         if ($block->id && isset($data['images'])) {
-                                            $_images = array();
                                             foreach ($data['images'] as $_image) {
                                                 $_images[] = array(
                                                     'image' => $_image,
@@ -692,13 +717,33 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                                 'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
                                                 'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
                                             );
-
-                                            $messageImage = parent::saveMapImage(array(
-                                                'images' => $_images,
-                                                'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK,
-                                                'item_id' => (int)$block->id
-                                            ));
                                         }
+
+                                        if ($block->id && isset($data['image_map'])) {
+                                            foreach ($data['image_map'] as $_image) {
+                                                $_images[] = array(
+                                                    'image' => $_image,
+                                                    'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR,
+                                                    'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_MAP,
+                                                );
+                                            }
+                                        }
+
+                                        if ($block->id && isset($data['image_perspective'])) {
+                                            foreach ($data['image_perspective'] as $_image) {
+                                                $_images[] = array(
+                                                    'image' => $_image,
+                                                    'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D,
+                                                    'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                );
+                                            }
+                                        }
+
+                                        $messageImage = parent::saveMapImage(array(
+                                            'images' => $_images,
+                                            'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK,
+                                            'item_id' => (int)$block->id
+                                        ));
                                         // IMAGE
 
                                         //ATTR
@@ -846,6 +891,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'description_eng',
                         'default_image',
                         'images',
+                        'image_map',
+                        'image_perspective',
                         'bedroom_count',
                         'bathroom_count',
                         'type',
@@ -888,7 +935,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
                                     if (!is_null($cell) && $i > 0) {
                                         $value = $cell->getCalculatedValue();
-                                        if ($keyMap[$i] == 'images') {
+                                        if ( $keyMap[$i] == 'images' || $keyMap[$i] == 'image_map' || $keyMap[$i] == 'image_perspective' ) {
                                             $data[$keyMap[$i]] = explode(',', $value);
                                         } else {
                                             $data[$keyMap[$i]] = $value;
@@ -1042,8 +1089,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                         if ($apartment->create()) {
                                             // IMAGE
                                             $messageImage = array();
+                                            $_images = array();
                                             if ($apartment->id && $validator->getValue('images')) {
-                                                $_images = array();
                                                 foreach ($validator->getValue('images') as $_image) {
                                                     $_images[] = array(
                                                         'image' => $_image,
@@ -1056,13 +1103,33 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                                     'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
                                                     'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
                                                 );
-
-                                                $messageImage = parent::saveMapImage(array(
-                                                    'images' => $_images,
-                                                    'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_APARTMENT,
-                                                    'item_id' => (int)$apartment->id
-                                                ));
                                             }
+
+                                            if ($apartment->id && isset($data['image_map'])) {
+                                                foreach ($data['image_map'] as $_image) {
+                                                    $_images[] = array(
+                                                        'image' => $_image,
+                                                        'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR,
+                                                        'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                    );
+                                                }
+                                            }
+
+                                            if ($apartment->id && isset($data['image_perspective'])) {
+                                                foreach ($data['image_perspective'] as $_image) {
+                                                    $_images[] = array(
+                                                        'image' => $_image,
+                                                        'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D,
+                                                        'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                    );
+                                                }
+                                            }
+
+                                            $messageImage = parent::saveMapImage(array(
+                                                'images' => $_images,
+                                                'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_APARTMENT,
+                                                'item_id' => (int)$apartment->id
+                                            ));
                                             // IMAGE
 
                                             //ATTR
@@ -1182,6 +1249,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'description_eng',
                         'default_image',
                         'images',
+                        'image_map',
+                        'image_perspective',
                         'bedroom_count',
                         'bathroom_count',
                         'type',
@@ -1223,7 +1292,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
                                     if (!is_null($cell)) {
                                         $value = $cell->getCalculatedValue();
-                                        if ($keyMap[$i] == 'images') {
+                                        if ( $keyMap[$i] == 'images' || $keyMap[$i] == 'image_map' || $keyMap[$i] == 'image_perspective' ) {
                                             $data[$keyMap[$i]] = explode(',', $value);
                                         } else {
                                             $data[$keyMap[$i]] = $value;
@@ -1370,8 +1439,8 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                         if ($apartment->update()) {
                                             // IMAGE
                                             $messageImage = array();
+                                            $_images = array();
                                             if ($apartment->id && isset($data['images'])) {
-                                                $_images = array();
                                                 foreach ($data['images'] as $_image) {
                                                     $_images[] = array(
                                                         'image' => $_image,
@@ -1384,13 +1453,33 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                                     'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_THUMBNAIL,
                                                     'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
                                                 );
-
-                                                $messageImage = parent::saveMapImage(array(
-                                                    'images' => $_images,
-                                                    'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_APARTMENT,
-                                                    'item_id' => (int)$apartment->id
-                                                ));
                                             }
+
+                                            if ($apartment->id && isset($data['image_map'])) {
+                                                foreach ($data['image_map'] as $_image) {
+                                                    $_images[] = array(
+                                                        'image' => $_image,
+                                                        'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR,
+                                                        'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                    );
+                                                }
+                                            }
+
+                                            if ($apartment->id && isset($data['image_perspective'])) {
+                                                foreach ($data['image_perspective'] as $_image) {
+                                                    $_images[] = array(
+                                                        'image' => $_image,
+                                                        'type' => \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D,
+                                                        'position' => \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_IMAGE,
+                                                    );
+                                                }
+                                            }
+
+                                            $messageImage = parent::saveMapImage(array(
+                                                'images' => $_images,
+                                                'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_APARTMENT,
+                                                'item_id' => (int)$apartment->id
+                                            ));
                                             // IMAGE
 
                                             //ATTR
@@ -1606,9 +1695,19 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                     'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_APARTMENT,
                     'item_id' => (int)$apartment->id
                 ));
-                $apartment->images = '';
+                $apartment->images = array(
+                    'images' => '',
+                    'image_map' => '',
+                    'image_perspective' => ''
+                );
                 foreach ($mapImage as $item) {
-                    $apartment->images .= $item->image . ', ';
+                    if ($item->type == \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_GALLERY) {
+                        $apartment->images['images'] .= $item->image . ', ';
+                    } else if($item->type == \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR) {
+                        $apartment->images['image_map'] .= $item->image . ', ';
+                    } else if($item->type == \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D){
+                        $apartment->images['image_perspective'] .= $item->image . ', ';
+                    }
                 }
 
                 $apartment->property_type = $apartmentPropertyType;

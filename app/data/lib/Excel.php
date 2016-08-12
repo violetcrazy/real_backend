@@ -200,8 +200,10 @@ class Excel
             '[EN] Mô tả vị trí',
             '[VI] Mô tả',
             '[EN] Mô tả',
-            'Hình đại diện',
-            'Hinh ảnh',
+            'Hình đại diện ( 1 hình duy nhất )',
+            'Bộ sưu tập',
+            'Sơ đồ mặt bằng',
+            'Phối cảnh',
             'Số phòng ngủ',
             'Số phòng tắm',
             'Loại',
@@ -256,22 +258,24 @@ class Excel
                     ->setCellValue($keyCell[17] . $i, $apartment->description)
                     ->setCellValue($keyCell[18] . $i, $apartment->description_eng)
                     ->setCellValue($keyCell[19] . $i, $apartment->default_image)
-                    ->setCellValue($keyCell[20] . $i, $apartment->images)
-                    ->setCellValue($keyCell[21] . $i, $apartment->bedroom_count)
-                    ->setCellValue($keyCell[22] . $i, $apartment->bathroom_count)
-                    ->setCellValue($keyCell[23] . $i, $apartment->type)
-                    ->setCellValue($keyCell[24] . $i, $apartment->direction)
-                    ->setCellValue($keyCell[25] . $i, $apartment->adults_count)
-                    ->setCellValue($keyCell[26] . $i, $apartment->children_count)
-                    ->setCellValue($keyCell[27] . $i, $apartment->property_type)
-                    ->setCellValue($keyCell[28] . $i, $apartment->property_view)
-                    ->setCellValue($keyCell[29] . $i, $apartment->property_utility)
-                    ->setCellValue($keyCell[30] . $i, $apartment->meta_title)
-                    ->setCellValue($keyCell[31] . $i, $apartment->meta_title_eng)
-                    ->setCellValue($keyCell[32] . $i, $apartment->meta_keywords)
-                    ->setCellValue($keyCell[33] . $i, $apartment->meta_keywords_eng)
-                    ->setCellValue($keyCell[34] . $i, $apartment->meta_description)
-                    ->setCellValue($keyCell[35] . $i, $apartment->meta_description_eng);
+                    ->setCellValue($keyCell[20] . $i, $apartment->images['images'])
+                    ->setCellValue($keyCell[21] . $i, $apartment->images['image_map'])
+                    ->setCellValue($keyCell[22] . $i, $apartment->images['image_perspective'])
+                    ->setCellValue($keyCell[23] . $i, $apartment->bedroom_count)
+                    ->setCellValue($keyCell[24] . $i, $apartment->bathroom_count)
+                    ->setCellValue($keyCell[25] . $i, $apartment->type)
+                    ->setCellValue($keyCell[26] . $i, $apartment->direction)
+                    ->setCellValue($keyCell[27] . $i, $apartment->adults_count)
+                    ->setCellValue($keyCell[28] . $i, $apartment->children_count)
+                    ->setCellValue($keyCell[29] . $i, $apartment->property_type)
+                    ->setCellValue($keyCell[30] . $i, $apartment->property_view)
+                    ->setCellValue($keyCell[31] . $i, $apartment->property_utility)
+                    ->setCellValue($keyCell[32] . $i, $apartment->meta_title)
+                    ->setCellValue($keyCell[33] . $i, $apartment->meta_title_eng)
+                    ->setCellValue($keyCell[34] . $i, $apartment->meta_keywords)
+                    ->setCellValue($keyCell[35] . $i, $apartment->meta_keywords_eng)
+                    ->setCellValue($keyCell[36] . $i, $apartment->meta_description)
+                    ->setCellValue($keyCell[37] . $i, $apartment->meta_description_eng);
             }
 
             $objPHPExcel->getActiveSheet()->setTitle('Sản phẩm');

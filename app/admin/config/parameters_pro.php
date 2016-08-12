@@ -50,12 +50,14 @@ $parameters = array(
         'upload_media_url' => 'http://cdnjinn.codex4u.com/upload',
         'upload_image_url' => 'http://cdnjinn.codex4u.com/image/upload',
         'delete_image_url' => 'http://cdnjinn.codex4u.com/image/delete',
-        'dir_upload'       => 'http://cdnjinn.codex4u.com/asset/frontend/upload/stories/'
+        'dir_upload'       => 'http://localhost.cdn.land.com/uploads/',
+        'file_upload'       => 'http://localhost.cdn.land.com/',
+        'file_url'       => 'http://localhost.cdn.land.com/uploads/'
     ),
     'asset' => array(
         'download'       => 'http://adminjinn.codex4u.com/asset/download/',
-        'version'        => '201608080825',
-        'mobile_version' => '201608080825',
+        'version'        => '20160813_0024',
+        'mobile_version' => '20160813_0024',
         'frontend_url'   => 'http://cdnjinn.codex4u.com/asset/frontend/',
         'backend_url'    => 'http://cdnjinn.codex4u.com/asset/backend/'
     ),
