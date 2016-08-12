@@ -90,11 +90,11 @@
 
 <div class="form-group">
     <label class="col-sm-3 control-label">
-        Block/khu
+        Block/Khu
     </label>
     <div class="col-sm-5">
         <select required name="block_id" id="list_block_apartment" class="form-control">
-            <option value="">Chọn block/khu</option>
+            <option value="">Chọn Block/Khu</option>
             {% if listBlocks is defined and listBlocks['result']|length %}
                 {% for _block in listBlocks['result'] %}
                     <option {{ block_id is defined and _block['id'] == block_id ? 'selected' : '' }} value="{{ _block['id'] }}">{{ _block['name'] }}</option>

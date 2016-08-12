@@ -51,8 +51,8 @@ $parameters = array(
         'upload_image_url' => 'http://localhost.cdn.land.com/image/upload',
         'delete_image_url' => 'http://localhost.cdn.land.com/image/delete',
         'dir_upload'       => 'http://localhost.cdn.land.com/uploads/',
-        'file_upload'       => 'http://localhost.cdn.land.com/',
-        'file_url'       => 'http://localhost.cdn.land.com/uploads/'
+        'file_upload'      => 'http://localhost.cdn.land.com/',
+        'file_url'         => 'http://localhost.cdn.land.com/uploads/'
     ),
     'asset' => array(
         'download'       => 'http://localhost.admin.land.com/asset/download/',

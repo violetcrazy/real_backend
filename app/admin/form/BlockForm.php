@@ -17,6 +17,35 @@ class BlockForm extends \Phalcon\Forms\Form
             $options_project[$project['id']] = $project['name'];
         }
 
+        $permissionProjects = [];
+
+        if (isset($options['userSession'])) {
+            if ($options['userSession']['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+                $userProjects = \ITECH\Data\Model\UserProjectModel::find([
+                    'conditions' => 'userId = :userId:',
+                    'bind'       => ['userId' => $options['userSession']['id']]
+                ]);
+
+                if (count($userProjects)) {
+                    foreach ($userProjects as $item) {
+                        $permissionProjects[] = $item->projectId;
+                    }
+                }
+            }
+
+            $select = [];
+
+            if (count($options_project)) {
+                foreach ($options_project as $key => $value) {
+                    if (in_array($key, $permissionProjects)) {
+                        $select[$key] = $value;
+                    }
+                }
+
+                $options_project = $select;
+            }
+        }
+
         $project_id = new \Phalcon\Forms\Element\Select('project_id', $options_project);
         $project_id->addValidators(array(
             new \Phalcon\Validation\Validator\PresenceOf(array(
