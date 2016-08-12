@@ -141,6 +141,8 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         $page       = $this->request->getQuery('page', array('int'), 1);
         $from       = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
 
+        $project = [];
+
         // Get project ---------
         if ($this->request->hasQuery('project_id')) {
             $project = array();
@@ -159,7 +161,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         // --------- Get project
 
         $block = new \ITECH\Data\Model\BlockModel();
-        $form  = new \ITECH\Admin\Form\BlockForm($block);
+        $form  = new \ITECH\Admin\Form\BlockForm($block, ['userSession' => $userSession]);
 
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $block);
@@ -352,13 +354,13 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
     public function editAction()
     {
-        $userSession = $this->session->get('USER');
+        $userSession     = $this->session->get('USER');
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
 
         $projectId = $this->request->getPost('project_id', array('int'), '');
-        $id = $this->request->getQuery('id', array('int'), '');
-        $page = $this->request->getQuery('page', array('int'), 1);
-        $from = $this->request->getQuery('from', array('striptags', 'trim'), '');
+        $id        = $this->request->getQuery('id', array('int'), '');
+        $page      = $this->request->getQuery('page', array('int'), 1);
+        $from      = $this->request->getQuery('from', array('striptags', 'trim'), '');
 
         // Get block ---------
         $url = $this->config->application->api_url . 'block/detail?id=' . $id . '&cache=false&type=' . \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR . '&authorized_token=' . $authorizedToken;
@@ -397,40 +399,40 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
                 $attributeUtilityEng[] = $item['name'];
             }
 
-            $block->id = $r['result']['id'];
-            $block->name = $r['result']['name'];
-            $block->name_eng = $r['result']['name_eng'];
-            $block->shortname = $r['result']['shortname'];
-            $block->floor_name_list = $r['result']['floor_name_list'];
-            $block->apartment_name_list = $r['result']['apartment_name_list'];
-            $block->default_image = $r['result']['default_image'];
-            $block->floor_count = $r['result']['floor_count'];
-            $block->apartment_count = $r['result']['apartment_count'];
-            $block->price = $r['result']['price'];
-            $block->price_eng = $r['result']['price_eng'];
-            $block->gallery = json_decode($r['result']['gallery']);
-            $block->direction = $r['result']['direction'];
-            $block->attribute_type = implode(',', $attributeType);
-            $block->attribute_type_eng = implode(',', $attributeTypeEng);
-            $block->attribute_view = implode(',', $attributeView);
-            $block->attribute_view_eng = implode(',', $attributeViewEng);
-            $block->attribute_utility = implode(',', $attributeUtility);
+            $block->id                    = $r['result']['id'];
+            $block->name                  = $r['result']['name'];
+            $block->name_eng              = $r['result']['name_eng'];
+            $block->shortname             = $r['result']['shortname'];
+            $block->floor_name_list       = $r['result']['floor_name_list'];
+            $block->apartment_name_list   = $r['result']['apartment_name_list'];
+            $block->default_image         = $r['result']['default_image'];
+            $block->floor_count           = $r['result']['floor_count'];
+            $block->apartment_count       = $r['result']['apartment_count'];
+            $block->price                 = $r['result']['price'];
+            $block->price_eng             = $r['result']['price_eng'];
+            $block->gallery               = json_decode($r['result']['gallery']);
+            $block->direction             = $r['result']['direction'];
+            $block->attribute_type        = implode(',', $attributeType);
+            $block->attribute_type_eng    = implode(',', $attributeTypeEng);
+            $block->attribute_view        = implode(',', $attributeView);
+            $block->attribute_view_eng    = implode(',', $attributeViewEng);
+            $block->attribute_utility     = implode(',', $attributeUtility);
             $block->attribute_utility_eng = implode(',', $attributeUtilityEng);
-            $block->description = $r['result']['description'];
-            $block->description_eng = $r['result']['description_eng'];
-            $block->policy = $r['result']['policy'];
-            $block->policy_eng = $r['result']['policy_eng'];
-            $block->total_area = $r['result']['total_area'];
-            $block->green_area = $r['result']['green_area'];
-            $block->status = $r['result']['status'];
-            $block->project_id = $r['result']['project']['id'];
-            $block->project_name = $r['result']['project']['name'];
-            $block->meta_title = $r['result']['meta_title'];
-            $block->meta_title_eng = $r['result']['meta_title_eng'];
-            $block->meta_keywords = $r['result']['meta_keywords'];
-            $block->meta_keywords_eng = $r['result']['meta_keywords_eng'];
-            $block->meta_description = $r['result']['meta_description'];
-            $block->meta_description_eng = $r['result']['meta_description_eng'];
+            $block->description           = $r['result']['description'];
+            $block->description_eng       = $r['result']['description_eng'];
+            $block->policy                = $r['result']['policy'];
+            $block->policy_eng            = $r['result']['policy_eng'];
+            $block->total_area            = $r['result']['total_area'];
+            $block->green_area            = $r['result']['green_area'];
+            $block->status                = $r['result']['status'];
+            $block->project_id            = $r['result']['project']['id'];
+            $block->project_name          = $r['result']['project']['name'];
+            $block->meta_title            = $r['result']['meta_title'];
+            $block->meta_title_eng        = $r['result']['meta_title_eng'];
+            $block->meta_keywords         = $r['result']['meta_keywords'];
+            $block->meta_keywords_eng     = $r['result']['meta_keywords_eng'];
+            $block->meta_description      = $r['result']['meta_description'];
+            $block->meta_description_eng  = $r['result']['meta_description_eng'];
         } else {
             if (isset($r['message'])) {
                 throw new \Phalcon\Exception($r['message']);
@@ -440,7 +442,8 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         }
         // --------- Get block
 
-        $form = new \ITECH\Admin\Form\BlockForm($block);
+        $form = new \ITECH\Admin\Form\BlockForm($block, ['userSession' => $userSession]);
+
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $block);
 
@@ -449,7 +452,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             } else {
                 $type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
 
-                $floorNameList = '';
+                $floorNameList     = '';
                 $apartmentNameList = '';
 
                 if ($this->request->getPost('floor_name_list')) {
@@ -480,7 +483,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
                 if ($this->request->getPost('gallery')) {
                     $galleryPost = array_unique($this->request->getPost('gallery'));
                     $galleryPost = array_map('trim', $galleryPost);
-                    $gallery = json_encode($galleryPost);
+                    $gallery     = json_encode($galleryPost);
                 }
 
                 $url = $this->config->application->api_url . 'block/detail?id=' . $block->id . '&cache=false&authorized_token=' . $authorizedToken . '&type=' . $type;

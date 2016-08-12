@@ -117,21 +117,24 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
     public function addAction()
     {
         $userSession = $this->session->get('USER');
-        $blockId = $this->request->getQuery('block_id', array('int'), -1);
-        $page = $this->request->getQuery('page', array('int'), 1);
-        $from = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
+        $blockId     = $this->request->getQuery('block_id', array('int'), -1);
+        $page        = $this->request->getQuery('page', array('int'), 1);
+        $from        = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
+
         if ($this->request->hasPost('block_id')) {
             $blockId = $this->request->getPost('block_id', array('int'), -1);
         }
+
         // Get block ---------
         $block = \ITECH\Data\Model\BlockModel::findFirst($blockId);
-//        if (!$block) {
-//            throw new \Phalcon\Exception('Không tồn tại block này.');
-//        }
+
+        if (!$block) {
+            $block = new \ITECH\Data\Model\BlockModel;
+        }
         // --------- Get block
 
         $apartment = new \ITECH\Data\Model\ApartmentModel();
-        $form = new \ITECH\Admin\Form\ApartmentForm();
+        $form = new \ITECH\Admin\Form\ApartmentForm($block);
 
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $apartment);
@@ -408,16 +411,16 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         $projects = $loadComponent->getProjectAll();
 
         $this->view->setVars(array(
-            'breadcrumbs' => $breadcrumbs,
-            'blocks' => $block,
-            'block_detail' => $block,
-            'from' => $from,
-            'form' => $form,
-            'page' => $page,
-            'projects' => $projects,
-            'propertyTypeVie' => $propertyTypeVie,
-            'propertyViewVie' => $propertyViewVie,
-            'propertyUtilityVie' => $propertyUtilityVie,
+            'breadcrumbs'        => $breadcrumbs,
+            'blocks'             => $block,
+            'block_detail'       => $block,
+            'from'               => $from,
+            'form'               => $form,
+            'page'               => $page,
+            'projects'           => $projects,
+            'propertyTypeVie'    => $propertyTypeVie,
+            'propertyViewVie'    => $propertyViewVie,
+            'propertyUtilityVie' => $propertyUtilityVie
         ));
         $this->view->pick(parent::$theme . '/apartment/edit');
     }
