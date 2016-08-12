@@ -127,14 +127,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
         // Get block ---------
         $block = \ITECH\Data\Model\BlockModel::findFirst($blockId);
-
-        if (!$block) {
-            $block = new \ITECH\Data\Model\BlockModel;
-        }
         // --------- Get block
 
         $apartment = new \ITECH\Data\Model\ApartmentModel();
-        $form = new \ITECH\Admin\Form\ApartmentForm($block);
+        $form = new \ITECH\Admin\Form\ApartmentForm();
 
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $apartment);
@@ -359,56 +355,93 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         }
         // Get Attr
 
-        $breadcrumbs = [
-            [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
-                'active' => false
-            ],
-            [
-                'title' => $block->project->name,
-                'url' => $this->url->get([
-                    'for' => 'project_edit',
-                    'query' => '?id=' . $block->project->id
-                ]),
-                'active' => false
-            ],
-            [
-                'title' => $block->name,
-                'url' => $this->url->get([
-                    'for' => 'block_edit',
-                    'query' => '?id=' . $block->id
-                ]),
-                'active' => false
-            ],
-            [
-                'title' => 'Thêm sản phẩm',
-                'url' => $this->url->get([
-                    'for' => 'apartment_add'
-                ]),
-                'active' => true
-            ]
-        ];
-
         if (!isset($block['id'])) {
-            $breadcrumbs[1] = [
-                'title' => 'Danh sách dự án',
-                'url' => $this->url->get([
-                    'for' => 'project_list'
-                ]),
-                'active' => false
+            $breadcrumbs = [
+                [
+                    'title'  => 'Dashboard',
+                    'url'    => $this->config->application->base_url,
+                    'active' => false
+                ],
+                [
+                    'title'  => 'Danh sách dự án',
+                    'url'    => $this->url->get(['for' => 'project_list']),
+                    'active' => false
+                ],
+                [
+                    'title'  => 'Danh sách Block/Khu',
+                    'url'    => $this->url->get(['for' => 'block_list']),
+                    'active' => false
+                ],
+                [
+                    'title'  => 'Thêm sản phẩm',
+                    'url'    => $this->url->get(['for' => 'apartment_add']),
+                    'active' => true
+                ]
             ];
-            $breadcrumbs[2] = [
-                'title' => 'Danh sách Block/Khu',
-                'url' => $this->url->get([
-                    'for' => 'block_list'
-                ]),
-                'active' => false
+        } else {
+            $breadcrumbs = [
+                [
+                    'title'  => 'Dashboard',
+                    'url'    => $this->config->application->base_url,
+                    'active' => false
+                ],
+                [
+                    'title' => $block->project->name,
+                    'url'   => $this->url->get([
+                        'for'   => 'project_edit',
+                        'query' => '?id=' . $block->project->id
+                    ]),
+                    'active' => false
+                ],
+                [
+                    'title' => $block->name,
+                    'url'   => $this->url->get([
+                        'for'   => 'block_edit',
+                        'query' => '?id=' . $block->id
+                    ]),
+                    'active' => false
+                ],
+                [
+                    'title'  => 'Thêm sản phẩm',
+                    'url'    => $this->url->get(['for' => 'apartment_add']),
+                    'active' => true
+                ]
             ];
         }
 
         $loadComponent = new \ITECH\Admin\Component\LoadComponent();
         $projects = $loadComponent->getProjectAll();
+
+        if (isset($projects['result']) && count($projects['result'])) {
+            $options = $projects['result'];
+
+            if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+                $userProjects = \ITECH\Data\Model\UserProjectModel::find([
+                    'conditions' => 'userId = :userId:',
+                    'bind'       => ['userId' => $userSession['id']]
+                ]);
+
+                $permissionProjects = [];
+
+                if (count($userProjects)) {
+                    foreach ($userProjects as $item) {
+                        $permissionProjects[] = $item->projectId;
+                    }
+                }
+
+                if (count($options)) {
+                    $result = [];
+
+                    foreach ($options as $item) {
+                        if (in_array($item['id'], $permissionProjects)) {
+                            $result[] = $item;
+                        }
+                    }
+
+                    $projects['result'] = $result;
+                }
+            }
+        }
 
         $this->view->setVars(array(
             'breadcrumbs'        => $breadcrumbs,
