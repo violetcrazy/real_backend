@@ -143,8 +143,19 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
         $project = [];
 
+        $permissionProjects = parent::getPermissionProjects();
+
         // Get project ---------
         if ($this->request->hasQuery('project_id')) {
+            if (
+                $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+                && isset($permissionProjects['projectIds'])
+            ) {
+                if (!in_array($project_id, $permissionProjects['projectIds'])) {
+                    throw new \Exception('Bạn không có quyền với dự án này.');
+                }
+            }
+
             $project = array();
             $url = $this->config->application->api_url . 'project/detail';
             $get = array(
@@ -169,6 +180,16 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             // Get project ---------
             if ($this->request->hasPost('project_id')) {
                 $project_id = $this->request->getPost('project_id');
+
+                if (
+                    $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+                    && isset($permissionProjects['projectIds'])
+                ) {
+                    if (!in_array($project_id, $permissionProjects['projectIds'])) {
+                        throw new \Exception('Bạn không có quyền với dự án này.');
+                    }
+                }
+
                 $project = array();
                 $url = $this->config->application->api_url . 'project/detail';
                 $get = array(
