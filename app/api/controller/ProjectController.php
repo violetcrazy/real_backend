@@ -1172,13 +1172,8 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         }
 
         $attributeType = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $project['id'], 1, $cache);
-        $attributeTypeEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $project['id'], 2, $cache);
-
         $attributeView = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $project['id'], 1, $cache);
-        $attributeViewEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $project['id'], 2, $cache);
-
         $attributeUtility = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $project['id'], 1, $cache);
-        $attributeUtilityEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $project['id'], 2, $cache);
 
         $mapImageList = \ITECH\Data\Model\MapImageModel::find(array(
             'conditions' => 'item_id = :item_id: AND module = :module:',
@@ -1189,38 +1184,47 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         );
 
         $mapViewList = array();
-        if (count($mapImageList)) {
+        $galleries = array();
+        if (count($mapImageList) && $mapImageList) {
             foreach ($mapImageList as $item) {
-                $mapList = \ITECH\Data\Model\MapModel::find(array(
-                    'conditions' => 'map_image_id = :map_image_id:',
-                    'bind' => array(
-                        'map_image_id' => $item->id
-                    ))
-                );
-
                 $reMap = array();
-                if (count($mapList)) {
-                    foreach ($mapList as $itemMap) {
-                        if (count(json_decode($itemMap->point))) {
-                            $viewMap = array();
-                            foreach (json_decode($itemMap->point) as $key => $value) {
-                                if (is_object($value)) {
-                                    $viewMap['data-maphilight'] = json_encode($value);
-                                } else {
-                                    $viewMap[$key] = $value;
-                                }
-                            }
+                if ($item->type == \ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_FLOOR && $item->position == \ITECH\Data\Lib\Constant::MAP_IMAGE_POSITION_MAP) {
+                    $mapList = \ITECH\Data\Model\MapModel::find(array(
+                        'conditions' => 'map_image_id = :map_image_id:',
+                        'bind' => array(
+                            'map_image_id' => $item->id
+                        ))
+                    );
 
-                            $reMap[$itemMap->item_id] = $viewMap;
+                    if (count($mapList) && $mapList) {
+                        foreach ($mapList as $itemMap) {
+                            if (count(json_decode($itemMap->point))) {
+                                $viewMap = array();
+                                foreach (json_decode($itemMap->point) as $key => $value) {
+                                    if (is_object($value)) {
+                                        $viewMap['data-maphilight'] = json_encode($value);
+                                    } else {
+                                        $viewMap[$key] = $value;
+                                    }
+                                }
+
+                                $reMap[$itemMap->item_id] = $viewMap;
+                            }
                         }
                     }
-                }
 
-                $mapViewList[] = array(
-                    'id' => (int)$item->id,
-                    'image' => $item->image,
-                    'view_map' => $reMap
-                );
+                    $mapViewList[] = array(
+                        'id' => (int)$item->id,
+                        'image' => $item->image,
+                        'view_map' => $reMap
+                    );
+                } else {
+                    $galleries[$item->type][] = array(
+                        'id' => (int)$item->id,
+                        'image' => $item->image,
+                        'view_map' => $reMap
+                    );
+                }
             }
         }
 
@@ -1432,11 +1436,12 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
                 'status' => (int)$project->status,
                 'created_by' => (int)$project->created_by,
                 'map_view' => $mapViewList,
+                'galleries' => $galleries,
                 'blocks' => $blockList
             ),
         );
         RETURN_RESPONSE:
-            return parent::outputJSON($response);
+            parent::outputJSON($response);
     }
 
     public function otherProjectAction()

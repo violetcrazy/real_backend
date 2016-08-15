@@ -16,18 +16,18 @@ class MapModel extends \ITECH\Data\Model\BaseModel
 
     public function validation()
     {
-        $this->validate(new \Phalcon\Mvc\Model\Validator\Uniqueness(array(
-            'field' => [
-                'map_image_id',
-                'item_id'
-            ],
-            'message' => 'Block - Khu này đã được MapLink'
-        )));
-
-        if ($this->validationHasFailed()) {
-            return false;
-        }
-
-        return true;
+//        $this->validate(new \Phalcon\Mvc\Model\Validator\Uniqueness(array(
+//            'field' => [
+//                'map_image_id',
+//                'item_id'
+//            ],
+//            'message' => 'Block - Khu này đã được MapLink'
+//        )));
+//
+//        if ($this->validationHasFailed()) {
+//            return false;
+//        }
+//
+//        return true;
     }
 }

@@ -31,7 +31,9 @@ $parameters = array(
         'pagination_limit'         => 15,
         'template_excel_project'   => 'http://adminjinn.codex4u.com/asset/download/new_template_project.xlsx',
         'template_excel_block'     => 'http://adminjinn.codex4u.com/asset/download/new_template_block.xlsx',
-        'template_excel_apartment' => 'http://adminjinn.codex4u.com/asset/download/new_template_apartment.xlsx'
+        'template_excel_apartment' => 'http://adminjinn.codex4u.com/asset/download/new_template_apartment.xlsx',
+        'session_domain' => '.jinn.vn',
+        'session_name' => 'jinn',
     ),
     'volt' => array(
         'debug'              => true,

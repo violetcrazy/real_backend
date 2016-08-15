@@ -47,8 +47,9 @@ function MapImage()
         var img = new Image;
         img.src=this.src;
         img.onload=function(){
-            parent.imageWidth = this.width;
-            parent.imageHeight = this.height;
+            var ratio = this.width / this.height;
+            parent.imageWidth = this.width > 940 ? 940 : this.width;
+            parent.imageHeight = this.width > 940 ? 940/ratio : this.height;
             parent.createImage();
         };
     };

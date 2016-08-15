@@ -194,7 +194,10 @@ try {
         return $security;
     });
 
-    $di->setShared('session', function () {
+    $di->setShared('session', function() use ($config){
+        session_name($config->application->session_name);
+        ini_set('session.cookie_domain', $config->application->session_domain);
+
         $session = new \Phalcon\Session\Adapter\Files();
         $session->start();
 

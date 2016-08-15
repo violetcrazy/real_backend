@@ -45,7 +45,7 @@ $parameter = array(
     'cdn' => array(
         'upload_image_url' => 'http://cdn.jinn.vn/image/upload',
         'delete_image_url' => 'http://cdn.jinn.vn/image/delete',
-        'dir_upload' => 'http://cdn.jinn.vn/asset/frontend/upload/stories/',
+        'dir_upload' => 'http://cdn.jinn.vn/uploads/',
         'icon_image_url' => 'http://cdn.jinn.vn/asset/frontend/upload/icon/'
     ),
     'asset' => array(
