@@ -31,18 +31,18 @@ class BlockForm extends \Phalcon\Forms\Form
                         $permissionProjects[] = $item->projectId;
                     }
                 }
-            }
 
-            $select = [];
+                $select = [];
 
-            if (count($options_project)) {
-                foreach ($options_project as $key => $value) {
-                    if (in_array($key, $permissionProjects)) {
-                        $select[$key] = $value;
+                if (count($options_project)) {
+                    foreach ($options_project as $key => $value) {
+                        if (in_array($key, $permissionProjects)) {
+                            $select[$key] = $value;
+                        }
                     }
-                }
 
-                $options_project = $select;
+                    $options_project = $select;
+                }
             }
         }
 
