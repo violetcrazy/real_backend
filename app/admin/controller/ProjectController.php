@@ -118,6 +118,8 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
     public function editAction()
     {
+        $userSession = $this->session->get('USER');
+
         $id   = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
 
@@ -128,6 +130,17 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         if (!$project) {
             throw new \Exception('Không tồn tại dự án này.');
+        }
+
+        $permissionProjects = parent::getPermissionProjects();
+
+        if (
+            $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+            && isset($permissionProjects['projectIds'])
+        ) {
+            if (!in_array($id, $permissionProjects['projectIds'])) {
+                throw new \Exception('Bạn không có quyền với dự án này.');
+            }
         }
 
         $direction = \ITECH\Data\Lib\Constant::getDirection();

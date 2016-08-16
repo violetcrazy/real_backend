@@ -383,6 +383,8 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         $page      = $this->request->getQuery('page', array('int'), 1);
         $from      = $this->request->getQuery('from', array('striptags', 'trim'), '');
 
+        $permissionProjects = parent::getPermissionProjects();
+
         // Get block ---------
         $url = $this->config->application->api_url . 'block/detail?id=' . $id . '&cache=false&type=' . \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR . '&authorized_token=' . $authorizedToken;
 
@@ -463,6 +465,15 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         }
         // --------- Get block
 
+        if (
+            $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+            && isset($permissionProjects['projectIds'])
+        ) {
+            if (!in_array($block->project_id, $permissionProjects['projectIds'])) {
+                throw new \Exception('Bạn không có quyền với dự án này.');
+            }
+        }
+
         $form = new \ITECH\Admin\Form\BlockForm($block, ['userSession' => $userSession]);
 
         if ($this->request->isPost()) {
@@ -471,6 +482,15 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             if (!$form->isValid()) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
+                if (
+                    $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+                    && isset($permissionProjects['projectIds'])
+                ) {
+                    if (!in_array($projectId, $permissionProjects['projectIds'])) {
+                        throw new \Exception('Bạn không có quyền với dự án này.');
+                    }
+                }
+
                 $type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
 
                 $floorNameList     = '';
@@ -697,22 +717,32 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
     public function deleteAction()
     {
-        //$userSession = $this->session->get('USER');
+        $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
 
         $block = \ITECH\Data\Model\BlockModel::findFirst(array(
             'conditions' => 'id = :id:',
-            'bind' => array(
-                'id' => $id
-            )
+            'bind' => array('id' => $id)
         ));
 
         if (!$block) {
             throw new \Phalcon\Exception('Không tồn tại sản phẩm này.');
         }
 
+        $permissionProjects = parent::getPermissionProjects();
+
+        if (
+            $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+            && isset($permissionProjects['projectIds'])
+        ) {
+            if (!in_array($block->project_id, $permissionProjects['projectIds'])) {
+                throw new \Exception('Bạn không có quyền với dự án này.');
+            }
+        }
+
         $block->status = \ITECH\Data\Lib\Constant::CATEGORY_STATUS_REMOVED;
         $this->db->begin();
+
         try {
             if (!$block->update()) {
                 $messages = $block->getMessages();

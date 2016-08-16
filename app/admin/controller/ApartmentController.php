@@ -138,7 +138,6 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             if (!$form->isValid()) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
-
                 $checkApartment = \ITECH\Data\Model\ApartmentModel::findFirst(array(
                     'conditions' => 'name = :apartment_name: AND block_id = :block_id:',
                     'bind' => array(
