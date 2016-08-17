@@ -41,6 +41,9 @@
                 <li>
                     <a href="#panel_tab4" data-toggle="tab">SEO</a>
                 </li>
+                <li>
+                    <a href="#panel_tab5" data-toggle="tab">Sale</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -55,6 +58,9 @@
                 </div>
                 <div class="tab-pane" id="panel_tab4">
                     {% include 'default/block/element/_form_tab4.volt' %}
+                </div>
+                <div class="tab-pane" id="panel_tab5">
+                    {% include 'default/block/element/_form_tab5.volt' %}
                 </div>
             </div>
         </div>

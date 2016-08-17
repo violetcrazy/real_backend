@@ -46,6 +46,9 @@
                 <li>
                     <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
                 </li>
+                <li>
+                    <a href="#panel_tab7" data-toggle="tab">Sale</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -66,6 +69,9 @@
                 </div>
                 <div class="tab-pane" id="panel_tab6">
                     {% include 'default/apartment/element/_form_tab6.volt' %}
+                </div>
+                <div class="tab-pane" id="panel_tab7">
+                    {% include 'default/apartment/element/_form_tab7.volt' %}
                 </div>
             </div>
         </div>
