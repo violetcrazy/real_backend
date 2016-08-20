@@ -41,10 +41,10 @@
                     <a href="#panel_tab4" data-toggle="tab">Thuộc tính</a>
                 </li>
                 <li>
-                    <a href="#panel_tab5" data-toggle="tab">SEO</a>
+                    <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
                 </li>
                 <li>
-                    <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
+                    <a href="#panel_tab5" data-toggle="tab">SEO</a>
                 </li>
                 <li>
                     <a href="#panel_tab7" data-toggle="tab">Sale</a>

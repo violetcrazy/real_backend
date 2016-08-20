@@ -5,7 +5,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Title
+        Tiêu đề
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_title" class="form-control" value="{% if result.meta_title is defined %}{{ result.meta_title }}{% endif %}" />
@@ -15,7 +15,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Description
+        Mô tả
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_description" class="form-control" value="{% if result.meta_description is defined %}{{ result.meta_description }}{% endif %}" />
@@ -25,7 +25,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Keywords
+        Từ khoá
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_keywords" class="form-control" value="{% if result.meta_keywords is defined %}{{ result.meta_keywords }}{% endif %}" />
@@ -38,7 +38,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Title
+        Tiêu đề
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_title_eng" class="form-control" value="{% if result.meta_title_eng is defined %}{{ result.meta_title_eng }}{% endif %}" />
@@ -48,7 +48,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Description
+        Mô tả
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_description_eng" class="form-control" value="{% if result.meta_description_eng is defined %}{{ result.meta_description_eng }}{% endif %}" />
@@ -58,7 +58,7 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
-        Meta Keywords
+        Từ khoá
     </label>
     <div class="col-sm-8">
         <input type="text" name="meta_keywords_eng" class="form-control" value="{% if result.meta_keywords_eng is defined %}{{ result.meta_keywords_eng }}{% endif %}" />
