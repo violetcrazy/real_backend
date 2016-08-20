@@ -27,32 +27,84 @@
         </script>
 
         <div class="tabbable">
+            {% set classInActive1 = '' %}
+            {% set classInActive2 = '' %}
+            {% set classInActive3 = '' %}
+
             <ul id="myTab" class="nav nav-tabs tab-bricky">
-                <li class="active">
-                    <a href="#panel_tab1" data-toggle="tab">Thông tin</a>
-                </li>
-                <li>
-                    <a href="#panel_tab2" data-toggle="tab">Mô tả</a>
-                </li>
-                <li>
-                    <a href="#panel_tab3" data-toggle="tab">Hình ảnh</a>
-                </li>
-                <li>
-                    <a href="#panel_tab4" data-toggle="tab">Thuộc tính</a>
-                </li>
-                <li>
-                    <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
-                </li>
-                <li>
-                    <a href="#panel_tab5" data-toggle="tab">SEO</a>
-                </li>
-                <li>
-                    <a href="#panel_tab7" data-toggle="tab">Sale</a>
-                </li>
+                {%
+                if
+                    in_array(userSession['membership'], {
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR')
+                    })
+                %}
+                    {% set classActive   = 'active' %}
+                    {% set classInActive1 = 'in active' %}
+
+                    <li class="{{ classActive }}">
+                        <a href="#panel_tab1" data-toggle="tab">Thông tin</a>
+                    </li>
+                    <li>
+                        <a href="#panel_tab2" data-toggle="tab">Mô tả</a>
+                    </li>
+                    <li>
+                        <a href="#panel_tab3" data-toggle="tab">Hình ảnh</a>
+                    </li>
+                    <li>
+                        <a href="#panel_tab4" data-toggle="tab">Thuộc tính</a>
+                    </li>
+                    <li>
+                        <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
+                    </li>
+                {% endif %}
+
+                {%
+                if
+                    in_array(userSession['membership'], {
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO')
+                    })
+                %}
+                {% set classActive    = '' %}
+                {% set classInActive2 = '' %}
+
+                    {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO') %}
+                        {% set classActive    = 'active' %}
+                        {% set classInActive2 = 'in active' %}
+                    {% endif %}
+
+                    <li class="{{ classActive }}">
+                        <a href="#panel_tab5" data-toggle="tab">SEO</a>
+                    </li>
+                {% endif %}
+
+                {%
+                if
+                    in_array(userSession['membership'], {
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN'),
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING')
+                    })
+                %}
+                    {% set classActive    = '' %}
+                    {% set classInActive3 = '' %}
+
+                    {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING') %}
+                        {% set classActive    = 'active' %}
+                        {% set classInActive3 = 'in active' %}
+                    {% endif %}
+
+                    <li class="{{ classActive }}">
+                        <a href="#panel_tab7" data-toggle="tab">Sale</a>
+                    </li>
+                {% endif %}
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane in active" id="panel_tab1">
+                <div class="tab-pane {{ classInActive1 }}" id="panel_tab1">
                     {% include 'default/apartment/element/_form_tab1.volt' %}
                 </div>
                 <div class="tab-pane" id="panel_tab2">
@@ -64,13 +116,13 @@
                 <div class="tab-pane" id="panel_tab4">
                     {% include 'default/apartment/element/_form_tab4.volt' %}
                 </div>
-                <div class="tab-pane" id="panel_tab5">
+                <div class="tab-pane {{ classInActive2 }}" id="panel_tab5">
                     {% include 'default/apartment/element/_form_tab5.volt' %}
                 </div>
                 <div class="tab-pane" id="panel_tab6">
                     {% include 'default/apartment/element/_form_tab6.volt' %}
                 </div>
-                <div class="tab-pane" id="panel_tab7">
+                <div class="tab-pane {{ classInActive3 }}" id="panel_tab7">
                     {% include 'default/apartment/element/_form_tab7.volt' %}
                 </div>
             </div>

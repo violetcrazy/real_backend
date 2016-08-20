@@ -73,7 +73,6 @@
                         {% set classInActive2 = 'in active' %}
                     {% endif %}
 
-
                     <li class="{{ classActive }}">
                         <a href="#panel_tab4" data-toggle="tab">SEO</a>
                     </li>
@@ -95,7 +94,7 @@
                         {% set classInActive3 = 'in active' %}
                     {% endif %}
 
-                    <li>
+                    <li class="{{ classActive }}">
                         <a href="#panel_tab5" data-toggle="tab">Sale</a>
                     </li>
                 {% endif %}
