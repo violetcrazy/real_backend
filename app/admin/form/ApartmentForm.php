@@ -155,23 +155,23 @@ class ApartmentForm extends \Phalcon\Forms\Form
         $meta_title_eng->setFilters(array('striptags', 'trim'));
         $this->add($meta_title_eng);
 
-        $meta_keywords = new \Phalcon\Forms\Element\Textarea('meta_keywords');
+        $meta_keywords = new \Phalcon\Forms\Element\Text('meta_keywords');
         $meta_keywords->setFilters(array('striptags', 'trim'));
         $this->add($meta_keywords);
 
-        $meta_keywords_eng = new \Phalcon\Forms\Element\Textarea('meta_keywords_eng');
+        $meta_keywords_eng = new \Phalcon\Forms\Element\Text('meta_keywords_eng');
         $meta_keywords_eng->setFilters(array('striptags', 'trim'));
         $this->add($meta_keywords_eng);
 
-        $meta_description = new \Phalcon\Forms\Element\Textarea('meta_description');
+        $meta_description = new \Phalcon\Forms\Element\Text('meta_description');
         $meta_description->setFilters(array('striptags', 'trim'));
         $this->add($meta_description);
 
-        $meta_description_eng = new \Phalcon\Forms\Element\Textarea('meta_description_eng');
+        $meta_description_eng = new \Phalcon\Forms\Element\Text('meta_description_eng');
         $meta_description_eng->setFilters(array('striptags', 'trim'));
         $this->add($meta_description_eng);
 
-        $description_eng = new \Phalcon\Forms\Element\Textarea('description_eng');
+        $description_eng = new \Phalcon\Forms\Element\Text('description_eng');
         $this->add($description_eng);
 
         $status = new \Phalcon\Forms\Element\Select('status', \ITECH\Data\Lib\Constant::getApartmentStatus());

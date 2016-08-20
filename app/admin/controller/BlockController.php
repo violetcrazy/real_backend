@@ -247,30 +247,36 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
                 $url = $this->config->application->api_url . 'block/add?authorized_token=' . $authorizedToken . '&project_id=' . $project['id'];
                 $post = array(
-                    'name' => trim(strip_tags($this->request->getPost('name'))),
-                    'name_eng' => trim(strip_tags($this->request->getPost('name_eng'))),
-                    'shortname' => $this->request->getPost('shortname'),
-                    'floor_name_list' => $floorNameList,
-                    'apartment_name_list' => $apartmentNameList,
-                    'floor_count' => $this->request->getPost('floor_count'),
-                    'apartment_count' => $this->request->getPost('apartment_count'),
-                    'direction' => $propertyTrend,
-                    'gallery' => $gallery,
-                    'price' => $this->request->getPost('price'),
-                    'price_eng' => $this->request->getPost('price_eng'),
-                    'status' => $this->request->getPost('status'),
-                    'created_by' => $userSession['id'],
-                    'updated_by' => $userSession['id'],
-                    'approved_by' => $userSession['id'],
-                    'user_id' => $userSession['id'],
-                    'description_eng' => $this->request->getPost('description_eng'),
-                    'description' => $this->request->getPost('description'),
-                    'policy' => $this->request->getPost('policy'),
-                    'policy_eng' => $this->request->getPost('policy_eng'),
-                    'area' => $this->request->getPost('area'),
-                    'space' => $this->request->getPost('space'),
-                    'user_agent' => $this->request->getUserAgent(),
-                    'ip' => $this->request->getClientAddress()
+                    'name'                 => trim(strip_tags($this->request->getPost('name'))),
+                    'name_eng'             => trim(strip_tags($this->request->getPost('name_eng'))),
+                    'shortname'            => $this->request->getPost('shortname'),
+                    'floor_name_list'      => $floorNameList,
+                    'apartment_name_list'  => $apartmentNameList,
+                    'floor_count'          => $this->request->getPost('floor_count'),
+                    'apartment_count'      => $this->request->getPost('apartment_count'),
+                    'direction'            => $propertyTrend,
+                    'gallery'              => $gallery,
+                    'price'                => $this->request->getPost('price'),
+                    'price_eng'            => $this->request->getPost('price_eng'),
+                    'status'               => $this->request->getPost('status'),
+                    'created_by'           => $userSession['id'],
+                    'updated_by'           => $userSession['id'],
+                    'approved_by'          => $userSession['id'],
+                    'user_id'              => $userSession['id'],
+                    'description'          => $this->request->getPost('description'),
+                    'description_eng'      => $this->request->getPost('description_eng'),
+                    'policy'               => $this->request->getPost('policy'),
+                    'policy_eng'           => $this->request->getPost('policy_eng'),
+                    'area'                 => $this->request->getPost('area'),
+                    'space'                => $this->request->getPost('space'),
+                    'user_agent'           => $this->request->getUserAgent(),
+                    'ip'                   => $this->request->getClientAddress(),
+                    'meta_title'           => $this->request->getPost('meta_title', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_title_eng'       => $this->request->getPost('meta_title_eng', array('trim', 'striptags'), $this->request->getPost('name_eng')),
+                    'meta_keywords'        => $this->request->getPost('meta_keywords', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_keywords_eng'    => $this->request->getPost('meta_keywords_eng', array('trim', 'striptags'), $this->request->getPost('name_eng')),
+                    'meta_description'     => $this->request->getPost('meta_description', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_description_eng' => $this->request->getPost('meta_description_eng', array('trim', 'striptags'), $this->request->getPost('name_eng'))
                 );
 
                 $defaultImage = $this->request->getPost('default_image');
@@ -529,42 +535,49 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
                 $url = $this->config->application->api_url . 'block/detail?id=' . $block->id . '&cache=false&authorized_token=' . $authorizedToken . '&type=' . $type;
                 $post = array(
-                    'name' => trim(strip_tags($this->request->getPost('name'))),
-                    'name_eng' => trim(strip_tags($this->request->getPost('name_eng'))),
-                    'shortname' => $this->request->getPost('shortname'),
-                    'project_id' => $this->request->getPost('project_id'),
-                    'floor_name_list' => $floorNameList,
-                    'apartment_name_list' => $apartmentNameList,
-                    'direction' => $this->request->getPost('direction'),
-                    'status' => $this->request->getPost('status'),
-                    'apartment_count' => $this->request->getPost('apartment_count'),
-                    'floor_count' => $this->request->getPost('floor_count'),
-                    'description' => $this->request->getPost('description'),
-                    'description_eng' => $this->request->getPost('description_eng'),
-                    'policy' => $this->request->getPost('policy'),
-                    'policy_eng' => $this->request->getPost('policy_eng'),
-                    'gallery' => $gallery,
-                    'price' => $this->request->getPost('price'),
-                    'price_eng' => $this->request->getPost('price_eng'),
-                    'total_area' => $this->request->getPost('total_area'),
-                    'green_area' => $this->request->getPost('green_area'),
-                    'user_agent' => $this->request->getUserAgent(),
-                    'ip' => $this->request->getClientAddress(),
-                    'user_id' => $userSession['id'],
-                    'meta_title' => $this->request->getPost('meta_title', array('trim', 'striptags'), ''),
-                    'meta_title_eng' => $this->request->getPost('meta_title_eng', array('trim', 'striptags'), ''),
-                    'meta_keywords' => $this->request->getPost('meta_keywords', array('trim', 'striptags'), ''),
-                    'meta_keywords_eng' => $this->request->getPost('meta_keywords_eng', array('trim', 'striptags'), ''),
-                    'meta_description' => $this->request->getPost('meta_description', array('trim', 'striptags'), ''),
-                    'meta_description_eng' => $this->request->getPost('meta_description_eng', array('trim', 'striptags'), '')
+                    'name'                 => trim(strip_tags($this->request->getPost('name'))),
+                    'name_eng'             => trim(strip_tags($this->request->getPost('name_eng'))),
+                    'shortname'            => $this->request->getPost('shortname'),
+                    'project_id'           => $this->request->getPost('project_id'),
+                    'floor_name_list'      => $floorNameList,
+                    'apartment_name_list'  => $apartmentNameList,
+                    'direction'            => $this->request->getPost('direction'),
+                    'status'               => $this->request->getPost('status'),
+                    'apartment_count'      => $this->request->getPost('apartment_count'),
+                    'floor_count'          => $this->request->getPost('floor_count'),
+                    'description'          => $this->request->getPost('description'),
+                    'description_eng'      => $this->request->getPost('description_eng'),
+                    'policy'               => $this->request->getPost('policy'),
+                    'policy_eng'           => $this->request->getPost('policy_eng'),
+                    'gallery'              => $gallery,
+                    'price'                => $this->request->getPost('price'),
+                    'price_eng'            => $this->request->getPost('price_eng'),
+                    'total_area'           => $this->request->getPost('total_area'),
+                    'green_area'           => $this->request->getPost('green_area'),
+                    'user_agent'           => $this->request->getUserAgent(),
+                    'ip'                   => $this->request->getClientAddress(),
+                    'user_id'              => $userSession['id'],
+                    'meta_title'           => $this->request->getPost('meta_title', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_title_eng'       => $this->request->getPost('meta_title_eng', array('trim', 'striptags'), $this->request->getPost('name_eng')),
+                    'meta_keywords'        => $this->request->getPost('meta_keywords', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_keywords_eng'    => $this->request->getPost('meta_keywords_eng', array('trim', 'striptags'), $this->request->getPost('name_eng')),
+                    'meta_description'     => $this->request->getPost('meta_description', array('trim', 'striptags'), $this->request->getPost('name')),
+                    'meta_description_eng' => $this->request->getPost('meta_description_eng', array('trim', 'striptags'), $this->request->getPost('name_eng'))
                 );
 
                 $defaultImage = $this->request->getPost('default_image');
                 $post['default_image'] = $defaultImage;
 
-                $post['attribute_type'] = $this->request->getPost('attribute_type');
-                $post['attribute_view'] = $this->request->getPost('attribute_view');
+                $post['attribute_type']    = $this->request->getPost('attribute_type');
+                $post['attribute_view']    = $this->request->getPost('attribute_view');
                 $post['attribute_utility'] = $this->request->getPost('attribute_utility');
+
+                $post['meta_title']           = $post['meta_title'] != '' ? $post['meta_title'] : $this->request->getPost('name');
+                $post['meta_title_eng']       = $post['meta_title_eng'] != '' ? $post['meta_title_eng'] : $this->request->getPost('name_eng');
+                $post['meta_description']     = $post['meta_description'] != '' ? $post['meta_description'] : $this->request->getPost('name');
+                $post['meta_description_eng'] = $post['meta_description_eng'] != '' ? $post['meta_description_eng'] : $this->request->getPost('name_eng');
+                $post['meta_keywords']        = $post['meta_keywords'] != '' ? $post['meta_keywords'] : $this->request->getPost('name');
+                $post['meta_keywords_eng']    = $post['meta_keywords_eng'] != '' ? $post['meta_keywords_eng'] : $this->request->getPost('name_eng');
 
                 $r = json_decode(\ITECH\Data\Lib\Util::curlPostJson($url, $post), true);
                 if (isset($r['result']) && count($r['result']) && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {

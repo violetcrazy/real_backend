@@ -26,10 +26,7 @@ class Constant
                 'action'     => 'index',
                 'roles'      => array(
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                 ),
                 'sub_menu' => array(
                     'project_list' => array(
@@ -38,10 +35,7 @@ class Constant
                         'action'     => 'index',
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         )
                     ),
                     'project_list_attribute' => array(
@@ -50,8 +44,7 @@ class Constant
                         'action'     => 'listAttribute',
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         )
                     )
                 )
