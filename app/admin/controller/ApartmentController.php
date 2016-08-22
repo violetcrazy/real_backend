@@ -71,7 +71,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         if ($this->request->get('project_id')) {
             $params['conditions']['project_id'] = $this->request->get('project_id');
         } else {
-            $params["limit"] = 5000;
+            $params["limit"] = 1000;
         }
 
         $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();

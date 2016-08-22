@@ -20,7 +20,7 @@
         <div class="col-sm-12">
             <form action="" method="GET" class="sidebar-search-form">
                 <select id="project-filter" name="" class="form-control" id="">
-                    <option value="">5.000 sản phẩm mới nhất</option>
+                    <option value="">1.000 sản phẩm mới nhất</option>
                     {% if projects is defined %}
                         {% for project in projects %}
                             <option value="{{ project.id }}">{{ project.name }}</option>
