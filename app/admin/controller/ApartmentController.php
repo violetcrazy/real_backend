@@ -138,7 +138,6 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             if (!$form->isValid()) {
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
-
                 $checkApartment = \ITECH\Data\Model\ApartmentModel::findFirst(array(
                     'conditions' => 'name = :apartment_name: AND block_id = :block_id:',
                     'bind' => array(
@@ -200,6 +199,15 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 $apartment->meta_keywords_eng = $this->request->getPost('meta_keywords_eng', array('trim', 'striptags'), '');
                 $apartment->meta_description = $this->request->getPost('meta_description', array('trim', 'striptags'), '');
                 $apartment->meta_description_eng = $this->request->getPost('meta_description_eng', array('trim', 'striptags'), '');
+
+                $apartment->meta_title     = $apartment->meta_title != '' ? $apartment->meta_title : $apartment->name;
+                $apartment->meta_title_eng = $apartment->meta_title_eng != '' ? $apartment->meta_title_eng : $apartment->name_eng;
+
+                $apartment->meta_description     = $apartment->meta_description != '' ? $apartment->meta_description : $apartment->name;
+                $apartment->meta_description_eng = $apartment->meta_description_eng != '' ? $apartment->meta_description_eng : $apartment->name_eng;
+
+                $apartment->meta_keywords     = $apartment->meta_keywords != '' ? $apartment->meta_keywords : $apartment->name;
+                $apartment->meta_keywords_eng = $apartment->meta_keywords_eng != '' ? $apartment->meta_keywords_eng : $apartment->name_eng;
 
                 $apartment->furniture_id = ($this->request->getPost('furniture_id') != "") ? $this->request->getPost('furniture_id') : NULL;
 
@@ -461,8 +469,9 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
     public function editAction()
     {
         $projectId = $this->request->getQuery('project_id', array('int'), '');
-        $blockId = $this->request->getQuery('block_id', array('int'), '');
-        $id = $this->request->getQuery('id', array('int'), '');
+        $blockId   = $this->request->getQuery('block_id', array('int'), '');
+
+        $id   = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
         $from = $this->request->getQuery('from', array('striptags', 'trim', 'lower'), '');
 
@@ -471,6 +480,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         }
         // Get block ---------
         $block = \ITECH\Data\Model\BlockModel::findFirst($blockId);
+
         if (!$block) {
             throw new \Phalcon\Exception('Không tồn tại block này.');
         }
@@ -675,7 +685,17 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 $apartment->meta_description = $this->request->getPost('meta_description', array('trim', 'striptags'), '');
                 $apartment->meta_description_eng = $this->request->getPost('meta_description_eng', array('trim', 'striptags'), '');
 
+                $apartment->meta_title     = $apartment->meta_title != '' ? $apartment->meta_title : $apartment->name;
+                $apartment->meta_title_eng = $apartment->meta_title_eng != '' ? $apartment->meta_title_eng : $apartment->name_eng;
+
+                $apartment->meta_description     = $apartment->meta_description != '' ? $apartment->meta_description : $apartment->name;
+                $apartment->meta_description_eng = $apartment->meta_description_eng != '' ? $apartment->meta_description_eng : $apartment->name_eng;
+
+                $apartment->meta_keywords     = $apartment->meta_keywords != '' ? $apartment->meta_keywords : $apartment->name;
+                $apartment->meta_keywords_eng = $apartment->meta_keywords_eng != '' ? $apartment->meta_keywords_eng : $apartment->name_eng;
+
                 $attributes = array();
+
                 if ($this->request->getPost('attribute_type') != '') {
                     $array = array_filter(array_unique(explode(',', $this->request->getPost('attribute_type'))));
                     foreach ($array as $item) {

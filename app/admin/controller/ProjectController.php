@@ -10,10 +10,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
     }
 
@@ -118,6 +115,8 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
     public function editAction()
     {
+        $userSession = $this->session->get('USER');
+
         $id   = $this->request->getQuery('id', array('int'), '');
         $page = $this->request->getQuery('page', array('int'), 1);
 
@@ -128,6 +127,17 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         if (!$project) {
             throw new \Exception('Không tồn tại dự án này.');
+        }
+
+        $permissionProjects = parent::getPermissionProjects();
+
+        if (
+            $userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+            && isset($permissionProjects['projectIds'])
+        ) {
+            if (!in_array($id, $permissionProjects['projectIds'])) {
+                throw new \Exception('Bạn không có quyền với dự án này.');
+            }
         }
 
         $direction = \ITECH\Data\Lib\Constant::getDirection();
@@ -185,7 +195,6 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             $arrayUtilityVie = array();
 
             foreach ($result as $item) {
-                var_dump($item);
                 if ($item['attribute_type'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE) {
                     $arrayTypeVie[] = $item['attribute_name'];
                 }
@@ -338,11 +347,12 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
     public function postAjaxAction()
     {
         $userSession = $this->session->get('USER');
-        $tab = $this->request->getQuery('tab', array('int'), 1);
+
+        $tab  = $this->request->getQuery('tab', array('int'), 1);
         $page = $this->request->getQuery('page', array('int'), 1);
 
         $response = array(
-            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
             'message' => 'Success.'
         );
 
@@ -368,7 +378,6 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
                 $project->updated_at = date('Y-m-d H:i:s');
                 $isNew = false;
             } else {
-
                 $project = \ITECH\Data\Model\ProjectModel::findFirst(array(
                     'conditions' => 'name = :project_name:',
                     'bind' => array('project_name'=> $post['name'])
@@ -505,6 +514,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             if ($project->meta_title_eng == '') {
                 $project->meta_title_eng = $project->name_eng;
             }
+
             $project->description = $validator->getValue('description');
             $project->description_eng = $validator->getValue('description_eng');
             $project->default_image = $validator->getValue('default_image');
@@ -564,8 +574,6 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
                         if ($attribute) {
                             $attributes[] = $attribute->id;
                         }
-
-
                     }
                 }
             }
@@ -608,13 +616,13 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             $project->block_count = $validator->getValue('block_count');
             $project->apartment_count = $validator->getValue('apartment_count');
 
-            $project->meta_title = $validator->getValue('meta_title');
+            $project->meta_title     = $validator->getValue('meta_title');
             $project->meta_title_eng = $validator->getValue('meta_title_eng');
 
-            $project->meta_description = $validator->getValue('meta_description');
+            $project->meta_description     = $validator->getValue('meta_description');
             $project->meta_description_eng = $validator->getValue('meta_description_eng');
 
-            $project->meta_keywords = $validator->getValue('meta_keywords');
+            $project->meta_keywords     = $validator->getValue('meta_keywords');
             $project->meta_keywords_eng = $validator->getValue('meta_keywords_eng');
 
             if ($project->meta_title == '') {
@@ -624,6 +632,12 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
             if ($project->meta_title_eng == '') {
                 $project->meta_title_eng = $project->name_eng;
             }
+
+            $project->meta_description     = $project->meta_description != '' ? $project->meta_description : $project->name;
+            $project->meta_description_eng = $project->meta_description_eng != '' ? $project->meta_description_eng : $project->name_eng;
+
+            $project->meta_keywords     = $project->meta_keywords != '' ? $project->meta_keywords : $project->name;
+            $project->meta_keywords_eng = $project->meta_keywords_eng != '' ? $project->meta_keywords_eng : $project->name_eng;
 
             try {
                 if (!$project->save()) {
