@@ -638,6 +638,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
                 'title' => 'Danh sách Block',
                 'url' => $this->url->get([
                     'for' => 'block_list',
+                    'query' => '?project_id='. $block->project_id
                 ]),
                 'active' => false
             ],

@@ -74,6 +74,10 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             $params["limit"] = 5000;
         }
 
+        if ($this->request->get('block_id')) {
+            $params['conditions']['block_id'] = $this->request->get('block_id');
+        }
+        
         $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
         $apartments    = $apartmentRepo->getList($params);
         $out           = array();
@@ -837,6 +841,14 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 'url' => $this->url->get([
                     'for' => 'block_edit',
                     'query' => '?id='. $block->id
+                ]),
+                'active' => false
+            ],
+            [
+                'title' => 'Danh sách sản phẩm',
+                'url' => $this->url->get([
+                    'for' => 'apartment_list',
+                    'query' => '?project_id='. $block->project->id . '&block_id=' . $block->id
                 ]),
                 'active' => false
             ],

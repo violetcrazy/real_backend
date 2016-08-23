@@ -15,7 +15,7 @@
             <div class="col-sm-12">
                 {{ flashSession.output() }}
 
-                <table class="table table-striped table-jquery table-hover" id="table-list-attr">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>ID</th>

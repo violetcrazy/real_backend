@@ -133,7 +133,7 @@ class Constant
                     'apartment_furniture_list' => array(
                         'title'      => 'DS nhà cung cấp nội thất',
                         'controller' => 'apartment',
-                        'action'     => 'furnitureList',
+                        'action'     => 'listFurniture',
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
