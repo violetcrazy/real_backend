@@ -93,8 +93,8 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="{{ config.application.base_url}}asset/plugins/datatables/css/jquery.dataTables.css">
-    <script type="text/javascript" src="{{ config.application.base_url}}asset/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="{{ config.application.base_url }}asset/plugins/datatables/css/jquery.dataTables.css?{{ config.asset.version }}">
+    <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
 
     <script>
         $(document).ready(function() {
