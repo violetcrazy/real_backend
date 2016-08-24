@@ -4,28 +4,30 @@
     <div class="row">
         <div class="col-sm-12">
             {% include 'default/element/layout/breadcrumbs.volt' %}
+
             <div class="page-header">
+                <a href="{{ url({'for': 'apartment_furniture_add'}) }}" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Thêm nhà cung cấp
+                </a>
+
                 <h3>Danh sách nhà cung cấp nội thất</h3>
             </div>
-            <div class="col-sm-12 m-b-20">
-                <a href="{{ url({'for': 'apartment_furniture_add'}) }}" class="btn btn-primary float-right">Thêm nhà cung cấp</a>
-                <div class="clearfix"></div>
-            </div>
+            <div class="clearfix"></div>
 
             <div class="col-sm-12">
                 {{ flashSession.output() }}
 
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên</th>
-                        <th>Tên tiếng anh</th>
-                        <th>Điện thoại</th>
-                        <th width="5%">Xóa</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Tên tiếng anh</th>
+                            <th>Điện thoại</th>
+                            <th width="5%"></th>
+                        </tr>
                     </thead>
-
                     <tbody>
                         {% if furniture is defined %}
                             {% for item in furniture.items %}
