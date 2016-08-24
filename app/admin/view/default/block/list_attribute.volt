@@ -6,7 +6,7 @@
             {% include 'default/element/layout/breadcrumbs.volt' %}
 
             <div class="page-header">
-                <a href="{{ url({'for': 'load_attribute_add_ajax'}) }}?module_attr={{ constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_BLOCK') }}" class="btn btn-primary pull-right">
+                <a href="{{ url({'for': 'load_attribute_add_ajax'}) }}?module_attr={{ constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_BLOCK') }}" class="btn btn-primary pull-right btn-add-attr">
                     <i class="fa fa-plus"></i>
                     Thêm thuộc tính
                 </a>
