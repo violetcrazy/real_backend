@@ -98,6 +98,10 @@
                 <button type="submit" id="form-article-button" class="btn btn-bricky">
                     Cập nhật
                 </button>
+                <a href="{{ url({'for': 'apartment_furniture_list'}) }}" class="btn btn-primary">
+                    <span class="fa-mail-reply fa"></span>
+                    Trở lại
+                </a>
             </div>
         </div>
     </form>

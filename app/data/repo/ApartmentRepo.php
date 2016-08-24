@@ -33,6 +33,10 @@ class ApartmentRepo extends \ITECH\Data\Model\ApartmentModel
         if (isset($params['conditions']['project_id'])) {
             $b->andWhere('a1.project_id = :project_id:', array('project_id' => $params['conditions']['project_id']));
         }
+        
+        if (isset($params['conditions']['block_id'])) {
+            $b->andWhere('a1.block_id = :block_id:', array('block_id' => $params['conditions']['block_id']));
+        }
 
         if (isset($params['conditions']['projectIdsString'])) {
             $b->andWhere('a1.project_id IN (' . $params['conditions']['projectIdsString'] . ')');

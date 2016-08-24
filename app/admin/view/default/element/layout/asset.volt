@@ -25,8 +25,8 @@
 	var url_upload_multiple   = '{{ config.cdn.file_upload }}';
     var url_thumbnail_default = '{{ config.asset.backend_url ~ 'img/choose.png?' ~ config.asset.version }}';
 
-    var file_upload       = '{{ config.cdn.file_upload }}';
-    var file_url       = '{{ config.cdn.file_url }}';
+    var file_upload = '{{ config.cdn.file_upload }}';
+    var file_url    = '{{ config.cdn.file_url }}';
 </script>
 
 <!--[if lt IE 9]>

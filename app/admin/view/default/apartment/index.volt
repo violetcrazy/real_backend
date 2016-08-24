@@ -207,8 +207,11 @@
 
             {% if (request.getQuery('project_id')) %}
                 $('#project-filter').val('{{ request.getQuery('project_id') }}');
-
-                var url = "{{ url({ 'for': 'apartment_list_apartment' }) }}?project_id={{ request.getQuery('project_id') }}";
+                {% if (request.getQuery('block_id')) %}
+                    var url = "{{ url({ 'for': 'apartment_list_apartment' }) }}?project_id={{ request.getQuery('project_id') }}&block_id={{ request.getQuery('block_id') }}";
+                {% else %}
+                    var url = "{{ url({ 'for': 'apartment_list_apartment' }) }}?project_id={{ request.getQuery('project_id') }}";
+                {% endif %}
                 apartmentDataTable.ajax.url(url).load(function (data) {
                     t.reset();
                     if (data.data[0][0] == '') {

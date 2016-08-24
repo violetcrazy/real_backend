@@ -21,45 +21,43 @@
 
             <table class="table table-striped table-jquery table-hover" id="table-list-attr">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên</th>
-                    <th>Tên tiếng anh</th>
-                    <th>Nhóm</th>
-                    <th width="5%">Xóa</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Tên tiếng anh</th>
+                        <th>Nhóm</th>
+                        <th width="5%"></th>
+                    </tr>
                 </thead>
 
                 <tfoot>
-                <tr>
-                    <th></th>
-                    <th><input class="form-control"  type="text" placeholder="Nhập tên thuộc tính"></th>
-                    <th><input class="form-control"  type="text" placeholder="Nhập tên thuộc tính"></th>
-                    <th>
-                        <select name="" id="" class="form-control">
-                            <option value="">Tất cả</option>
-                            <option value="Kiểu căn hộ">Kiểu căn hộ</option>
-                            <option value="Môi trường sống">Môi trường sống</option>
-                            <option value="Dịch vụ - Tiện ích">Dịch vụ - Tiện ích</option>
-                        </select>
-                    </th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th></th>
+                        <th><input class="form-control"  type="text" placeholder="Nhập tên thuộc tính"></th>
+                        <th><input class="form-control"  type="text" placeholder="Nhập tên thuộc tính"></th>
+                        <th>
+                            <select name="" id="" class="form-control">
+                                <option value="">Tất cả</option>
+                                <option value="Kiểu căn hộ">Kiểu căn hộ</option>
+                                <option value="Môi trường sống">Môi trường sống</option>
+                                <option value="Dịch vụ - Tiện ích">Dịch vụ - Tiện ích</option>
+                            </select>
+                        </th>
+                        <th></th>
+                    </tr>
                 </tfoot>
 
                 <tbody>
-
                 </tbody>
             </table>
             <div class="clearfix"></div>
         </div>
-
     </div>
 
-    <link rel="stylesheet" href="{{ config.application.base_url}}asset/plugins/datatables/css/jquery.dataTables.css">
-    <script type="text/javascript" src="{{ config.application.base_url}}asset/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="{{ config.application.base_url }}asset/plugins/datatables/css/jquery.dataTables.css?{{ config.asset.version }}">
+    <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
     <script>
-        var url = "{{ url({ 'for': 'load_attribute_list_ajax', 'module_attr': constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_BLOCK') }) }}";
+        var url = "{{ url({'for': 'load_attribute_list_ajax', 'module_attr': constant('\ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_BLOCK')}) }}";
     </script>
-    <script type="text/javascript" src="{{ config.application.base_url}}asset/default/js/attr_list.js"></script>
+    <script type="text/javascript" src="{{ config.application.base_url }}asset/default/js/attr_list.js?{{ config.asset.version }}"></script>
 {% endblock %}

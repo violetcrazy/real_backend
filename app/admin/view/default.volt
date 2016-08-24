@@ -96,7 +96,7 @@
 
         {% block bottom_js %}{% endblock %}
 
-    <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/ImageTools.js?' ~ config.asset.version }}"></script>
-    <script src="{{ config.application.base_url }}asset/js/upload_progress.js"></script>
+        <script type="text/javascript" src="{{ config.asset.backend_url ~ 'js/ImageTools.js?' ~ config.asset.version }}"></script>
+        <script src="{{ config.application.base_url }}asset/js/upload_progress.js?{{ config.asset.version }}"></script>
     </body>
 </html>
