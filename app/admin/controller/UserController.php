@@ -148,8 +148,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => [
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
             ],
             'page'  => $page,
             'limit' => $limit
@@ -209,8 +208,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
             ),
             'page'  => $page,
             'limit' => $limit
@@ -270,8 +268,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
             ),
             'page'  => $page,
             'limit' => $limit
@@ -331,8 +328,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO
             ),
             'page'  => $page,
             'limit' => $limit
@@ -392,8 +388,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
             ),
             'page'  => $page,
             'limit' => $limit
@@ -451,9 +446,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
-                'q'      => $q,
-                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER,
-                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'q'    => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER
             ),
             'page'  => $page,
             'limit' => $limit
@@ -1463,9 +1457,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $params = array(
             'conditions' => array(
-                'q'      => $q,
-                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT,
-                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'q'    => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT
             ),
             'page'  => $page,
             'limit' => $limit
