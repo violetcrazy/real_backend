@@ -32,8 +32,8 @@ $parameters = array(
         'template_excel_project'   => 'http://adminjinn.codex4u.com/asset/download/new_template_project.xlsx',
         'template_excel_block'     => 'http://adminjinn.codex4u.com/asset/download/new_template_block.xlsx',
         'template_excel_apartment' => 'http://adminjinn.codex4u.com/asset/download/new_template_apartment.xlsx',
-        'session_domain' => '.jinn.vn',
-        'session_name' => 'jinn',
+        'session_domain'           => '.jinn.vn',
+        'session_name'             => 'jinn',
     ),
     'volt' => array(
         'debug'              => true,
@@ -52,9 +52,9 @@ $parameters = array(
         'upload_media_url' => 'http://cdnjinn.codex4u.com/upload',
         'upload_image_url' => 'http://cdnjinn.codex4u.com/image/upload',
         'delete_image_url' => 'http://cdnjinn.codex4u.com/image/delete',
-        'dir_upload'       => 'http://localhost.cdn.land.com/uploads/',
-        'file_upload'       => 'http://localhost.cdn.land.com/',
-        'file_url'       => 'http://localhost.cdn.land.com/uploads/'
+        'dir_upload'       => 'http://cdnjinn.codex4u.com/uploads/',
+        'file_upload'      => 'http://cdnjinn.codex4u.com/',
+        'file_url'         => 'http://cdnjinn.codex4u.com/uploads/'
     ),
     'asset' => array(
         'download'       => 'http://adminjinn.codex4u.com/asset/download/',
