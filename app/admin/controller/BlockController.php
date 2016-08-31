@@ -13,7 +13,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
         ));
     }
 

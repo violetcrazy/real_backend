@@ -388,7 +388,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
             ),
             'page'  => $page,
             'limit' => $limit
@@ -883,7 +883,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 break;
 
             case 'admin_marketing_list':
-                $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING;
+                $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE;
                 break;
         }
 

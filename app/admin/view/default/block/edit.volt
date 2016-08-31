@@ -83,13 +83,13 @@
                     in_array(userSession['membership'], {
                         constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN'),
                         constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN'),
-                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING')
+                        constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE')
                     })
                 %}
                     {% set classActive    = '' %}
                     {% set classInActive3 = '' %}
 
-                    {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING') %}
+                    {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE') %}
                         {% set classActive    = 'active' %}
                         {% set classInActive3 = 'in active' %}
                     {% endif %}

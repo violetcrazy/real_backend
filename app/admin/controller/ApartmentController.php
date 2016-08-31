@@ -13,7 +13,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
         ));
     }
 
@@ -77,7 +77,7 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
         if ($this->request->get('block_id')) {
             $params['conditions']['block_id'] = $this->request->get('block_id');
         }
-        
+
         $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
         $apartments    = $apartmentRepo->getList($params);
         $out           = array();
