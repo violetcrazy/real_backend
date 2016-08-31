@@ -42,7 +42,7 @@
                 $this = $(this);
                 var url = $this.attr('action');
                 var data = $this.serialize();
-
+                $this.find('.alert').remove();
                 $.ajax({
                     url: url,
                     data: data,
@@ -57,6 +57,9 @@
                             }
                             $this.prepend('<div class="alert alert-success">{{ attrDetail.id is defined ? 'Cập nhật' : 'Thêm' }} thuộc tính thành công.</div>');
                             parent.$.fancybox.update();
+                            {% if attrDetail.id is not defined %}
+                                $this.trigger('reset');
+                            {% endif %}
                             //parent.$.fancybox.close();
                         } else {
                             $this.prepend('<div class="alert alert-danger">'+ data.message +'</div>');
