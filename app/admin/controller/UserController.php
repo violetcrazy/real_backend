@@ -584,7 +584,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => 'id = :id:',
-            'bind' => array('id' => $id)
+            'bind'       => array('id' => $id)
         ));
 
         if (!$user) {
@@ -602,9 +602,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             throw new \Exception('Bạn không có quyền xoá tài khoản này.');
         }
 
-        $user->username   = md5(uniqid() . $user->username);
-        $user->display    = md5(uniqid() . $user->username);
-        $user->email      = null;
+        //$user->username   = md5(uniqid() . $user->username);
+        //$user->display    = md5(uniqid() . $user->username);
+        //$user->email      = null;
         $user->status     = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;
         $user->updated_at = date('Y-m-d H:i:s');
 
