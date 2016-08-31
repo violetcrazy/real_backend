@@ -376,7 +376,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/admin_seo_list');
     }
 
-    public function adminMarketingListAction()
+    public function AdminSaleListAction()
     {
         parent::authenticateUser();
 
@@ -400,7 +400,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $query         = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'userAdminMarketingList'));
+        $url = $this->url->get(array('for' => 'userAdminSaleList'));
 
         $options = array(
             'url'           => $url,
@@ -421,7 +421,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             ],
             [
                 'title'  => 'Danh sách Admin SEO',
-                'url'    => $this->url->get(['for' => 'userAdminMarketingList']),
+                'url'    => $this->url->get(['for' => 'userAdminSaleList']),
                 'active' => true
             ]
         ];
@@ -433,7 +433,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'q'                => $q
 
         ]);
-        $this->view->pick(parent::$theme . '/user/admin_marketing_list');
+        $this->view->pick(parent::$theme . '/user/admin_sale_list');
     }
 
     public function memberListAction()
@@ -673,8 +673,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $for = 'userAdminSeoList';
             break;
 
-            case 'admin_marketing_list':
-                $for = 'userAdminMarketingList';
+            case 'admin_sale_list':
+                $for = 'userAdminSaleList';
             break;
 
             case 'member_list':
@@ -882,7 +882,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO;
                 break;
 
-            case 'admin_marketing_list':
+            case 'admin_sale_list':
                 $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE;
                 break;
         }
@@ -1003,10 +1003,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $addTitle = 'Thêm Admin SEO';
             break;
 
-            case 'admin_marketing_list':
-                $for      = 'userAdminMarketingList';
-                $title    = 'Danh sách Admin Marketing';
-                $addTitle = 'Thêm Admin Marketing';
+            case 'admin_sale_list':
+                $for      = 'userAdminSaleList';
+                $title    = 'Danh sách Admin Sale';
+                $addTitle = 'Thêm Admin Sale';
             break;
         }
 
@@ -1285,10 +1285,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $editTitle = 'Chỉnh sửa Admin SEO';
                 break;
 
-            case 'admin_marketing_list':
-                $for      = 'userAdminMarketingList';
-                $title    = 'Danh sách Admin Marketing';
-                $editTitle = 'Chỉnh sửa Admin Marketing';
+            case 'admin_sale_list':
+                $for      = 'userAdminSaleList';
+                $title    = 'Danh sách Admin Sale';
+                $editTitle = 'Chỉnh sửa Admin Sale';
                 break;
         }
 

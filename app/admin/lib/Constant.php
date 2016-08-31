@@ -433,9 +433,9 @@ class Constant
                         ]
                     ),
                     'userAdminMarketingList' => array(
-                        'title'      => 'DS Admin Marketing',
+                        'title'      => 'DS Admin Sale',
                         'controller' => 'user',
-                        'action'     => 'adminMarketingList',
+                        'action'     => 'adminSaleList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
