@@ -137,6 +137,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function superAdminListAction()
     {
+        parent::authenticateUser();
         parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
 
         $q     = $this->request->getQuery('q', ['striptags', 'trim'], '');
@@ -147,8 +148,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => [
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
             ],
             'page'  => $page,
             'limit' => $limit
@@ -198,6 +198,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function adminListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -206,8 +208,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
             ),
             'page'  => $page,
             'limit' => $limit
@@ -257,6 +258,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function adminEditorListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -265,8 +268,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
             ),
             'page'  => $page,
             'limit' => $limit
@@ -316,6 +318,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function adminSeoListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -324,8 +328,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO
             ),
             'page'  => $page,
             'limit' => $limit
@@ -373,8 +376,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/admin_seo_list');
     }
 
-    public function adminMarketingListAction()
+    public function AdminSaleListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
@@ -383,8 +388,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'conditions' => array(
                 'q'          => $q,
                 'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING,
-                'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
             ),
             'page'  => $page,
             'limit' => $limit
@@ -396,7 +400,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $query         = array();
         $query['page'] = $page;
 
-        $url = $this->url->get(array('for' => 'userAdminMarketingList'));
+        $url = $this->url->get(array('for' => 'userAdminSaleList'));
 
         $options = array(
             'url'           => $url,
@@ -417,7 +421,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             ],
             [
                 'title'  => 'Danh sách Admin SEO',
-                'url'    => $this->url->get(['for' => 'userAdminMarketingList']),
+                'url'    => $this->url->get(['for' => 'userAdminSaleList']),
                 'active' => true
             ]
         ];
@@ -429,20 +433,21 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'q'                => $q
 
         ]);
-        $this->view->pick(parent::$theme . '/user/admin_marketing_list');
+        $this->view->pick(parent::$theme . '/user/admin_sale_list');
     }
 
     public function memberListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
 
         $params = array(
             'conditions' => array(
-                'q'      => $q,
-                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER,
-                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'q'    => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER
             ),
             'page'  => $page,
             'limit' => $limit
@@ -564,6 +569,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function deleteAction()
     {
+        parent::authenticateUser();
+
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
@@ -577,7 +584,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => 'id = :id:',
-            'bind' => array('id' => $id)
+            'bind'       => array('id' => $id)
         ));
 
         if (!$user) {
@@ -595,9 +602,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             throw new \Exception('Bạn không có quyền xoá tài khoản này.');
         }
 
-        $user->username   = md5(uniqid() . $user->username);
-        $user->display    = md5(uniqid() . $user->username);
-        $user->email      = null;
+        //$user->username   = md5(uniqid() . $user->username);
+        //$user->display    = md5(uniqid() . $user->username);
+        //$user->email      = null;
         $user->status     = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;
         $user->updated_at = date('Y-m-d H:i:s');
 
@@ -666,8 +673,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $for = 'userAdminSeoList';
             break;
 
-            case 'admin_marketing_list':
-                $for = 'userAdminMarketingList';
+            case 'admin_sale_list':
+                $for = 'userAdminSaleList';
             break;
 
             case 'member_list':
@@ -719,7 +726,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addAction()
     {
+        parent::authenticateUser();
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         //$userSession = $this->session->get('USER');
 
@@ -834,6 +843,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addAdminAction()
     {
+        parent::authenticateUser();
+
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
@@ -871,8 +882,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO;
                 break;
 
-            case 'admin_marketing_list':
-                $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING;
+            case 'admin_sale_list':
+                $membership = \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE;
                 break;
         }
 
@@ -992,10 +1003,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $addTitle = 'Thêm Admin SEO';
             break;
 
-            case 'admin_marketing_list':
-                $for      = 'userAdminMarketingList';
-                $title    = 'Danh sách Admin Marketing';
-                $addTitle = 'Thêm Admin Marketing';
+            case 'admin_sale_list':
+                $for      = 'userAdminSaleList';
+                $title    = 'Danh sách Admin Sale';
+                $addTitle = 'Thêm Admin Sale';
             break;
         }
 
@@ -1030,6 +1041,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function editAdminAction()
     {
+        parent::authenticateUser();
+
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
@@ -1272,10 +1285,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
                 $editTitle = 'Chỉnh sửa Admin SEO';
                 break;
 
-            case 'admin_marketing_list':
-                $for      = 'userAdminMarketingList';
-                $title    = 'Danh sách Admin Marketing';
-                $editTitle = 'Chỉnh sửa Admin Marketing';
+            case 'admin_sale_list':
+                $for      = 'userAdminSaleList';
+                $title    = 'Danh sách Admin Sale';
+                $editTitle = 'Chỉnh sửa Admin Sale';
                 break;
         }
 
@@ -1316,7 +1329,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addAgentAction()
     {
+        parent::authenticateUser();
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');
 
@@ -1434,15 +1449,16 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function agentListAction()
     {
+        parent::authenticateUser();
+
         $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $page  = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
 
         $params = array(
             'conditions' => array(
-                'q'      => $q,
-                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT,
-                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                'q'    => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT
             ),
             'page'  => $page,
             'limit' => $limit
@@ -1491,6 +1507,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function editAgentAction()
     {
+        parent::authenticateUser();
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
@@ -1670,6 +1687,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function editMemberAction()
     {
+        parent::authenticateUser();
         parent::allowRole(array(
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
@@ -1848,7 +1866,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addMemberAction()
     {
+        parent::authenticateUser();
         parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');
 
@@ -1966,6 +1986,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function adminProfileAction()
     {
+        parent::authenticateUser();
+
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
@@ -2051,6 +2073,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addMessageAction()
     {
+        parent::authenticateUser();
+
         $userSession = $this->session->get('USER');
         $uid = $this->request->getQuery('uid', array('int'), '');
 
@@ -2067,6 +2091,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $message = new \ITECH\Data\Model\MessageModel();
         $form = new \ITECH\Admin\Form\UserMessageForm($message, $this);
+
         if ($this->request->isPost()) {
             $form->bind($this->request->getPost(), $message);
 
@@ -2129,6 +2154,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function editMessageAction()
     {
+        parent::authenticateUser();
+
         $userSession = $this->session->get('USER');
         $mid = $this->request->getQuery('mid', array('int'), '');
         $uid = $this->request->getQuery('uid', array('int'), '');
@@ -2190,6 +2217,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function addEmailAction()
     {
+        parent::authenticateUser();
+
         $userSession = $this->session->get('USER');
 
         $uid = $this->request->getQuery('uid', array('int'), '');
@@ -2299,6 +2328,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
     public function editEmailAction()
     {
+        parent::authenticateUser();
+
         $userSession = $this->session->get('USER');
 
         $id = $this->request->getQuery('id', array('int'), '');

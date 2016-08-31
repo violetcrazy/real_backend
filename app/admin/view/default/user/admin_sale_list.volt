@@ -18,13 +18,13 @@
                 user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
                 or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
                 %}
-                    <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_marketing_list'})}) }}" class="btn btn-primary pull-right">
+                    <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_sale_list'})}) }}" class="btn btn-primary pull-right">
                         <i class="fa fa-plus"></i>
-                        Thêm Admin Marketing
+                        Thêm Admin Sale
                     </a>
                 {% endif %}
 
-                <h3>Danh sách Admin Marketing</h3>
+                <h3>Danh sách Admin Sale</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -60,7 +60,7 @@
                     {% for item in result %}
                         <tr>
                             <td>
-                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_marketing_list'})}) }}">
+                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_sale_list'})}) }}">
                                     {{ item.username }}
                                 </a>
                             </td>
@@ -74,7 +74,7 @@
                             <td>{{ userStatus[item['status']] }}</td>
                             <td class="text-center">
                                 {% if user_session['id'] != item['id'] %}
-                                    <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_marketing_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                    <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_sale_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
                                         <i class="fa fa-times fa fa-white"></i>
                                     </a>
                                 {% endif %}

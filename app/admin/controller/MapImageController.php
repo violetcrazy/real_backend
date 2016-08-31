@@ -3,6 +3,11 @@ namespace ITECH\Admin\Controller;
 
 class MapImageController extends \ITECH\Admin\Controller\BaseController
 {
+    public function initialize()
+    {
+        parent::authenticateUser();
+    }
+
     public function indexAction()
     {
         $mapImageId = $this->request->getQuery('map_image_id', array('striptags', 'trim', 'int'), 0);

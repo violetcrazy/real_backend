@@ -54,11 +54,11 @@ $router->add('/user/admin-seo-list{query:(/.*)*}', array(
     'action'     => 'adminSeoList'
 ))->setName('userAdminSeoList');
 
-$router->add('/user/admin-marketing-list{query:(/.*)*}', array(
+$router->add('/user/admin-sale-list{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
-    'action'     => 'adminMarketingList'
-))->setName('userAdminMarketingList');
+    'action'     => 'adminSaleList'
+))->setName('userAdminSaleList');
 
 $router->add('/user/agent-list{query:(/.*)*}', array(
     'module'     => 'admin',

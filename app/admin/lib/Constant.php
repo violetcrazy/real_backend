@@ -16,7 +16,7 @@ class Constant
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
                 )
             ),
             'project_list' => array(
@@ -26,7 +26,8 @@ class Constant
                 'action'     => 'index',
                 'roles'      => array(
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                 ),
                 'sub_menu' => array(
                     'project_list' => array(
@@ -35,7 +36,8 @@ class Constant
                         'action'     => 'index',
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
                     ),
                     'project_list_attribute' => array(
@@ -44,7 +46,8 @@ class Constant
                         'action'     => 'listAttribute',
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
                     )
                 )
@@ -59,7 +62,7 @@ class Constant
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
                 ),
                 'sub_menu' => array(
                     'block_list' => array(
@@ -71,7 +74,7 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
                         )
                     ),
                     'block_list_attribute' => array(
@@ -96,7 +99,7 @@ class Constant
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
                 ),
                 'sub_menu' => array(
                     'apartment_list' => array(
@@ -108,7 +111,7 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_MARKETING
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
                         )
                     ),
                     'apartment_list_attribute' => array(
@@ -432,10 +435,10 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
                     ),
-                    'userAdminMarketingList' => array(
-                        'title'      => 'DS Admin Marketing',
+                    'userAdminSaleList' => array(
+                        'title'      => 'DS Admin Sale',
                         'controller' => 'user',
-                        'action'     => 'adminMarketingList',
+                        'action'     => 'adminSaleList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN

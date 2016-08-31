@@ -5,6 +5,7 @@ class MediaController extends \ITECH\Admin\Controller\BaseController
 {
     public function initialize()
     {
+        parent::authenticateUser();
     }
 
     public function  addAction()

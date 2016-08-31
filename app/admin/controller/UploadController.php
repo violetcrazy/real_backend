@@ -5,6 +5,7 @@ class UploadController extends \ITECH\Admin\Controller\BaseController
 {
     public function initialize()
     {
+        parent::authenticateUser();
     }
 
     public function changeFolderUploadAction()
@@ -17,6 +18,7 @@ class UploadController extends \ITECH\Admin\Controller\BaseController
         }
         die;
     }
+
     public function indexAction()
     {
         if ($this->request->hasFiles()) {
@@ -77,7 +79,6 @@ class UploadController extends \ITECH\Admin\Controller\BaseController
 
     public function uploadMediaToCdn($resource)
     {
-
         $url = $this->config->cdn->upload_media_url;
         $content = file_get_contents($resource['tmp_name']);
         $post['resource'] = $resource;
