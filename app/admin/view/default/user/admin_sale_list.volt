@@ -20,11 +20,11 @@
                 %}
                     <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_sale_list'})}) }}" class="btn btn-primary pull-right">
                         <i class="fa fa-plus"></i>
-                        Thêm Admin Marketing
+                        Thêm Admin Sale
                     </a>
                 {% endif %}
 
-                <h3>Danh sách Admin Marketing</h3>
+                <h3>Danh sách Admin Sale</h3>
             </div>
         </div>
         <div class="clearfix"></div>
