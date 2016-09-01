@@ -376,7 +376,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/admin_seo_list');
     }
 
-    public function AdminSaleListAction()
+    public function adminSaleListAction()
     {
         parent::authenticateUser();
 
@@ -727,7 +727,11 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function addAction()
     {
         parent::authenticateUser();
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         //$userSession = $this->session->get('USER');
@@ -1508,7 +1512,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function editAgentAction()
     {
         parent::authenticateUser();
+
         parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
 
@@ -1688,7 +1694,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function editMemberAction()
     {
         parent::authenticateUser();
+
         parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
 
@@ -1867,7 +1875,11 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function addMemberAction()
     {
         parent::authenticateUser();
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');

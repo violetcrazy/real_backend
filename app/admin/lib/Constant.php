@@ -392,9 +392,9 @@ class Constant
                     )
                 )
             ),
-            'user' => array(
+            'adminList' => array(
                 'icon_class' => 'clip-user-2',
-                'title'      => 'Quản lý thành viên',
+                'title'      => 'Quản lý quản trị viên',
                 'controller' => 'user',
                 'action'     => 'index',
                 'roles' => array(
@@ -443,7 +443,19 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
-                    ),
+                    )
+                )
+            ),
+            'memberList' => array(
+                'icon_class' => 'clip-user-2',
+                'title'      => 'Quản lý thành viên',
+                'controller' => 'user',
+                'action'     => 'index',
+                'roles' => array(
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                ),
+                'sub_menu' => array(
                     'userAgentList' => array(
                         'title'      => 'Danh sách đại lý',
                         'controller' => 'user',
