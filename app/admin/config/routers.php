@@ -5,7 +5,6 @@ $router->add('/', array(
     'action'     => 'index'
 ))->setName('home');
 
-// --------- User
 $router->add('/user/login{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
@@ -17,18 +16,6 @@ $router->add('/user/logout', array(
     'controller' => 'user',
     'action'     => 'logout'
 ))->setName('user_logout');
-
-$router->add('/user/profile', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'profile'
-))->setName('user_profile');
-
-$router->add('/user/list{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'list'
-))->setName('user_list');
 
 // --------- User Admin
 $router->add('/user/super-admin-list{query:(/.*)*}', [
@@ -73,6 +60,19 @@ $router->add('/user/edit-admin{query:(/.*)*}', array(
     'action'     => 'editAdmin'
 ))->setName('user_edit_admin');
 // User Admin ---------
+
+// --------- User
+$router->add('/user/profile', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'profile'
+))->setName('user_profile');
+
+$router->add('/user/list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'list'
+))->setName('user_list');
 
 $router->add('/user/agent-list{query:(/.*)*}', array(
     'module'     => 'admin',
@@ -163,7 +163,7 @@ $router->add('/user/delete-avatar{query:(/.*)*}', array(
     'controller' => 'user',
     'action'     => 'deleteAvatar'
 ))->setName('user_delete_avatar');
-// --------- User
+// User ---------
 
 // --------- Project
 $router->add('/project/list{query:(/.*)*}', array(

@@ -314,6 +314,7 @@ class Constant
                     )
                 )
             ),
+
             /*
             'interaction' => array(
                 'icon_class' => 'clip-paperplane',
@@ -344,6 +345,7 @@ class Constant
                 'roles' => array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN)
             ),
             */
+
             'system_seo' => array(
                 'icon_class' => 'clip-settings',
                 'title'      => 'Quản lý hệ thống',
