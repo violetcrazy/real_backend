@@ -1334,7 +1334,11 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     public function addAgentAction()
     {
         parent::authenticateUser();
-        parent::allowRole(array(\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN));
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
 
         //$authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
         $userSession = $this->session->get('USER');

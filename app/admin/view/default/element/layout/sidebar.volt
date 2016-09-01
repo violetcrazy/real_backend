@@ -54,9 +54,12 @@
                 </li>
             {% endif %}
         {% endfor %}
-        <li><a href="" class="add-gallery">
-            <i class="clip-pictures"></i>
-            Quản lý hình ảnh
-        </a></li>
+
+        <li>
+            <a href="javascript:void(0);" class="add-gallery">
+                <i class="clip-pictures"></i>
+                Quản lý hình ảnh
+            </a>
+        </li>
     </ul>
 </div>

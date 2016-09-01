@@ -395,7 +395,7 @@ class Constant
             'adminList' => array(
                 'icon_class' => 'clip-user-2',
                 'title'      => 'Quản lý quản trị viên',
-                'controller' => 'user',
+                'controller' => 'user_admin',
                 'action'     => 'index',
                 'roles' => array(
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
@@ -404,13 +404,13 @@ class Constant
                 'sub_menu' => array(
                     'userSuperAdminList' => [
                         'title'      => 'DS Super Admin',
-                        'controller' => 'user',
+                        'controller' => 'user_admin',
                         'action'     => 'superAdminList',
                         'roles'      => [\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]
                     ],
                     'userAdminList' => array(
                         'title'      => 'DS Admin',
-                        'controller' => 'user',
+                        'controller' => 'user_admin',
                         'action'     => 'adminList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
@@ -419,7 +419,7 @@ class Constant
                     ),
                     'userAdminEditorList' => array(
                         'title'      => 'DS Admin Editor',
-                        'controller' => 'user',
+                        'controller' => 'user_admin',
                         'action'     => 'adminEditorList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
@@ -428,7 +428,7 @@ class Constant
                     ),
                     'userAdminSeoList' => array(
                         'title'      => 'DS Admin SEO',
-                        'controller' => 'user',
+                        'controller' => 'user_admin',
                         'action'     => 'adminSeoList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
@@ -437,7 +437,7 @@ class Constant
                     ),
                     'userAdminSaleList' => array(
                         'title'      => 'DS Admin Sale',
-                        'controller' => 'user',
+                        'controller' => 'user_admin',
                         'action'     => 'adminSaleList',
                         'roles'      => [
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
