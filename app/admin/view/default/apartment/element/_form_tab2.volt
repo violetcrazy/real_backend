@@ -1,20 +1,3 @@
-<div class="form-group">
-    <label class="col-sm-3 control-label">
-        Ảnh vị trí
-    </label>
-    <div class="col-sm-5">
-        {% set value = '' %}
-        {% set src = '' %}
-
-        {% if apartment.position_image is defined and apartment.position_image != '' %}
-            {% set value = apartment.position_image %}
-            {% set src = config.cdn.dir_upload  ~ apartment.position_image %}
-        {% endif %}
-
-        {{ templateUpload('position_image', src,value) }}
-    </div>
-</div>
-
 <h3>Tiếng Việt</h3>
 <hr />
 

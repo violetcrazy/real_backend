@@ -133,7 +133,7 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         )
                     ),
-                    'apartment_furniture_list' => array(
+                    /*'apartment_furniture_list' => array(
                         'title'      => 'DS nhà cung cấp nội thất',
                         'controller' => 'apartment',
                         'action'     => 'listFurniture',
@@ -142,7 +142,7 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
                         )
-                    )
+                    )*/
                 )
             ),
             'ceriterial' => array(

@@ -3,6 +3,22 @@
 
 <div id="form_tab3_error_message" class="alert alert-danger" style="display: none;"></div>
 <div class="form-group">
+    <label class="col-sm-2 control-label">
+        Ảnh vị trí
+    </label>
+    <div class="col-sm-5">
+        {% set value = '' %}
+        {% set src = '' %}
+
+        {% if apartment.position_image is defined and apartment.position_image != '' %}
+            {% set value = apartment.position_image %}
+            {% set src = config.cdn.dir_upload  ~ apartment.position_image %}
+        {% endif %}
+
+        {{ templateUpload('position_image', src,value) }}
+    </div>
+</div>
+<div class="form-group">
     <div class="col-sm-12 text-right">
         <button class="btn btn-primary add-gallery" data-callback="createGallery">Thêm hình ảnh</button>
     </div>

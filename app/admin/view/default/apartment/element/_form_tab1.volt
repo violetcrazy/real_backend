@@ -91,23 +91,15 @@
 
 <div class="form-group">
     <label class="col-sm-3 control-label">
-        Thứ tự sản phẩm
+        Thứ tự sản phẩm 
     </label>
     <div class="col-sm-5">
         <select id="ordering" class="form-control" name="ordering">
-            {% if (apartment_name_list|length) %}
-                {% for index, value in apartment_name_list %}
-                    <option {{ apartment.ordering is defined and apartment.ordering == index ? 'selected' : '' }} value="{{ index }}">
-                        {{ value }}
-                    </option>
-                {% endfor %}
-            {% else %}
-                {% for value in 1..result['apartment_count'] %}
-                    <option {{ apartment.ordering is defined and apartment.ordering == value ? 'selected' : '' }} value="{{ value }}">
-                        {{ value }}
-                    </option>
-                {% endfor %}
-            {% endif %}
+            {% for value in 1..blocks.apartment_count %}
+                <option {{ apartment.ordering is defined and apartment.ordering == value ? 'selected' : '' }} value="{{ value }}">
+                    {{ value }}
+                </option>
+            {% endfor %}
         </select>
         {% include 'default/element/layout/form_message' with {'form': form, 'element': 'ordering'} %}
     </div>
@@ -120,43 +112,6 @@
     <div class="col-sm-5">
         {{ form.render('user_id', {'class': 'form-control'}) }}
         {% include 'default/element/layout/form_message' with {'form': form, 'element': 'user_id'} %}
-    </div>
-</div>
-
-<div class="form-group">
-    <label class="col-sm-3 control-label">
-        Tình trạng
-    </label>
-    <div class="col-sm-5">
-        {{ form.render('condition', {'class': 'form-control', 'disabled': 'disabled'}) }}
-        {% include 'default/element/layout/form_message' with {'form': form, 'element': 'condition'} %}
-    </div>
-</div>
-
-{% if requestInfo is defined and requestInfo['user_name'] is defined %}
-    <div class="form-group">
-        <label class="col-sm-3 control-label">
-            Người đặt mua
-        </label>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <input type="text" class="form-control" disabled="disabled" value="{{ requestInfo['user_name'] ~ ' (' ~ requestInfo['user_phone'] ~ ')' ~ ' - ' ~ requestInfo['user_email'] }}" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-edit btn-warning" onclick="javascript:window.location.href = '{{ url({'for': 'user_edit_member', 'query': '?' ~ http_build_query({'id': requestInfo['user_id']})}) }}';">
-                        Thông tin
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-{% endif %}
-
-<div class="form-group">
-    <label class="col-sm-3 control-label">
-        Trạng thái
-    </label>
-    <div class="col-sm-5">
-        {{ form.render('status', {'class': 'form-control'}) }}
     </div>
 </div>
 

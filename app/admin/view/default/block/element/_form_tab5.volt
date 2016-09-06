@@ -1,3 +1,13 @@
+<div id="form_tab5_error_message" class="alert alert-danger" style="display: none;"></div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Trạng thái
+    </label>
+    <div class="col-sm-3">
+        {{ form.render('status', {'class': 'form-control'}) }}
+    </div>
+</div>
+    
 <h3>Tiếng Việt</h3>
 <hr />
 <div class="form-group">

@@ -865,7 +865,6 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
 
         $loadComponent = new \ITECH\Admin\Component\LoadComponent();
         $projects = $loadComponent->getProjectAll();
-
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
             'blocks' => $block,

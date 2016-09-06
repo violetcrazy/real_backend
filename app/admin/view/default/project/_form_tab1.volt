@@ -13,15 +13,6 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="col-sm-2 control-label">
-        SEO Url
-    </label>
-    <div class="col-sm-8">
-        <input type="text" name="slug" class="form-control" value="{% if project.slug is defined %}{{ project.slug }}{% endif %}" />
-        <div class="has-error"><span class="help-block" style="margin-bottom: 0 !important;" id="error_slug" class="error_message"></span></div>
-    </div>
-</div>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">
@@ -43,16 +34,6 @@
     <div class="col-sm-8">
         <input type="text" name="name_eng" class="form-control" value="{% if project.name_eng is defined %}{{ project.name_eng }}{% endif %}" />
         <div class="has-error"><span class="help-block" style="margin-bottom: 0 !important;" id="error_name_eng" class="error_message"></span></div>
-    </div>
-</div>
-
-<div class="form-group">
-    <label class="col-sm-2 control-label">
-        SEO Url
-    </label>
-    <div class="col-sm-8">
-        <input type="text" name="slug_eng" class="form-control" value="{% if project.slug_eng is defined %}{{ project.slug_eng }}{% endif %}" />
-        <div class="has-error"><span class="help-block" style="margin-bottom: 0 !important;" id="error_slug_eng" class="error_message"></span></div>
     </div>
 </div>
 
