@@ -63,6 +63,12 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
                     'active' => true
                 ]
             ];
+
+            $urlBack = $this->url->get([
+                'for' => 'project_edit',
+                'query' => '?id=' . $obj->id
+            ]);
+
         } elseif ($mapImage->module == \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_BLOCK) {
             $obj = \ITECH\Data\Model\BlockModel::findFirst($mapImage->item_id);
             if (!$obj) {
@@ -115,6 +121,11 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
                     'active' => true
                 ]
             ];
+
+            $urlBack = $this->url->get([
+                'for' => 'block_edit',
+                'query' => '?id=' . $obj->id
+            ]);
         }
 
         $mapPoint = \ITECH\Data\Model\MapModel::find(array(
@@ -130,7 +141,8 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
             'mapImage' => $mapImage,
             'mapPoint' => $mapPoint,
             'object' => $obj,
-            'subObject' => $subObj
+            'subObject' => $subObj,
+            'urlBack' => $urlBack
         ));
 
         $this->view->pick(parent::$theme . '/map_image/index');

@@ -22,6 +22,7 @@
     </form>
     <br>
     <div class="text-right">
+        <a href="{{ urlBack }}" class="btn btn-default">Trở lại</a>
         <a href="" class="btn btn-default change-img add-gallery"  data-callback="changeImgMap">Thay hình</a>
         <a href="" class="btn btn-danger add-map">Vẽ xong</a>
     </div>
