@@ -538,7 +538,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         if ($user->id == $userSession['id']) {
-            return $this->response->redirect(array('for' => 'user_profile_admin', 'query' => '?' . http_build_query(array('q' => $q))));
+            return $this->response->redirect(array('for' => 'user_profile', 'query' => '?' . http_build_query(array('q' => $q))));
         }
 
         if (
