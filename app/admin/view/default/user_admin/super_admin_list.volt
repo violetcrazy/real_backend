@@ -44,7 +44,9 @@
             <table class="table table-striped table-bordered table-hover table-full-width">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Username</th>
+                        <th>Họ tên</th>
                         <th>Loại</th>
                         <th>Đăng ký</th>
                         <th>Đăng nhập</th>
@@ -55,11 +57,13 @@
                 <tbody>
                     {% for item in result %}
                         <tr>
+                            <td>{{ item.id }}</td>
                             <td>
                                 <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'super_admin_list'})}) }}">
                                     {{ item.username }}
                                 </a>
                             </td>
+                            <td>{{ item.name }}</td>
                             <td>{{ userMembershipAdmin[item.membership] }}</td>
                             <td>{{ date('d-m-Y H:i:s', strtotime(item.created_at)) }}</td>
                             <td>

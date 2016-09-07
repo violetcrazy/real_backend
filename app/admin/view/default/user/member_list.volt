@@ -48,6 +48,7 @@
             <table class="table table-striped table-bordered table-hover table-full-width">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Username</th>
                         <th>Họ tên</th>
                         <th>Loại</th>
@@ -62,6 +63,7 @@
                     {% if result is defined and result|length %}
                         {% for item in result %}
                             <tr>
+                                <td>{{ item.id }}</td>
                                 <td>
                                     <a href="{{ url({'for': 'user_edit_member', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'member_list'})}) }}">
                                         {{ item.username }}
