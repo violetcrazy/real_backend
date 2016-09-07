@@ -68,7 +68,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
             $params['conditions']['projectIdsString'] = $projectIds['projectIdsString'];
         }
 
-        $params['conditions']['status'] = \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE;
+        // $params['conditions']['status'] = \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE;
 
         $blockRepo = new \ITECH\Data\Repo\BlockRepo();
         $blocks    = $blockRepo->getList($params);
@@ -104,7 +104,7 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
 
             $apartmentSoldCount = \ITECH\Data\Model\ApartmentModel::find(array(
                 'conditions' => '
-                    block_id      = :block_id: 
+                    block_id      = :block_id:
                     AND condition = :condition:
                 ',
                 'bind' => array(
