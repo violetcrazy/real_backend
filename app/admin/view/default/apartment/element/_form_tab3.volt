@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     <div class="col-sm-12 text-right">
-        <button class="btn btn-primary add-gallery" data-callback="createGallery">Thêm hình ảnh</button>
+        <a class="btn btn-primary add-gallery" data-callback="createGallery">Thêm hình ảnh</a>
     </div>
     <div class="clearfix"></div>
 </div>

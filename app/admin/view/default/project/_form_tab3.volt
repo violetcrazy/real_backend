@@ -4,7 +4,7 @@
 <div id="form_tab3_error_message" class="alert alert-danger" style="display: none;"></div>
 <div class="form-group">
     <div class="col-sm-12 text-right">
-        <button class="btn btn-primary btn-upload-multiple" data-callback="createGallery">Thêm hình ảnh</button>
+        <a class="btn btn-primary btn-upload-multiple" data-callback="createGallery">Thêm hình ảnh</a>
     </div>
     <div class="clearfix"></div>
 </div>
