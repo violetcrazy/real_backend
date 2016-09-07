@@ -52,14 +52,7 @@
         {% include 'default/element/layout/form_message' with {'form': form, 'element': 'apartment_count'} %}
     </div>
 </div>
-<div class="form-group">
-    <label class="col-sm-3 control-label">
-        Trạng thái
-    </label>
-    <div class="col-sm-3">
-        {{ form.render('status', {'class': 'form-control'}) }}
-    </div>
-</div>
+
 <hr>
 
 <h3>Tiếng Việt</h3>

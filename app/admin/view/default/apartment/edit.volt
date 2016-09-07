@@ -55,9 +55,9 @@
                     <li>
                         <a href="#panel_tab4" data-toggle="tab">Thuộc tính</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#panel_tab6" data-toggle="tab">Nội thất</a>
-                    </li>
+                    </li> -->
                 {% endif %}
 
                 {%
@@ -119,9 +119,11 @@
                 <div class="tab-pane {{ classInActive2 }}" id="panel_tab5">
                     {% include 'default/apartment/element/_form_tab5.volt' %}
                 </div>
+                {#
                 <div class="tab-pane" id="panel_tab6">
                     {% include 'default/apartment/element/_form_tab6.volt' %}
                 </div>
+                #}
                 <div class="tab-pane {{ classInActive3 }}" id="panel_tab7">
                     {% include 'default/apartment/element/_form_tab7.volt' %}
                 </div>

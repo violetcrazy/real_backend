@@ -47,7 +47,7 @@
                                     </td>
                                     <td>{{ item.phone }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url({'for': 'apartment_furniture_delete', 'query': '?' ~ http_build_query({'id': item.id, 'page': page})}) }}" onclick="javascript:return confirm('Đồng ý xoá.?');" class="btn btn-xs btn-bricky">
+                                        <a href="{{ url({'for': 'apartment_furniture_delete', 'query': '?' ~ http_build_query({'id': item.id, 'page': page})}) }}" onclick="javascript:return confirm('Đồng ý xóa?');" class="btn btn-xs btn-bricky">
                                             <i class="fa fa-times fa fa-white"></i>
                                         </a>
                                     </td>

@@ -5,7 +5,6 @@ $router->add('/', array(
     'action'     => 'index'
 ))->setName('home');
 
-// --------- User
 $router->add('/user/login{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
@@ -18,6 +17,51 @@ $router->add('/user/logout', array(
     'action'     => 'logout'
 ))->setName('user_logout');
 
+// --------- User Admin
+$router->add('/user/super-admin-list{query:(/.*)*}', [
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'superAdminList'
+])->setName('userSuperAdminList');
+
+$router->add('/user/admin-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'adminList'
+))->setName('userAdminList');
+
+$router->add('/user/admin-editor-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'adminEditorList'
+))->setName('userAdminEditorList');
+
+$router->add('/user/admin-seo-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'adminSeoList'
+))->setName('userAdminSeoList');
+
+$router->add('/user/admin-sale-list{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'adminSaleList'
+))->setName('userAdminSaleList');
+
+$router->add('/user/add-admin{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'addAdmin'
+))->setName('user_add_admin');
+
+$router->add('/user/edit-admin{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'editAdmin'
+))->setName('user_edit_admin');
+// User Admin ---------
+
+// --------- User
 $router->add('/user/profile', array(
     'module'     => 'admin',
     'controller' => 'user',
@@ -29,36 +73,6 @@ $router->add('/user/list{query:(/.*)*}', array(
     'controller' => 'user',
     'action'     => 'list'
 ))->setName('user_list');
-
-$router->add('/user/super-admin-list{query:(/.*)*}', [
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'superAdminList'
-])->setName('userSuperAdminList');
-
-$router->add('/user/admin-list{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'adminList'
-))->setName('userAdminList');
-
-$router->add('/user/admin-editor-list{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'adminEditorList'
-))->setName('userAdminEditorList');
-
-$router->add('/user/admin-seo-list{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'adminSeoList'
-))->setName('userAdminSeoList');
-
-$router->add('/user/admin-sale-list{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'adminSaleList'
-))->setName('userAdminSaleList');
 
 $router->add('/user/agent-list{query:(/.*)*}', array(
     'module'     => 'admin',
@@ -114,18 +128,6 @@ $router->add('/user/add{query:(/.*)*}', array(
     'action'     => 'add'
 ))->setName('user_add');
 
-$router->add('/user/add-admin{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'addAdmin'
-))->setName('user_add_admin');
-
-$router->add('/user/edit-admin{query:(/.*)*}', array(
-    'module'     => 'admin',
-    'controller' => 'user',
-    'action'     => 'editAdmin'
-))->setName('user_edit_admin');
-
 $router->add('/user/add-agent{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
@@ -161,7 +163,7 @@ $router->add('/user/delete-avatar{query:(/.*)*}', array(
     'controller' => 'user',
     'action'     => 'deleteAvatar'
 ))->setName('user_delete_avatar');
-// --------- User
+// User ---------
 
 // --------- Project
 $router->add('/project/list{query:(/.*)*}', array(
