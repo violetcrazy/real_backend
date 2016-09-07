@@ -6,6 +6,7 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
     public function initialize()
     {
         parent::authenticateUser();
+        parent::initialize();
     }
 
     public function indexAction()
@@ -51,7 +52,7 @@ class MapImageController extends \ITECH\Admin\Controller\BaseController
                 [
                     'title' => $obj->name,
                     'url' => $this->url->get([
-                        'for' => 'block_edit',
+                        'for' => 'project_edit',
                         'query' => '?id=' . $obj->id
                     ]),
                     'active' => false
