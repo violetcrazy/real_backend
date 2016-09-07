@@ -59,6 +59,12 @@ $router->add('/user/edit-admin{query:(/.*)*}', array(
     'controller' => 'user_admin',
     'action'     => 'editAdmin'
 ))->setName('user_edit_admin');
+
+$router->add('/user/delete-admin{query:(/.*)*}', array(
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'deleteAdmin'
+))->setName('user_delete_admin');
 // User Admin ---------
 
 // --------- User

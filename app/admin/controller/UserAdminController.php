@@ -795,4 +795,115 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         ));
         $this->view->pick(parent::$theme . '/user_admin/edit_admin');
     }
+
+    public function deleteAdminAction()
+    {
+        parent::authenticateUser();
+
+        parent::allowRole(array(
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ));
+
+        $userSession = $this->session->get('USER');
+
+        $id     = $this->request->getQuery('id', array('int'), '');
+        $q      = $this->request->getQuery('q', array('striptags', 'trim', 'lower'), '');
+        $filter = $this->request->getQuery('filter', array('striptags', 'trim', 'lower'), '');
+
+        $user = \ITECH\Data\Model\UserModel::findFirst(array(
+            'conditions' => 'id = :id:',
+            'bind'       => array('id' => $id)
+        ));
+
+        if (!$user) {
+            throw new \Phalcon\Exception('Không tồn tại tài khoản này.');
+        }
+
+        if ($user->id == $userSession['id']) {
+            throw new \Phalcon\Exception('Bạn không thể xoá tài khoản này.');
+        }
+
+        if (
+            $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+            && $user->membership == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+        ) {
+            throw new \Exception('Bạn không có quyền xoá tài khoản này.');
+        }
+
+        $user->status     = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;
+        $user->updated_at = date('Y-m-d H:i:s');
+
+        if (!$user->update()) {
+            $messages = $user->getMessages();
+
+            if (isset($messages[0])) {
+                $this->flashSession->error($messages[0]->getMessage());
+            }
+        } else {
+            $request_uri = $this->config->application->protocol . $this->request->getHttpHost() . $this->request->getServer('REQUEST_URI');
+
+            if ($request_uri != $this->url->get(array('for' => 'home')) && $request_uri != $this->url->get(array('for' => 'user_login'))) {
+                $referralUrl = $request_uri;
+            } else {
+                $referralUrl = $this->url->get(array('for' => 'home'));
+            }
+
+            $userLogModel               = new \ITECH\Data\Model\UserLogModel();
+            $userLogModel->user_id      = $userSession['id'];
+            $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_REMOVE_USER;
+            $userLogModel->referral_url = $referralUrl;
+            $userLogModel->user_agent   = $this->request->getUserAgent();
+            $userLogModel->ip           = $this->request->getClientAddress();
+
+            $post = array(
+                'id'           => $user->id,
+                'username'     => $user->username,
+                'referral_url' => $referralUrl,
+                'user_agent'   => $this->request->getUserAgent(),
+                'ip'           => $this->request->getClientAddress(),
+                'logined_at'   => $user->logined_at
+            );
+
+            $userLogModel->log_data = json_encode(array('[UserController][deleteAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
+            $userLogModel->created_at = date('Y-m-d H:i:s');
+
+            if (!$userLogModel->create()) {
+                $messages = $userLogModel->getMessages();
+
+                if (isset($messages[0])) {
+                    $this->logger->log('[UserController][deleteAdminAction] ' . $messages[0]->getMessage(), \Phalcon\Logger::ERROR);
+                }
+            }
+
+            $this->flashSession->success('Xoá thành công.');
+        }
+
+        $for = 'userSuperAdminList';
+
+        switch ($filter) {
+            default:
+            case 'super_admin_list':
+                $for = 'userSuperAdminList';
+                break;
+
+            case 'admin_list':
+                $for = 'userAdminList';
+                break;
+
+            case 'admin_editor_list':
+                $for = 'userAdminEditorList';
+                break;
+
+            case 'admin_seo_list':
+                $for = 'userAdminSeoList';
+                break;
+
+            case 'admin_sale_list':
+                $for = 'userAdminSaleList';
+                break;
+        }
+
+        return $this->response->redirect(array('for' => $for, 'query' => '?' . http_build_query(array('q' => $q))));
+    }
 }

@@ -70,7 +70,7 @@
                             <td>{{ userStatus[item['status']] }}</td>
                             <td class="text-center">
                                 {% if user_session['id'] != item['id'] %}
-                                    <a href="{{ url({'for': 'user_delete', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'super_admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                    <a href="{{ url({'for': 'user_delete_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'super_admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
                                         <i class="fa fa-times fa fa-white"></i>
                                     </a>
                                 {% endif %}
