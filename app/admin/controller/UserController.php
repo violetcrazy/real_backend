@@ -73,68 +73,6 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         return $this->response->redirect(array('for' => 'user_login'));
     }
 
-    public function profileAction()
-    {
-        parent::authenticateUser();
-        $userSession = $this->session->get('USER');
-
-        $user = \ITECH\Data\Model\UserModel::findFirst(array(
-            'conditions' => '
-                id         = :user_id: 
-                AND type   = :user_type: 
-                AND status = :user_status:
-            ',
-            'bind' => array(
-                'user_id'     => $userSession['id'],
-                'user_type'   => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'user_status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
-            )
-        ));
-
-        if (!$user) {
-            throw new \Exception('Không tồn tại tài khoản này.');
-        }
-
-        $form = new \ITECH\Admin\Form\UserProfileForm($user);
-
-        if ($this->request->isPost()) {
-            $form->bind($this->request->getPost(), $user);
-
-            if ($this->request->getPost('new_password') != '') {
-                $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
-            }
-
-            $user->slug       = \ITECH\Data\Lib\Util::slug($user->name);
-            $user->updated_at = date('Y-m-d H:i:s');
-
-            if (!$form->isValid()) {
-                $this->flashSession->error('Thông tin không hợp lệ.');
-            } else {
-                try {
-                    if (!$user->save()) {
-                        $messages = $user->getMessages();
-                        $message  = isset($messages[0]) ? $messages[0]->getMessage() : 'Không thể cập nhật.';
-
-                        $this->flashSession->error($message);
-                    } else {
-                        parent::setUserSessionOject($user);
-                        $this->flashSession->success('Cập nhật thành công.');
-                    }
-
-                    return $this->response->redirect(array('for' => 'user_profile'));
-                } catch (\Exception $e) {
-                    throw new \Exception($e->getMessage());
-                }
-            }
-        }
-
-        $this->view->setVars(array(
-            'form' => $form,
-            'user' => $user
-        ));
-        $this->view->pick(parent::$theme . '/user/profile');
-    }
-
     public function memberListAction()
     {
         parent::authenticateUser();

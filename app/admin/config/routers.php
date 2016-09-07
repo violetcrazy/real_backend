@@ -70,7 +70,7 @@ $router->add('/user/delete-admin{query:(/.*)*}', array(
 // --------- User
 $router->add('/user/profile', array(
     'module'     => 'admin',
-    'controller' => 'user',
+    'controller' => 'user_admin',
     'action'     => 'profile'
 ))->setName('user_profile');
 
