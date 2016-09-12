@@ -24,17 +24,15 @@ class BlockController extends \ITECH\Api\Controller\BaseController
             'allAction',
             'ProjectModel',
             'find',
-            $projectId,
-            \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE
+            $projectId
         )));
 
         $blocks = $this->cache->get($cacheName);
         if (!$blocks) {
             $blocks = \ITECH\Data\Model\BlockModel::find(array(
-                'conditions' => 'project_id = :project_id: AND status = :status:',
+                'conditions' => 'project_id = :project_id:',
                 'bind' => array(
-                    'project_id' => $projectId,
-                    'status' => \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE
+                    'project_id' => $projectId
                 )
             ));
 
@@ -43,9 +41,11 @@ class BlockController extends \ITECH\Api\Controller\BaseController
 
         if (count($blocks)) {
             foreach ($blocks as $item) {
+                $status = \ITECH\Data\Lib\Constant::getBlockStatus();
+
                 $response['result'][] = array(
                     'id' => (int)$item->id,
-                    'name' => $item->name,
+                    'name' => $item->name . ($item->status != \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE ? ' (' . $status[$item->status] . ')': ''),
                     'name_eng' => $item->name_eng,
                     'slug' => $item->slug,
                     'slug_eng' => $item->slug_eng,
@@ -1007,31 +1007,31 @@ class BlockController extends \ITECH\Api\Controller\BaseController
             if (isset($post->price_eng)) {
                 $block->price_eng = trim(strip_tags($post->price_eng));
             }
-            
+
             if (isset($post->meta_title)) {
                 $block->meta_title = trim(strip_tags($post->meta_title));
             }
-            
+
             if (isset($post->meta_title_eng)) {
                 $block->meta_title_eng = trim(strip_tags($post->meta_title_eng));
             }
-            
+
             if (isset($post->meta_keywords)) {
                 $block->meta_keywords = trim(strip_tags($post->meta_keywords));
             }
-            
+
             if (isset($post->meta_keywords_eng)) {
                 $block->meta_keywords_eng = trim(strip_tags($post->meta_keywords_eng));
             }
-            
+
             if (isset($post->meta_description)) {
                 $block->meta_description = trim(strip_tags($post->meta_description));
             }
-            
+
             if (isset($post->meta_description_eng)) {
                 $block->meta_description_eng = trim(strip_tags($post->meta_description_eng));
             }
-            
+
 
             $block->updated_at = date('Y-m-d H:i:s');
 
@@ -1084,14 +1084,14 @@ class BlockController extends \ITECH\Api\Controller\BaseController
         $attributeTypeBlock = parent::getAttrBlock(\ITECH\Data\Lib\Constant::BLOCK_ATTRIBUTE_TYPE_TYPE, $block->id,  $cache);
         $attributeViewBlock = parent::getAttrBlock(\ITECH\Data\Lib\Constant::BLOCK_ATTRIBUTE_TYPE_VIEW, $block->id, $cache);
         $attributeUtilityBlock = parent::getAttrBlock(\ITECH\Data\Lib\Constant::BLOCK_ATTRIBUTE_TYPE_UTILITY, $block->id, $cache);
-        
+
         $attributeType = [];
         $attributeTypeEng = [];
         $attributeView = [];
         $attributeViewEng = [];
         $attributeUtility = [];
         $attributeUtilityEng = [];
-        
+
         foreach ($attributeTypeBlock as $key => $attribute) {
             $attributeType[] = [
                 'id' => $attribute['id'],
@@ -1102,7 +1102,7 @@ class BlockController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         foreach ($attributeViewBlock as $key => $attribute) {
             $attributeView[] = [
                 'id' => $attribute['id'],
@@ -1113,7 +1113,7 @@ class BlockController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         foreach ($attributeUtilityBlock as $key => $attribute) {
             $attributeUtility[] = [
                 'id' => $attribute['id'],
@@ -1124,9 +1124,9 @@ class BlockController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         $project = $block->getProject();
-        
+
         $defaultImageUrl = parent::$noImageUrl;
         if ($block->default_image != '') {
             $defaultImageUrl = $this->config->cdn->dir_upload . $block->default_image;

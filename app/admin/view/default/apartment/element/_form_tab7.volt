@@ -3,7 +3,7 @@
         Tình trạng
     </label>
     <div class="col-sm-5">
-        {{ form.render('condition', {'class': 'form-control', 'disabled': 'disabled'}) }}
+        {{ form.render('condition', {'class': 'form-control'}) }}
         {% include 'default/element/layout/form_message' with {'form': form, 'element': 'condition'} %}
     </div>
 </div>
@@ -64,7 +64,7 @@
         {% include 'default/element/layout/form_message' with {'form': form, 'element': 'price_sale_off'} %}
     </div>
 </div>
-    
+
 <h3>Tiếng Anh</h3>
 <hr />
 <div class="form-group">

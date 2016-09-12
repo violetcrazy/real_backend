@@ -27,7 +27,7 @@ class Constant
                 'roles'      => array(
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                    \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                 ),
                 'sub_menu' => array(
                     'project_list' => array(
@@ -37,7 +37,7 @@ class Constant
                         'roles' => array(
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
-                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
                         )
                     ),
                     'project_list_attribute' => array(

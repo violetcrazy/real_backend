@@ -15,8 +15,8 @@
                 <h3>Danh sách Block/Khu</h3>
             </div>
         </div>
-        <div class="clearfix"></div>
 
+        <div class="clearfix"></div>
         <div class="col-sm-12">
             {{ flashSession.output() }}
 

@@ -177,16 +177,16 @@ class ApartmentForm extends \Phalcon\Forms\Form
         $status = new \Phalcon\Forms\Element\Select('status', \ITECH\Data\Lib\Constant::getApartmentStatus());
         $this->add($status);
 
-        $listFurniture = \ITECH\Data\Model\FurnitureModel::find([
-            "columns" => "id, name",
-            'conditions' => 'status = :status:',
-            'bind' => array('status' => \ITECH\Data\Lib\Constant::FURNITURE_STATUS_ACTIVE)
-        ]);
-        $furnitureId = new \Phalcon\Forms\Element\Select('furniture_id', $listFurniture, array(
-            'using' => array('id', 'name'),
-            'useEmpty' => true,
-            'emptyText' => 'Chọn nhà nội thất',
-            'emptyValue' => ''));
-        $this->add($furnitureId);
+        // $listFurniture = \ITECH\Data\Model\FurnitureModel::find([
+        //     "columns" => "id, name",
+        //     'conditions' => 'status = :status:',
+        //     'bind' => array('status' => \ITECH\Data\Lib\Constant::FURNITURE_STATUS_ACTIVE)
+        // ]);
+        // $furnitureId = new \Phalcon\Forms\Element\Select('furniture_id', $listFurniture, array(
+        //     'using' => array('id', 'name'),
+        //     'useEmpty' => true,
+        //     'emptyText' => 'Chọn nhà nội thất',
+        //     'emptyValue' => ''));
+        // $this->add($furnitureId);
     }
 }

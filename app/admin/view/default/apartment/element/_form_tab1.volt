@@ -91,7 +91,7 @@
 
 <div class="form-group">
     <label class="col-sm-3 control-label">
-        Thứ tự sản phẩm 
+        Thứ tự sản phẩm
     </label>
     <div class="col-sm-5">
         <select id="ordering" class="form-control" name="ordering">
@@ -171,8 +171,10 @@
                     });
 
                     $('#list_block_apartment').html(option).val('{{ block_detail.id is defined ? block_detail.id : '' }}');
+
                 }
             }
         });
     });
 </script>
+<!-- // {{ block_detail.id is defined ? block_detail.id : '' }} -->
