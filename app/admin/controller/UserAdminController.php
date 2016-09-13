@@ -29,7 +29,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         ];
 
         $userRepo = new \ITECH\Data\Repo\UserRepo;
-        $result   = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getList($params);
 
         $query         = [];
         $query['page'] = $page;
@@ -62,7 +62,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result->items,
+            'result'           => $result,
             'paginationLayout' => $paginationLayout,
             'q'                => $q
 
@@ -89,7 +89,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getList($params);
 
         $query         = array();
         $query['page'] = $page;
@@ -122,7 +122,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result->items,
+            'result'           => $result,
             'paginationLayout' => $paginationLayout,
             'q'                => $q
 
@@ -149,7 +149,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getList($params);
 
         $query         = array();
         $query['page'] = $page;
@@ -182,7 +182,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result->items,
+            'result'           => $result,
             'paginationLayout' => $paginationLayout,
             'q'                => $q
 
@@ -209,7 +209,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getList($params);
 
         $query         = array();
         $query['page'] = $page;
@@ -242,7 +242,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result->items,
+            'result'           => $result,
             'paginationLayout' => $paginationLayout,
             'q'                => $q
 
@@ -269,7 +269,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result   = $userRepo->getList($params);
 
         $query         = array();
         $query['page'] = $page;
@@ -302,7 +302,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result->items,
+            'result'           => $result,
             'paginationLayout' => $paginationLayout,
             'q'                => $q
 
