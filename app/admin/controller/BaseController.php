@@ -85,6 +85,20 @@ class BaseController extends \Phalcon\Mvc\Controller
             }
         }
 
+        if (isset($user['id'])) {
+            $checkUser = \ITECH\Data\Model\UserModel::findFirst([
+                'conditions' => 'id = :id: AND status = :status:',
+                'bind' => [
+                    'id' => $user['id'],
+                    'status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                ]
+            ]);
+
+            if (!$checkUser) {
+                $authenticate = false;
+            }
+        }
+
         if (!$authenticate) {
             $this->session->remove('USER');
 
