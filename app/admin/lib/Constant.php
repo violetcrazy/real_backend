@@ -404,6 +404,12 @@ class Constant
                     \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                 ),
                 'sub_menu' => array(
+                    'userAllAdminList' => [
+                        'title'      => 'DS Quản trị viên',
+                        'controller' => 'user_admin',
+                        'action'     => 'allAdminList',
+                        'roles'      => [\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]
+                    ],
                     'userSuperAdminList' => [
                         'title'      => 'DS Super Admin',
                         'controller' => 'user_admin',

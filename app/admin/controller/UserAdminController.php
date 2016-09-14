@@ -9,62 +9,80 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         parent::authenticateUser();
     }
 
-    public function superAdminListAction()
+    public function allAdminListAction()
     {
         parent::authenticateUser();
         parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
 
-        $q     = $this->request->getQuery('q', ['striptags', 'trim'], '');
-        $page  = $this->request->getQuery('page', ['int'], 1);
-        $limit = $this->config->application->pagination_limit;
+        $q = $this->request->getQuery('q', ['striptags', 'trim'], '');
 
         $params = [
             'conditions' => [
-                'q'          => $q,
-                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
-            ],
-            'page'  => $page,
-            'limit' => $limit
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
+            ]
         ];
 
         $userRepo = new \ITECH\Data\Repo\UserRepo;
-        $result   = $userRepo->getList($params);
-
-        $query         = [];
-        $query['page'] = $page;
-
-        $url = $this->url->get(['for' => 'userSuperAdminList']);
-
-        $options = [
-            'url'           => $url,
-            'query'         => $query,
-            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
-            'page'          => $page,
-            'pages_display' => 3
-        ];
-
-        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
-        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+        $result = $userRepo->getList($params);
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => 'Danh sách Super Admin',
-                'url'    => $this->url->get(['for' => 'userSuperAdminList']),
+                'title' => 'Danh sách Quản trị viên',
+                'url' => $this->url->get(['for' => 'userAllAdminList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
-            'paginationLayout' => $paginationLayout,
-            'q'                => $q
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
+
+        ]);
+        $this->view->pick(parent::$theme . '/user_admin/all_admin_list');
+    }
+
+    public function superAdminListAction()
+    {
+        parent::authenticateUser();
+        parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
+
+        $q = $this->request->getQuery('q', ['striptags', 'trim'], '');
+
+        $params = [
+            'conditions' => [
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+            ]
+        ];
+
+        $userRepo = new \ITECH\Data\Repo\UserRepo;
+        $result = $userRepo->getList($params);
+
+        $breadcrumbs = [
+            [
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title' => 'Danh sách Super Admin',
+                'url' => $this->url->get(['for' => 'userSuperAdminList']),
+                'active' => true
+            ]
+        ];
+
+        $this->view->setVars([
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user_admin/super_admin_list');
@@ -73,58 +91,41 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminListAction()
     {
         parent::authenticateUser();
+        parent::allowRole([
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ]);
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
-        $limit = $this->config->application->pagination_limit;
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         $params = array(
             'conditions' => array(
-                'q'          => $q,
-                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
-            ),
-            'page'  => $page,
-            'limit' => $limit
+            )
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getList($params);
-
-        $query         = array();
-        $query['page'] = $page;
-
-        $url = $this->url->get(array('for' => 'userAdminList'));
-
-        $options = array(
-            'url'           => $url,
-            'query'         => $query,
-            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
-            'page'          => $page,
-            'pages_display' => 3
-        );
-
-        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
-        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+        $result = $userRepo->getList($params);
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => 'Danh sách Admin',
-                'url'    => $this->url->get(['for' => 'userAdminList']),
+                'title' => 'Danh sách Admin',
+                'url' => $this->url->get(['for' => 'userAdminList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
-            'paginationLayout' => $paginationLayout,
-            'q'                => $q
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user_admin/admin_list');
@@ -133,58 +134,41 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminEditorListAction()
     {
         parent::authenticateUser();
+        parent::allowRole([
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ]);
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
-        $limit = $this->config->application->pagination_limit;
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         $params = array(
             'conditions' => array(
-                'q'          => $q,
-                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
-            ),
-            'page'  => $page,
-            'limit' => $limit
+            )
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getList($params);
-
-        $query         = array();
-        $query['page'] = $page;
-
-        $url = $this->url->get(array('for' => 'userAdminEditorList'));
-
-        $options = array(
-            'url'           => $url,
-            'query'         => $query,
-            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
-            'page'          => $page,
-            'pages_display' => 3
-        );
-
-        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
-        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+        $result = $userRepo->getList($params);
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => 'Danh sách Admin Editor',
-                'url'    => $this->url->get(['for' => 'userAdminEditorList']),
+                'title' => 'Danh sách Admin Editor',
+                'url' => $this->url->get(['for' => 'userAdminEditorList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
-            'paginationLayout' => $paginationLayout,
-            'q'                => $q
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user_admin/admin_editor_list');
@@ -193,58 +177,41 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSeoListAction()
     {
         parent::authenticateUser();
+        parent::allowRole([
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ]);
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
-        $limit = $this->config->application->pagination_limit;
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         $params = array(
             'conditions' => array(
-                'q'          => $q,
-                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO
-            ),
-            'page'  => $page,
-            'limit' => $limit
+            )
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getList($params);
-
-        $query         = array();
-        $query['page'] = $page;
-
-        $url = $this->url->get(array('for' => 'userAdminSeoList'));
-
-        $options = array(
-            'url'           => $url,
-            'query'         => $query,
-            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
-            'page'          => $page,
-            'pages_display' => 3
-        );
-
-        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
-        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+        $result = $userRepo->getList($params);
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => 'Danh sách Admin SEO',
-                'url'    => $this->url->get(['for' => 'userAdminSeoList']),
+                'title' => 'Danh sách Admin SEO',
+                'url' => $this->url->get(['for' => 'userAdminSeoList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
-            'paginationLayout' => $paginationLayout,
-            'q'                => $q
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user_admin/admin_seo_list');
@@ -253,58 +220,41 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSaleListAction()
     {
         parent::authenticateUser();
+        parent::allowRole([
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ]);
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
-        $limit = $this->config->application->pagination_limit;
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         $params = array(
             'conditions' => array(
-                'q'          => $q,
-                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'q' => $q,
+                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
-            ),
-            'page'  => $page,
-            'limit' => $limit
+            )
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getList($params);
-
-        $query         = array();
-        $query['page'] = $page;
-
-        $url = $this->url->get(array('for' => 'userAdminSaleList'));
-
-        $options = array(
-            'url'           => $url,
-            'query'         => $query,
-            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
-            'page'          => $page,
-            'pages_display' => 3
-        );
-
-        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
-        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+        $result = $userRepo->getList($params);
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => 'Danh sách Admin SEO',
-                'url'    => $this->url->get(['for' => 'userAdminSaleList']),
+                'title' => 'Danh sách Admin SEO',
+                'url' => $this->url->get(['for' => 'userAdminSaleList']),
                 'active' => true
             ]
         ];
 
         $this->view->setVars([
-            'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
-            'paginationLayout' => $paginationLayout,
-            'q'                => $q
+            'breadcrumbs' => $breadcrumbs,
+            'result' => $result,
+            'q' => $q
 
         ]);
         $this->view->pick(parent::$theme . '/user_admin/admin_sale_list');
@@ -322,7 +272,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         $userSession = $this->session->get('USER');
 
         $filter = $this->request->getQuery('filter', array('striptags', 'trim'), '');
-        $q      = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
 
         if (
             $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
@@ -356,9 +306,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 break;
         }
 
-        $user             = new \ITECH\Data\Model\UserModel;
+        $user = new \ITECH\Data\Model\UserModel;
         $user->membership = $membership;
-        $user->status     = \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE;
+        $user->status = \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE;
 
         $form = new \ITECH\Admin\Form\AdminForm($user);
 
@@ -380,16 +330,16 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 if ($has > 0) {
                     $this->flashSession->error('Email này đã được sử dụng.');
                 } else {
-                    $user->password    = \ITECH\Data\Lib\Util::hashPassword($user->password);
-                    $user->name        = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
-                    $user->display     = $user->name;
-                    $user->slug        = \ITECH\Data\Lib\Util::slug($user->name);
-                    $user->gender      = \ITECH\Data\Lib\Constant::USER_GENDER_UNDEFINED;
-                    $user->type        = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
-                    $user->membership  = $membership;
+                    $user->password = \ITECH\Data\Lib\Util::hashPassword($user->password);
+                    $user->name = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
+                    $user->display = $user->name;
+                    $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
+                    $user->gender = \ITECH\Data\Lib\Constant::USER_GENDER_UNDEFINED;
+                    $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
+                    $user->membership = $membership;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
-                    $user->created_at  = date('Y-m-d H:i:s');
-                    $user->updated_at  = date('Y-m-d H:i:s');
+                    $user->created_at = date('Y-m-d H:i:s');
+                    $user->updated_at = date('Y-m-d H:i:s');
 
                     if (!$user->create()) {
                         $messages = $user->getMessages();
@@ -407,23 +357,23 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                             $referralUrl = $this->url->get(array('for' => 'home'));
                         }
 
-                        $userLogModel               = new \ITECH\Data\Model\UserLogModel();
-                        $userLogModel->user_id      = $userSession['id'];
-                        $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_ADD_USER;
+                        $userLogModel = new \ITECH\Data\Model\UserLogModel();
+                        $userLogModel->user_id = $userSession['id'];
+                        $userLogModel->action = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_ADD_USER;
                         $userLogModel->referral_url = $referralUrl;
-                        $userLogModel->user_agent   = $this->request->getUserAgent();
-                        $userLogModel->ip           = $this->request->getClientAddress();
+                        $userLogModel->user_agent = $this->request->getUserAgent();
+                        $userLogModel->ip = $this->request->getClientAddress();
 
                         $post = array(
-                            'id'           => $user->id,
-                            'username'     => $user->username,
+                            'id' => $user->id,
+                            'username' => $user->username,
                             'referral_url' => $referralUrl,
-                            'user_agent'   => $this->request->getUserAgent(),
-                            'ip'           => $this->request->getClientAddress(),
-                            'logined_at'   => $user->logined_at
+                            'user_agent' => $this->request->getUserAgent(),
+                            'ip' => $this->request->getClientAddress(),
+                            'logined_at' => $user->logined_at
                         );
 
-                        $userLogModel->log_data   = json_encode(array('[UserController][addAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
+                        $userLogModel->log_data = json_encode(array('[UserController][addAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
                         $userLogModel->created_at = date('Y-m-d H:i:s');
 
                         if (!$userLogModel->create()) {
@@ -442,68 +392,68 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             }
         }
 
-        $for      = 'userSuperAdminList';
-        $title    = 'Danh sách Super Admin';
+        $for = 'userSuperAdminList';
+        $title = 'Danh sách Super Admin';
         $addTitle = 'Thêm Super Admin';
 
         switch ($filter) {
             default:
             case 'super_admin_list':
-                $for      = 'userSuperAdminList';
-                $title    = 'Danh sách Super Admin';
+                $for = 'userSuperAdminList';
+                $title = 'Danh sách Super Admin';
                 $addTitle = 'Thêm Super Admin';
                 break;
 
             case 'admin_list':
-                $for      = 'userAdminList';
-                $title    = 'Danh sách Admin';
+                $for = 'userAdminList';
+                $title = 'Danh sách Admin';
                 $addTitle = 'Thêm Admin';
                 break;
 
             case 'admin_editor_list':
-                $for      = 'userAdminEditorList';
-                $title    = 'Danh sách Admin Editor';
+                $for = 'userAdminEditorList';
+                $title = 'Danh sách Admin Editor';
                 $addTitle = 'Thêm Admin Editor';
                 break;
 
             case 'admin_seo_list':
-                $for      = 'userAdminSeoList';
-                $title    = 'Danh sách Admin SEO';
+                $for = 'userAdminSeoList';
+                $title = 'Danh sách Admin SEO';
                 $addTitle = 'Thêm Admin SEO';
                 break;
 
             case 'admin_sale_list':
-                $for      = 'userAdminSaleList';
-                $title    = 'Danh sách Admin Sale';
+                $for = 'userAdminSaleList';
+                $title = 'Danh sách Admin Sale';
                 $addTitle = 'Thêm Admin Sale';
                 break;
         }
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'   => $title,
-                'url'     => $this->url->get(['for' => $for]),
-                'active'  => false
+                'title' => $title,
+                'url' => $this->url->get(['for' => $for]),
+                'active' => false
             ],
             [
-                'title'  => $addTitle,
-                'url'    => $this->url->get(['for' => 'user_add_admin', 'query' => '?' . http_build_query(['filter' => $filter])]),
+                'title' => $addTitle,
+                'url' => $this->url->get(['for' => 'user_add_admin', 'query' => '?' . http_build_query(['filter' => $filter])]),
                 'active' => true
             ]
         ];
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'filter'      => $filter,
-            'q'           => $q,
-            'form'        => $form,
-            'addTitle'    => $addTitle,
-            'urlFor'      => $for
+            'filter' => $filter,
+            'q' => $q,
+            'form' => $form,
+            'addTitle' => $addTitle,
+            'urlFor' => $for
         ));
         $this->view->pick(parent::$theme . '/user_admin/add_admin');
     }
@@ -517,18 +467,18 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
 
-        $filter      = $this->request->getQuery('filter', array('striptags', 'trim'), '');
-        $q           = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $filter = $this->request->getQuery('filter', array('striptags', 'trim'), '');
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
         $userSession = $this->session->get('USER');
-        $id          = $this->request->getQuery('id', array('int'), '');
+        $id = $this->request->getQuery('id', array('int'), '');
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => '
-                id       = :id: 
+                id = :id: 
                 AND type = :type:
             ',
             'bind' => array(
-                'id'   => $id,
+                'id' => $id,
                 'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
             )
         ));
@@ -549,9 +499,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         $projectIds = [];
-        $projects   = \ITECH\Data\Model\UserProjectModel::find([
+        $projects = \ITECH\Data\Model\UserProjectModel::find([
             'conditions' => 'userId = :userId:',
-            'bind'       => ['userId' => $user->id]
+            'bind' => ['userId' => $user->id]
         ]);
 
         if (count($projects)) {
@@ -561,9 +511,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         $form = new \ITECH\Admin\Form\AdminForm($user, array(
-            'edit'        => true,
+            'edit' => true,
             'userSession' => $userSession,
-            'user'        => $user
+            'user' => $user
         ));
 
         if ($this->request->isPost()) {
@@ -577,11 +527,11 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 if ($this->request->getPost('email') != '') {
                     $has = \ITECH\Data\Model\UserModel::count(array(
                         'conditions' => '
-                            email  = :email: 
+                            email = :email: 
                             AND id <> :user_id:
                         ',
                         'bind' => array(
-                            'email'   => $this->request->getPost('email'),
+                            'email' => $this->request->getPost('email'),
                             'user_id' => $user->id
                         )
                     ));
@@ -600,11 +550,11 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                             $user->update();
 
                             $resource = array(
-                                'name'     => $file[0]->getName(),
-                                'type'     => $file[0]->getType(),
+                                'name' => $file[0]->getName(),
+                                'type' => $file[0]->getType(),
                                 'tmp_name' => $file[0]->getTempName(),
-                                'error'    => $file[0]->getError(),
-                                'size'     => $file[0]->getSize()
+                                'error' => $file[0]->getError(),
+                                'size' => $file[0]->getSize()
                             );
 
                             $response = parent::uploadImageToLocal(ROOT . '/web/admin/asset/upload/', '', 200, $resource);
@@ -627,20 +577,20 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                         $user->birthday = null;
                     }
 
-                    $user->name        = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
-                    $user->display     = $user->name;
-                    $user->slug        = \ITECH\Data\Lib\Util::slug($user->name);
-                    $user->type        = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
+                    $user->name = \ITECH\Data\Lib\Util::upperFirstLetters($user->name);
+                    $user->display = $user->name;
+                    $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
+                    $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
-                    $user->updated_at  = date('Y-m-d H:i:s');
+                    $user->updated_at = date('Y-m-d H:i:s');
 
                     if ($user->status == \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED) {
-                        $user->display  = md5(uniqid() . $user->username);
+                        $user->display = md5(uniqid() . $user->username);
                         $user->username = md5(uniqid() . $user->username);
                     }
 
                     if ($this->request->getPost('new_password') != '') {
-                        $user->password     = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
+                        $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
@@ -689,23 +639,23 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                             $referralUrl = $this->url->get(array('for' => 'home'));
                         }
 
-                        $userLogModel               = new \ITECH\Data\Model\UserLogModel();
-                        $userLogModel->user_id      = $userSession['id'];
-                        $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_EDIT_USER;
+                        $userLogModel = new \ITECH\Data\Model\UserLogModel();
+                        $userLogModel->user_id = $userSession['id'];
+                        $userLogModel->action = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_EDIT_USER;
                         $userLogModel->referral_url = $referralUrl;
-                        $userLogModel->user_agent   = $this->request->getUserAgent();
-                        $userLogModel->ip           = $this->request->getClientAddress();
+                        $userLogModel->user_agent = $this->request->getUserAgent();
+                        $userLogModel->ip = $this->request->getClientAddress();
 
                         $post = array(
-                            'id'           => $user->id,
-                            'username'     => $user->username,
+                            'id' => $user->id,
+                            'username' => $user->username,
                             'referral_url' => $referralUrl,
-                            'user_agent'   => $this->request->getUserAgent(),
-                            'ip'           => $this->request->getClientAddress(),
-                            'logined_at'   => $user->logined_at
+                            'user_agent' => $this->request->getUserAgent(),
+                            'ip' => $this->request->getClientAddress(),
+                            'logined_at' => $user->logined_at
                         );
 
-                        $userLogModel->log_data   = json_encode(array('[UserController][editAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
+                        $userLogModel->log_data = json_encode(array('[UserController][editAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
                         $userLogModel->created_at = date('Y-m-d H:i:s');
 
                         if (!$userLogModel->create()) {
@@ -724,58 +674,58 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             }
         }
 
-        $for       = 'userSuperAdminList';
-        $title     = 'Danh sách Super Admin';
+        $for = 'userSuperAdminList';
+        $title = 'Danh sách Super Admin';
         $editTitle = 'Chỉnh sửa Super Admin';
 
         switch ($filter) {
             default:
             case 'super_admin_list':
-                $for      = 'userSuperAdminList';
-                $title    = 'Danh sách Super Admin';
+                $for = 'userSuperAdminList';
+                $title = 'Danh sách Super Admin';
                 $editTitle = 'Chỉnh sửa Super Admin';
                 break;
 
             case 'admin_list':
-                $for      = 'userAdminList';
-                $title    = 'Danh sách Admin';
+                $for = 'userAdminList';
+                $title = 'Danh sách Admin';
                 $editTitle = 'Chỉnh sửa Admin';
                 break;
 
             case 'admin_editor_list':
-                $for      = 'userAdminEditorList';
-                $title    = 'Danh sách Admin Editor';
+                $for = 'userAdminEditorList';
+                $title = 'Danh sách Admin Editor';
                 $editTitle = 'Chỉnh sửa Admin Editor';
                 break;
 
             case 'admin_seo_list':
-                $for      = 'userAdminSeoList';
-                $title    = 'Danh sách Admin SEO';
+                $for = 'userAdminSeoList';
+                $title = 'Danh sách Admin SEO';
                 $editTitle = 'Chỉnh sửa Admin SEO';
                 break;
 
             case 'admin_sale_list':
-                $for      = 'userAdminSaleList';
-                $title    = 'Danh sách Admin Sale';
+                $for = 'userAdminSaleList';
+                $title = 'Danh sách Admin Sale';
                 $editTitle = 'Chỉnh sửa Admin Sale';
                 break;
         }
 
         $breadcrumbs = [
             [
-                'title'  => 'Dashboard',
-                'url'    => $this->config->application->base_url,
+                'title' => 'Dashboard',
+                'url' => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title'  => $title,
-                'url'    => $this->url->get(['for' => $for]),
+                'title' => $title,
+                'url' => $this->url->get(['for' => $for]),
                 'active' => false
             ],
             [
                 'title' => $editTitle,
-                'url'   => $this->url->get([
-                    'for'   => 'user_edit_admin',
+                'url' => $this->url->get([
+                    'for' => 'user_edit_admin',
                     'query' => '?' . http_build_query(['id' => $user->id, 'filter' => $filter])
                 ]),
                 'active' => true
@@ -784,14 +734,14 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'q'           => $q,
-            'filter'      => $filter,
-            'user'        => $user,
-            'form'        => $form,
+            'q' => $q,
+            'filter' => $filter,
+            'user' => $user,
+            'form' => $form,
             'userSession' => $userSession,
-            'urlFor'      => $for,
-            'editTitle'   => $editTitle,
-            'projectIds'  => $projectIds
+            'urlFor' => $for,
+            'editTitle' => $editTitle,
+            'projectIds' => $projectIds
         ));
         $this->view->pick(parent::$theme . '/user_admin/edit_admin');
     }
@@ -807,13 +757,13 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $userSession = $this->session->get('USER');
 
-        $id     = $this->request->getQuery('id', array('int'), '');
-        $q      = $this->request->getQuery('q', array('striptags', 'trim', 'lower'), '');
+        $id = $this->request->getQuery('id', array('int'), '');
+        $q = $this->request->getQuery('q', array('striptags', 'trim', 'lower'), '');
         $filter = $this->request->getQuery('filter', array('striptags', 'trim', 'lower'), '');
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => 'id = :id:',
-            'bind'       => array('id' => $id)
+            'bind' => array('id' => $id)
         ));
 
         if (!$user) {
@@ -831,7 +781,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             throw new \Exception('Bạn không có quyền xoá tài khoản này.');
         }
 
-        $user->status     = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;
+        $user->status = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;
         $user->updated_at = date('Y-m-d H:i:s');
 
         if (!$user->update()) {
@@ -849,20 +799,20 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 $referralUrl = $this->url->get(array('for' => 'home'));
             }
 
-            $userLogModel               = new \ITECH\Data\Model\UserLogModel();
-            $userLogModel->user_id      = $userSession['id'];
-            $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_REMOVE_USER;
+            $userLogModel = new \ITECH\Data\Model\UserLogModel();
+            $userLogModel->user_id = $userSession['id'];
+            $userLogModel->action = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_REMOVE_USER;
             $userLogModel->referral_url = $referralUrl;
-            $userLogModel->user_agent   = $this->request->getUserAgent();
-            $userLogModel->ip           = $this->request->getClientAddress();
+            $userLogModel->user_agent = $this->request->getUserAgent();
+            $userLogModel->ip = $this->request->getClientAddress();
 
             $post = array(
-                'id'           => $user->id,
-                'username'     => $user->username,
+                'id' => $user->id,
+                'username' => $user->username,
                 'referral_url' => $referralUrl,
-                'user_agent'   => $this->request->getUserAgent(),
-                'ip'           => $this->request->getClientAddress(),
-                'logined_at'   => $user->logined_at
+                'user_agent' => $this->request->getUserAgent(),
+                'ip' => $this->request->getClientAddress(),
+                'logined_at' => $user->logined_at
             );
 
             $userLogModel->log_data = json_encode(array('[UserController][deleteAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
@@ -883,6 +833,10 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         switch ($filter) {
             default:
+            case 'all_admin_list':
+                $for = 'userAllAdminList';
+                break;
+
             case 'super_admin_list':
                 $for = 'userSuperAdminList';
                 break;
@@ -914,13 +868,13 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => '
-                id         = :user_id: 
-                AND type   = :user_type: 
+                id = :user_id: 
+                AND type = :user_type: 
                 AND status = :user_status:
             ',
             'bind' => array(
-                'user_id'     => $userSession['id'],
-                'user_type'   => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'user_id' => $userSession['id'],
+                'user_type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
                 'user_status' => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
             )
         ));
@@ -938,7 +892,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
             }
 
-            $user->slug       = \ITECH\Data\Lib\Util::slug($user->name);
+            $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
             $user->updated_at = date('Y-m-d H:i:s');
 
             if (!$form->isValid()) {
@@ -947,7 +901,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 try {
                     if (!$user->save()) {
                         $messages = $user->getMessages();
-                        $message  = isset($messages[0]) ? $messages[0]->getMessage() : 'Không thể cập nhật.';
+                        $message = isset($messages[0]) ? $messages[0]->getMessage() : 'Không thể cập nhật.';
 
                         $this->flashSession->error($message);
                     } else {

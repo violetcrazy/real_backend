@@ -83,10 +83,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-
-            <div class="col-sm-12">
-                {{ paginationLayout }}
-            </div>
         </div>
     </div>
 {% endblock %}

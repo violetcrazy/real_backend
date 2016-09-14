@@ -13,18 +13,7 @@
             {% include 'default/element/layout/breadcrumbs.volt' %}
 
             <div class="page-header">
-                {%
-                if
-                user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
-                or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
-                %}
-                    <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_seo_list'})}) }}" class="btn btn-primary pull-right">
-                        <i class="fa fa-plus"></i>
-                        Thêm Admin SEO
-                    </a>
-                {% endif %}
-
-                <h3>Danh sách Admin SEO</h3>
+                <h3>Danh sách Quản trị viên</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -63,7 +52,7 @@
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>
-                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_seo_list'})}) }}">
+                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'super_admin_list'})}) }}">
                                     {{ item.username }}
                                 </a>
                             </td>
@@ -78,7 +67,7 @@
                             <td>{{ userStatus[item['status']] }}</td>
                             <td class="text-center">
                                 {% if user_session['id'] != item['id'] %}
-                                    <a href="{{ url({'for': 'user_delete_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_seo_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                    <a href="{{ url({'for': 'user_delete_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'all_admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
                                         <i class="fa fa-times fa fa-white"></i>
                                     </a>
                                 {% endif %}
