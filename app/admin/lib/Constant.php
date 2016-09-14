@@ -396,7 +396,7 @@ class Constant
             ),
             'adminList' => array(
                 'icon_class' => 'clip-user-2',
-                'title'      => 'Quản lý quản trị viên',
+                'title'      => 'Quản lý Quản trị viên',
                 'controller' => 'user_admin',
                 'action'     => 'index',
                 'roles' => array(
