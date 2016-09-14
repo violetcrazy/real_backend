@@ -59,7 +59,7 @@
                 Loại
             </label>
             <div class="col-sm-3">
-                {{ form.render('membership', {'class': 'form-control', 'disabled': 'disabled'}) }}
+                {{ form.render('membership', {'class': 'form-control'}) }}
                 {% include 'default/element/layout/form_message' with {'form': form, 'element': 'membership'} %}
             </div>
         </div>

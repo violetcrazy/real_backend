@@ -68,7 +68,7 @@ class UserRepo extends \ITECH\Data\Model\UserModel
         if (isset($params['order'])) {
             $b->orderBy($params['order']);
         } else {
-            $b->orderBy('u1.updated_at DESC');
+            $b->orderBy('u1.id DESC');
         }
 
         $paginator = new \Phalcon\Paginator\Adapter\QueryBuilder(array(
@@ -145,7 +145,7 @@ class UserRepo extends \ITECH\Data\Model\UserModel
         if (isset($params['order'])) {
             $b->orderBy($params['order']);
         } else {
-            $b->orderBy('u1.updated_at DESC');
+            $b->orderBy('u1.id DESC');
         }
 
         return $b->getQuery()->execute();

@@ -336,7 +336,6 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                     $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
                     $user->gender = \ITECH\Data\Lib\Constant::USER_GENDER_UNDEFINED;
                     $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
-                    $user->membership = $membership;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
                     $user->created_at = date('Y-m-d H:i:s');
                     $user->updated_at = date('Y-m-d H:i:s');
@@ -398,6 +397,12 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         switch ($filter) {
             default:
+            case 'all_admin_list':
+                $for = 'userAllAdminList';
+                $title = 'Danh sách Quản trị viên';
+                $addTitle = 'Thêm Quản trị viên';
+                break;
+
             case 'super_admin_list':
                 $for = 'userSuperAdminList';
                 $title = 'Danh sách Super Admin';
@@ -680,6 +685,12 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         switch ($filter) {
             default:
+            case 'all_admin_list':
+                $for = 'userAllAdminList';
+                $title = 'Danh sách Quản trị viên';
+                $addTitle = 'Chỉnh sửa Quản trị viên';
+                break;
+
             case 'super_admin_list':
                 $for = 'userSuperAdminList';
                 $title = 'Danh sách Super Admin';
