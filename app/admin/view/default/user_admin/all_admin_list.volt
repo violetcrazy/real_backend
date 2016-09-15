@@ -25,21 +25,6 @@
         </div>
         <div class="clearfix"></div>
 
-        {#
-            <div class="col-sm-12">
-                <form action="" method="GET" class="sidebar-search-form" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <input type="text" name="q" value="{% if q is defined %}{{ q }}{% endif %}" class="form-control" placeholder="Tìm kiếm" />
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                        </span>
-                    </div>
-                </form>
-                <br />
-            </div>
-        #}
-        <div class="clearfix"></div>
-
         <div class="col-sm-12">
             {{ flashSession.output() }}
 
@@ -104,35 +89,35 @@
     <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
 
     <script type="text/javascript">
-    $(document).ready(function(){
-        var TableUser = $('#table-user').DataTable({
-            "aoColumns" : [
-                {"bSortable": true},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-            ],
-        });
-
-        TableUser.columns().every(function () {
-            var that = this;
-            $('input[type="text"]', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
-                }
+        $(document).ready(function () {
+            var TableUser = $('#table-user').DataTable({
+                "aoColumns": [
+                    {"bSortable": true},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false}
+                ]
             });
 
-            $('select', this.footer()).on('change', function () {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
-                }
-            });
+            TableUser.columns().every(function () {
+                var that = this;
 
+                $('input[type="text"]', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+
+                $('select', this.footer()).on('change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
         });
-    })
     </script>
 {% endblock %}
