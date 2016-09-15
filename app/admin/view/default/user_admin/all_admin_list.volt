@@ -45,8 +45,8 @@
                     <tr>
                         <th></th>
                         <th><input class="form-control" type="text" placeholder="Nhập tên QTV"></th>
-                        <th><input class="form-control" type="text" placeholder="Nhập loại QTV"></th>
                         <th></th>
+                        <th><input class="form-control" type="text" placeholder="Nhập loại QTV"></th>
                         <th></th>
                         <th></th>
                         <th></th>
