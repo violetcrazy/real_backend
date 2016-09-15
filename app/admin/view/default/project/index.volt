@@ -97,7 +97,7 @@
     <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var tableProject = $('#table-list-project').DataTable({
                 "aoColumns": [
                     {"bSortable": false},
@@ -109,13 +109,13 @@
                     {"bSortable": false},
                     {"bSortable": false}
                 ],
-                "aaSorting": [[0,'desc']],
+                "aaSorting": [[0, 'desc']],
                 "pageLength": 25,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Không có dự án",
-                    "infoEmpty":  "Không có dự án",
-                    "infoFiltered":   "(Tìm trong _MAX_ dự án)",
+                    "infoEmpty": "Không có dự án",
+                    "infoFiltered": "(Tìm trong _MAX_ dự án)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "loadingRecords": "Đang tải...",
@@ -131,7 +131,7 @@
                         "previous": "‹"
                     },
                     "aria": {
-                        "sortAscending":  ": activate to sort column ascending",
+                        "sortAscending": ": activate to sort column ascending",
                         "sortDescending": ": activate to sort column descending"
                     }
                 }

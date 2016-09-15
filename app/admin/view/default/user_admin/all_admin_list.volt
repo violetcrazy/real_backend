@@ -100,7 +100,33 @@
                     {"bSortable": false},
                     {"bSortable": false},
                     {"bSortable": false}
-                ]
+                ],
+                "aaSorting": [[0, 'desc']],
+                "pageLength": 25,
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Không có Quản trị viên",
+                    "infoEmpty": "Không có Quản trị viên",
+                    "infoFiltered": "(Tìm trong _MAX_ danh sách)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "loadingRecords": "Đang tải...",
+                    "processing": "Đang xử lý...",
+                    "search": "Tìm kiếm:",
+                    "lengthMenu": "Hiển thị _MENU_ Quản trị viên trên 1 trang",
+                    "zeroRecords": "Không tìm thấy Quản trị viên nào",
+                    "info": "Hiển thị _PAGE_/_PAGES_",
+                    "paginate": {
+                        "first": "«",
+                        "last": "»",
+                        "next": "›",
+                        "previous": "‹"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
             });
 
             TableUser.columns().every(function () {
