@@ -337,6 +337,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                     $user->gender = \ITECH\Data\Lib\Constant::USER_GENDER_UNDEFINED;
                     $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
+                    $user->created_by = $userSession['id'];
                     $user->created_at = date('Y-m-d H:i:s');
                     $user->updated_at = date('Y-m-d H:i:s');
 
@@ -516,9 +517,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         $form = new \ITECH\Admin\Form\AdminForm($user, array(
-            'edit' => true,
+            'edit'        => true,
             'userSession' => $userSession,
-            'user' => $user
+            'user'        => $user
         ));
 
         if ($this->request->isPost()) {
@@ -587,15 +588,20 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                     $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
                     $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
+
+                    if (is_null($user->created_by) || $user->created_by < 1) {
+                        $user->created_by = $userSession['id'];
+                    }
+
                     $user->updated_at = date('Y-m-d H:i:s');
 
                     if ($user->status == \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED) {
-                        $user->display = md5(uniqid() . $user->username);
+                        $user->display  = md5(uniqid() . $user->username);
                         $user->username = md5(uniqid() . $user->username);
                     }
 
                     if ($this->request->getPost('new_password') != '') {
-                        $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
+                        $user->password     = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
