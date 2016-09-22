@@ -143,7 +143,7 @@ class UserRepo extends \ITECH\Data\Model\UserModel
         }
 
         if (isset($params['conditions']['createdBy']) && $params['conditions']['createdBy'] > 0) {
-            $b->andWhere('u1.created_by = :createBy:', ['createdBy' => $params['conditions']['createdBy']]);
+            $b->andWhere('u1.created_by = :createdBy:', ['createdBy' => $params['conditions']['createdBy']]);
         }
 
         if (isset($params['order'])) {
