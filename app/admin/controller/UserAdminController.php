@@ -12,13 +12,14 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function allAdminListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
 
         $q = $this->request->getQuery('q', ['striptags', 'trim'], '');
 
         $params = [
             'conditions' => [
-                'q' => $q,
+                'q'    => $q,
                 'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
             ]
         ];
@@ -134,18 +135,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminEditorListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                'createdBy'  => $createdBy
             )
         );
 
@@ -177,18 +186,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSeoListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                'createdBy'  => $createdBy
             )
         );
 
@@ -220,18 +237,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSaleListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE,
+                'createdBy'  => $createdBy
             )
         );
 
