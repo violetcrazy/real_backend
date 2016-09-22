@@ -523,7 +523,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
-            if ($user->createdBy != $userSession['id']) {
+            if ($user->created_by != $userSession['id']) {
                 throw new \Exception('Bạn không có quyền chỉnh sửa tài khoản này.');
             }
         }
@@ -822,7 +822,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
-            if ($user->createdBy != $userSession['id']) {
+            if ($user->created_by != $userSession['id']) {
                 throw new \Exception('Bạn không có quyền xoá tài khoản này.');
             }
         }
