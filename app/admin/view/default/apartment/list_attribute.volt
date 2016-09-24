@@ -45,7 +45,7 @@
                                 <option value="Dịch vụ - Tiện ích">Dịch vụ - Tiện ích</option>
                             </select>
                         </th>
-                        <th></th>
+                        <th><input class="form-control" type="text" placeholder="Nhập trạng thái"></th>
                         <th></th>
                         <th></th>
                     </tr>

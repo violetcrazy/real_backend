@@ -29,12 +29,13 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
         $out = array();
         if (count($attributes) > 0) {
             foreach ($attributes as $attribute) {
+                $status = $attribute->status == \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_ACTIVE ? '<span class="label label-success">'. $statusAttr[$attribute->status] .'</span>' : $statusAttr[$attribute->status];
                 $out['data'][] = array(
                     $attribute->id,
                     '<a class="edit-link fancybox-run" href="'. $this->url->get(array("for" => "load_attribute_edit_ajax", "id" => $attribute->id, "query" => "?module_attr=" . $module )) .'">'. $attribute->name .'</a>',
                     $attribute->name_eng,
                     isset($typeAttr[$attribute->type]) ? $typeAttr[$attribute->type] : '',
-                    $statusAttr[$attribute->status],
+                    $status,
                     '<div class="text-center">
                         <a href="'. $this->url->get(array('for' => 'load_attribute_delete', 'query' => '?' . http_build_query(array('attribute_id' => $attribute['id'])))) .' " onclick="javascript:return confirm(\'Đồng ý ẩn?\');" class="btn btn-xs btn-link tooltips" data-placement="top" data-original-title="Xóa">
                         Tạm ẩn
