@@ -29,9 +29,11 @@ class UserModel extends \ITECH\Data\Model\BaseModel
     public $purchased_properties;
     public $newsletter;
     public $type;
+    public $job_type;
     public $membership;
     public $is_verified;
     public $status;
+    public $created_by;
     public $created_at;
     public $updated_at;
     public $logined_at;

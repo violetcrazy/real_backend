@@ -1,0 +1,4 @@
+ALTER TABLE `land_user` CHANGE `job_type` `job_type` INT( 1 ) NULL DEFAULT NULL COMMENT '1: company, 2: freelancer' AFTER `type` ;
+
+ALTER TABLE `land_user` ADD `created_by` INT NULL DEFAULT NULL AFTER `status` ,
+ADD INDEX ( `created_by` ) ;

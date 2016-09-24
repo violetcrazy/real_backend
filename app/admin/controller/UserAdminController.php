@@ -12,13 +12,14 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function allAdminListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
 
         $q = $this->request->getQuery('q', ['striptags', 'trim'], '');
 
         $params = [
             'conditions' => [
-                'q' => $q,
+                'q'    => $q,
                 'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
             ]
         ];
@@ -134,18 +135,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminEditorListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_EDITOR,
+                'createdBy'  => $createdBy
             )
         );
 
@@ -177,18 +186,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSeoListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SEO,
+                'createdBy'  => $createdBy
             )
         );
 
@@ -220,18 +237,26 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
     public function adminSaleListAction()
     {
         parent::authenticateUser();
+
         parent::allowRole([
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ]);
 
+        $userSession = $this->session->get('USER');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+
+        $createdBy = null;
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            $createdBy = $userSession['id'];
+        }
 
         $params = array(
             'conditions' => array(
-                'q' => $q,
-                'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
-                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE
+                'q'          => $q,
+                'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SALE,
+                'createdBy'  => $createdBy
             )
         );
 
@@ -337,6 +362,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                     $user->gender = \ITECH\Data\Lib\Constant::USER_GENDER_UNDEFINED;
                     $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
+                    $user->created_by = $userSession['id'];
                     $user->created_at = date('Y-m-d H:i:s');
                     $user->updated_at = date('Y-m-d H:i:s');
 
@@ -472,9 +498,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ));
 
+        $userSession = $this->session->get('USER');
         $filter = $this->request->getQuery('filter', array('striptags', 'trim'), '');
         $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $userSession = $this->session->get('USER');
         $id = $this->request->getQuery('id', array('int'), '');
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
@@ -483,7 +509,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                 AND type = :type:
             ',
             'bind' => array(
-                'id' => $id,
+                'id'   => $id,
                 'type' => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR
             )
         ));
@@ -496,11 +522,10 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             return $this->response->redirect(array('for' => 'user_profile', 'query' => '?' . http_build_query(array('q' => $q))));
         }
 
-        if (
-            $userSession['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
-            && $user->membership == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
-        ) {
-            throw new \Exception('Bạn không có quyền chỉnh sửa tài khoản Super Admin');
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            if ($user->created_by != $userSession['id']) {
+                throw new \Exception('Bạn không có quyền chỉnh sửa tài khoản này.');
+            }
         }
 
         $projectIds = [];
@@ -516,9 +541,9 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         }
 
         $form = new \ITECH\Admin\Form\AdminForm($user, array(
-            'edit' => true,
+            'edit'        => true,
             'userSession' => $userSession,
-            'user' => $user
+            'user'        => $user
         ));
 
         if ($this->request->isPost()) {
@@ -587,15 +612,20 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
                     $user->slug = \ITECH\Data\Lib\Util::slug($user->name);
                     $user->type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
                     $user->is_verified = \ITECH\Data\Lib\Constant::USER_IS_VERIFIED_YES;
+
+                    if (is_null($user->created_by) || $user->created_by < 1) {
+                        $user->created_by = $userSession['id'];
+                    }
+
                     $user->updated_at = date('Y-m-d H:i:s');
 
                     if ($user->status == \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED) {
-                        $user->display = md5(uniqid() . $user->username);
+                        $user->display  = md5(uniqid() . $user->username);
                         $user->username = md5(uniqid() . $user->username);
                     }
 
                     if ($this->request->getPost('new_password') != '') {
-                        $user->password = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
+                        $user->password     = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
                         $user->password_raw = $this->request->getPost('new_password');
                     }
 
@@ -767,7 +797,6 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         ));
 
         $userSession = $this->session->get('USER');
-
         $id = $this->request->getQuery('id', array('int'), '');
         $q = $this->request->getQuery('q', array('striptags', 'trim', 'lower'), '');
         $filter = $this->request->getQuery('filter', array('striptags', 'trim', 'lower'), '');
@@ -790,6 +819,12 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             && $user->membership == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
         ) {
             throw new \Exception('Bạn không có quyền xoá tài khoản này.');
+        }
+
+        if ($userSession['membership'] != \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN) {
+            if ($user->created_by != $userSession['id']) {
+                throw new \Exception('Bạn không có quyền xoá tài khoản này.');
+            }
         }
 
         $user->status = \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED;

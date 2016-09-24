@@ -14,10 +14,7 @@
 
             <div class="page-header">
                 {%
-                if
-                    user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
-                    or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
-                %}
+                if user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
                     <a href="{{ url({'for': 'user_add_admin', 'query': '?' ~ http_build_query({'q': q, 'filter': 'admin_list'})}) }}" class="btn btn-primary pull-right">
                         <i class="fa fa-plus"></i>
                         Thêm Admin
@@ -63,9 +60,13 @@
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>
-                                <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_list'})}) }}">
+                                {% if user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
+                                    <a href="{{ url({'for': 'user_edit_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_list'})}) }}">
+                                        {{ item.username }}
+                                    </a>
+                                {% else %}
                                     {{ item.username }}
-                                </a>
+                                {% endif %}
                             </td>
                             <td>{{ item.name }}</td>
                             <td>{{ userMembershipAdmin[item.membership] }}</td>
@@ -77,10 +78,12 @@
                             </td>
                             <td>{{ userStatus[item['status']] }}</td>
                             <td class="text-center">
-                                {% if user_session['id'] != item['id'] %}
-                                    <a href="{{ url({'for': 'user_delete_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
-                                        <i class="fa fa-times fa fa-white"></i>
-                                    </a>
+                                {% if user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
+                                    {% if user_session['id'] != item['id'] %}
+                                        <a href="{{ url({'for': 'user_delete_admin', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'admin_list'})}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky">
+                                            <i class="fa fa-times fa fa-white"></i>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>

@@ -25,21 +25,6 @@
         </div>
         <div class="clearfix"></div>
 
-        {#
-            <div class="col-sm-12">
-                <form action="" method="GET" class="sidebar-search-form" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <input type="text" name="q" value="{% if q is defined %}{{ q }}{% endif %}" class="form-control" placeholder="Tìm kiếm" />
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                        </span>
-                    </div>
-                </form>
-                <br />
-            </div>
-        #}
-        <div class="clearfix"></div>
-
         <div class="col-sm-12">
             {{ flashSession.output() }}
 
@@ -60,8 +45,8 @@
                     <tr>
                         <th></th>
                         <th><input class="form-control" type="text" placeholder="Nhập tên QTV"></th>
-                        <th><input class="form-control" type="text" placeholder="Nhập loại QTV"></th>
                         <th></th>
+                        <th><input class="form-control" type="text" placeholder="Nhập loại QTV"></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -104,35 +89,61 @@
     <script type="text/javascript" src="{{ config.application.base_url }}asset/plugins/datatables/js/jquery.dataTables.min.js?{{ config.asset.version }}"></script>
 
     <script type="text/javascript">
-    $(document).ready(function(){
-        var TableUser = $('#table-user').DataTable({
-            "aoColumns" : [
-                {"bSortable": true},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-                {"bSortable": false},
-            ],
-        });
-
-        TableUser.columns().every(function () {
-            var that = this;
-            $('input[type="text"]', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
+        $(document).ready(function () {
+            var TableUser = $('#table-user').DataTable({
+                "aoColumns": [
+                    {"bSortable": true},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false},
+                    {"bSortable": false}
+                ],
+                "aaSorting": [[0, 'desc']],
+                "pageLength": 25,
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Không có Quản trị viên",
+                    "infoEmpty": "Không có Quản trị viên",
+                    "infoFiltered": "(Tìm trong _MAX_ danh sách)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "loadingRecords": "Đang tải...",
+                    "processing": "Đang xử lý...",
+                    "search": "Tìm kiếm:",
+                    "lengthMenu": "Hiển thị _MENU_ Quản trị viên trên 1 trang",
+                    "zeroRecords": "Không tìm thấy Quản trị viên nào",
+                    "info": "Hiển thị _PAGE_/_PAGES_",
+                    "paginate": {
+                        "first": "«",
+                        "last": "»",
+                        "next": "›",
+                        "previous": "‹"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
                 }
             });
 
-            $('select', this.footer()).on('change', function () {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
-                }
-            });
+            TableUser.columns().every(function () {
+                var that = this;
 
+                $('input[type="text"]', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+
+                $('select', this.footer()).on('change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
         });
-    })
     </script>
 {% endblock %}
