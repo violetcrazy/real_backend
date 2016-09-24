@@ -6,6 +6,8 @@ $(document).ready(function () {
             {"bSortable": false},
             {"bSortable": false},
             {"bSortable": false},
+            {"bSortable": true},
+            {"bSortable": false},
             {"bSortable": false},
         ],
         "aaSorting": [[0,'desc']],

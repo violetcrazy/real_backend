@@ -19,11 +19,12 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
     {
         $module = $this->dispatcher->getParam('module_attr', array('striptags', 'trim'), '');
         $params = array('module' => $module);
-
+        $params['conditions']['status'] = 'all';
         $attr = new \ITECH\Data\Repo\AttributeRepo();
         $attributes = $attr->getList($params);
 
         $typeAttr = \ITECH\Data\Lib\Constant::getApartmentAttributeType();
+        $statusAttr = \ITECH\Data\Lib\Constant::getAttributeStatus();
 
         $out = array();
         if (count($attributes) > 0) {
@@ -33,9 +34,17 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
                     '<a class="edit-link fancybox-run" href="'. $this->url->get(array("for" => "load_attribute_edit_ajax", "id" => $attribute->id, "query" => "?module_attr=" . $module )) .'">'. $attribute->name .'</a>',
                     $attribute->name_eng,
                     isset($typeAttr[$attribute->type]) ? $typeAttr[$attribute->type] : '',
-                    '<div class="text-center"><a href="'. $this->url->get(array('for' => 'load_attribute_delete', 'query' => '?' . http_build_query(array('attribute_id' => $attribute['id'])))) .' " onclick="javascript:return confirm(\'Đồng ý xoá?\');" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Xóa">
+                    $statusAttr[$attribute->status],
+                    '<div class="text-center">
+                        <a href="'. $this->url->get(array('for' => 'load_attribute_delete', 'query' => '?' . http_build_query(array('attribute_id' => $attribute['id'])))) .' " onclick="javascript:return confirm(\'Đồng ý ẩn?\');" class="btn btn-xs btn-link tooltips" data-placement="top" data-original-title="Xóa">
+                        Tạm ẩn
+                        </a>
+                    </div>',
+                    '<div class="text-center">
+                        <a href="'. $this->url->get(array('for' => 'load_attribute_delete', 'query' => '?' . http_build_query(array('attribute_id' => $attribute['id'], 'type' => 'forever')))) .' " onclick="javascript:return confirm(\'Đồng ý xoá VĨNH VIỄN?\');" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Xóa VĨNH VIỄN thuộc tính">
                         <i class="fa fa-times fa fa-white"></i>
-                    </a></div>'
+                        </a>
+                    </div>',
                 );
             }
         }
@@ -134,6 +143,7 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
     public function deleteAttributeAction()
     {
         $attributeId = $this->request->getQuery('attribute_id', array('int'), '');
+        $type = $this->request->getQuery('type', array('trim', 'striptags'), '');
 
         $attribute = \ITECH\Data\Model\AttributeModel::findFirst(array(
             'conditions' => 'id = :attribute_id:',
@@ -142,6 +152,12 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
 
         if (!$attribute) {
             throw new \Exception('Không tồn tại thuộc tính này.');
+        }
+
+        if ($type == 'forever') {
+            $attribute->delete();
+            $this->flashSession->success('Xóa VĨNH VIỄN thành công.');
+            return $this->response->redirect($this->request->getHTTPReferer());
         }
 
         $attribute->status = \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_REMOVED;
@@ -153,7 +169,7 @@ class AttributeController extends \ITECH\Admin\Controller\BaseController
                 $message = isset($messages[0]) ? $messages[0]->getMessage() : 'Lỗi, không thể xóa.';
                 $this->flashSession->error($message);
             } else {
-                $this->flashSession->success('Xóa thành công.');
+                $this->flashSession->success('Tạm ẩn thành công thuộc tính.');
             }
 
             return $this->response->redirect($this->request->getHTTPReferer());

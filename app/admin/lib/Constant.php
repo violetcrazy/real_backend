@@ -444,7 +444,7 @@ class Constant
                         ]
                     ),
                     'userAdminSaleList' => array(
-                        'title'      => 'DS Admin Sale',
+                        'title'      => 'DS Sale Admin',
                         'controller' => 'user_admin',
                         'action'     => 'adminSaleList',
                         'roles'      => [

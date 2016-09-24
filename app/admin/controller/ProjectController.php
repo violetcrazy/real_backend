@@ -21,16 +21,12 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         if (!is_array($projectIds)) {
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
-                'conditions' => 'status = :status:',
-                'bind' => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
             ));
         } else {
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
                 'conditions' => '
                     id IN (' . $projectIds['projectIdsString'] . ')
-                    AND status = :status:
                 ',
-                'bind'       => array('status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE)
             ));
         }
 

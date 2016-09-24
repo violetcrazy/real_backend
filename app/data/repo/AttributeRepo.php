@@ -22,7 +22,9 @@ class AttributeRepo extends \ITECH\Data\Model\AttributeModel
         $b->from(array('a1' => 'ITECH\Data\Model\AttributeModel'));
 
         if (isset($params['conditions']['status'])) {
-            $b->andWhere('a1.status = :block_status:', array('block_status' => $params['conditions']['status']));
+            if ($params['conditions']['status'] != 'all') {
+                $b->andWhere('a1.status = :block_status:', array('block_status' => $params['conditions']['status']));
+            }
         } else {
             $b->andWhere('a1.status = :block_status:', array('block_status' => \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE));
         }

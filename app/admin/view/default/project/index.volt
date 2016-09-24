@@ -33,6 +33,7 @@
                         <th nowrap="nowrap">Còn trống</th>
                         <th nowrap="nowrap">Đang giao dịch</th>
                         <th nowrap="nowrap">Đã bán</th>
+                        <th nowrap="nowrap">Trạng thái</th>
                         <th width="5%"></th>
                     </tr>
                 </thead>
@@ -45,6 +46,7 @@
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th><input class="form-control" type="text" placeholder="Nhập trạng thái"></th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -74,6 +76,7 @@
                                 <td>{{ project.available_count }}</td>
                                 <td>{{ project.processing_count }}</td>
                                 <td>{{ project.sold_count }}</td>
+                                <td>{{ project.status == 1 ? '<span class="label label-success">' ~ projectStatus[project.status] ~ '</span>' : projectStatus[project.status] }}</td>
                                 <td class="text-center">
                                     {% if userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN') %}
                                         <a href="{{ url({'for': 'project_delete', 'query': '?' ~ http_build_query({'project_id': project.id })}) }}" onclick="return confirm('Đồng ý xoá?');" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Xóa">
@@ -107,6 +110,7 @@
                     {"bSortable": false},
                     {"bSortable": false},
                     {"bSortable": false},
+                    {"bSortable": true},
                     {"bSortable": false}
                 ],
                 "aaSorting": [[0,'desc']],

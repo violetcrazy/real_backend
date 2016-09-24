@@ -26,7 +26,9 @@
                         <th>Tên</th>
                         <th>Tên tiếng anh</th>
                         <th>Nhóm</th>
-                        <th width="5%"></th>
+                        <th>Trạng thái</th>
+                        <th width="5%">Xóa tạm</th>
+                        <th width="5%">Xóa vĩnh viễn</th>
                     </tr>
                 </thead>
 
@@ -43,6 +45,8 @@
                                 <option value="Dịch vụ - Tiện ích">Dịch vụ - Tiện ích</option>
                             </select>
                         </th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </tfoot>

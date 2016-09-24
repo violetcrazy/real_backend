@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+
     <form action="" method="POST" id="form_tab" class="form-horizontal" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-12">
@@ -23,7 +24,7 @@
         </div>
 
         {{ flashSession.output() }}
-
+        <div class="alert alert-danger" id="form_tab3_error_message" style="display:none"></div>
         <div class="tabbable">
             <ul id="myTab" class="nav nav-tabs tab-bricky">
                 <li class="active">

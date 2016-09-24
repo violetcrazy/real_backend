@@ -10,7 +10,12 @@
         {% set optionSelect = optionSelect ~ '<option value="'~ item.id ~'">'~ item.name ~'</option>' %}
     {% endfor %}
     {% include 'default/element/layout/breadcrumbs.volt' %}
-    <h3>Vẽ map link</h3>
+    <h3>
+        Vẽ map link
+    </h3>
+    <div class="">
+        <b class="text-success"> Khi vẽ sai bấm CTRL + Z để lùi 1 nét vẽ (undo)</b>
+    </div>
     <hr>
     <div class="wrap-map-image" style="position: relative" id="wrap-map-image">
         <div class="entry"></div>
