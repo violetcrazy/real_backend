@@ -117,8 +117,8 @@ class AdminForm extends \Phalcon\Forms\Form
         $membershipArray = \ITECH\Data\Lib\Constant::getUserMembershipAdministrator();
 
         if (
-            isset($option['userSession']['membership'])
-            && $option['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+            isset($options['userSession']['membership'])
+            && $options['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
         ) {
             unset($membershipArray[\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN]);
         }
@@ -128,6 +128,33 @@ class AdminForm extends \Phalcon\Forms\Form
 
         $status = new \Phalcon\Forms\Element\Select('status', \ITECH\Data\Lib\Constant::getUserStatus());
         $this->add($status);
+
+        if (
+            isset($options['userSession']['membership'])
+            && $options['userSession']['membership'] == \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN
+        ) {
+            $admins = \ITECH\Data\Model\UserModel::find([
+                'conditions' => 'type = :type:
+                    AND membership = :membership:
+                    AND status = :status:',
+                'bind' => [
+                    'type'       => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                    'membership' => \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN,
+                    'status'     => \ITECH\Data\Lib\Constant::USER_STATUS_ACTIVE
+                ]
+            ]);
+
+            $adminArray = ['' => '---'];
+
+            if (count($admins)) {
+                foreach ($admins as $item) {
+                    $adminArray[$item->id] = $item->username;
+                }
+            }
+
+            $createdBy = new \Phalcon\Forms\Element\Select('created_by', $adminArray);
+            $this->add($createdBy);
+        }
 
         $logined_at = new \Phalcon\Forms\Element\Text('logined_at');
         $logined_at->setFilters(array('striptags', 'trim', 'lower'));

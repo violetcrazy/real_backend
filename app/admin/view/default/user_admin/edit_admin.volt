@@ -114,6 +114,23 @@
                     </div>
                 {% endif %}
 
+                {%
+                if
+                    userSession['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                    and user.membership != constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                    and user.membership != constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Admin quản lý
+                        </label>
+                        <div class="col-sm-3">
+                            {{ form.render('created_by', {'class': 'form-control'}) }}
+                            {% include 'default/element/layout/form_message' with {'form': form, 'element': 'created_by'} %}
+                        </div>
+                    </div>
+                {% endif %}
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">
                         Trạng thái
