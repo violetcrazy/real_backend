@@ -619,10 +619,12 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
                     $user->updated_at = date('Y-m-d H:i:s');
 
+                    /*
                     if ($user->status == \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED) {
                         $user->display  = md5(uniqid() . $user->username);
                         $user->username = md5(uniqid() . $user->username);
                     }
+                    */
 
                     if ($this->request->getPost('new_password') != '') {
                         $user->password     = \ITECH\Data\Lib\Util::hashPassword($this->request->getPost('new_password'));
