@@ -473,6 +473,8 @@ class BlockController extends \ITECH\Api\Controller\BaseController
                     'utility' => $utility,
                     'utility_eng' => $utility_eng
                 ],
+                'total_area' => $item->total_area,
+                'green_area' => $item->green_area,
                 'view_count' => (int)$item->view_count,
                 'status' => (int)$item->status,
                 'created_by' => (int)$item->created_by,

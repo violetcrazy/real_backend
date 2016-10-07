@@ -8,7 +8,7 @@
     </div>
     <div class="clearfix"></div>
 </div>
-
+<p class="text-danger">Lưu ý: Block không sử dụng <b>hình phối cảnh</b> và <b>bộ sưu tập</b>.</p>
 <table class="table table-striped table-bordered table-hover" id="list-gallery">
     <thead>
     <tr>
@@ -37,7 +37,7 @@
                 <td class="type">
                     <select class="form-control" name="galleries[{{ loop.index }}][type]" id="">
                         {% for key, item in getMapImageType %}
-                            <option {{ image.type == key ? 'selected' :'' }} value="{{ key }}">{{ item }}</option>
+                            <option {{ in_array(key, [constant('\ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_GALLERY'),constant('\ITECH\Data\Lib\Constant::MAP_IMAGE_TYPE_3D')]) ? 'disabled': 'ưe' }} {{ image.type == key ? 'selected' :'' }} value="{{ key }}">{{ item }}</option>
                         {% endfor %}
                     </select>
                 </td>
