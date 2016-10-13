@@ -931,14 +931,14 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         $attributeTypeProject = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $project->id);
         $attributeViewProject = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $project->id);
         $attributeUtilityProject = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $project->id);
-        
+
         $attributeType = [];
         $attributeTypeEng = [];
         $attributeView = [];
         $attributeViewEng = [];
         $attributeUtility = [];
         $attributeUtilityEng = [];
-        
+
         foreach ($attributeTypeProject as $key => $attribute) {
             $attributeType[] = [
                 'id' => $attribute['id'],
@@ -949,7 +949,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         foreach ($attributeViewProject as $key => $attribute) {
             $attributeView[] = [
                 'id' => $attribute['id'],
@@ -960,7 +960,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         foreach ($attributeUtilityProject as $key => $attribute) {
             $attributeUtility[] = [
                 'id' => $attribute['id'],
@@ -971,7 +971,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
                 'name' => $attribute['name_eng']
             ];
         }
-        
+
         $defaultImageUrl = parent::$noImageUrl;
         if ($project->default_image != '') {
             $defaultImageUrl = $this->config->cdn->dir_upload . $project->default_image;
@@ -1104,7 +1104,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
                 'district' => $district
             )
         );
-        
+
         RETURN_RESPONSE:
             return parent::outputJSON($response);
     }
