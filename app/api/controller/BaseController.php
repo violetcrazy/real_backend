@@ -182,8 +182,8 @@ class BaseController extends \Phalcon\Mvc\Controller
 
         $params = array(
             'conditions' => array(
-                'type' => $type,
-                'project_id' => $projectID,
+                'type'       => $type,
+                'project_id' => $projectID
             )
         );
 
@@ -195,10 +195,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             $params
         )));
 
-        $attributeResult = null;
-        if ($cache == 'true') {
-            $attributeResult = $this->cache->get($cacheName);
-        }
+        $attributeResult = ($cache == 'true') ? $this->cache->get($cacheName) : null;
 
         if (!$attributeResult) {
             $attributeResult = $attributeRepo->getListByProject($params);
@@ -209,12 +206,13 @@ class BaseController extends \Phalcon\Mvc\Controller
         }
 
         $attributeOutput = array();
+
         if (count($attributeResult)) {
             foreach ($attributeResult as $a) {
                 $attributeOutput[] = array(
-                    'id' => (int)$a['id'],
-                    'name' => $a['name'],
-                    'name_eng' => $a['name_eng'],
+                    'id'       => (int)$a['id'],
+                    'name'     => $a['name'],
+                    'name_eng' => $a['name_eng']
                 );
             }
         }
@@ -271,60 +269,77 @@ class BaseController extends \Phalcon\Mvc\Controller
 
     public function getAttrApartment($apartmentId, $cache = 'true')
     {
-        // --------- Apartment Attributes
-        $apartmentAttributeModel = new \ITECH\Data\Model\ApartmentAttributeModel();
+        $cacheName = md5(serialize([
+            'BaseController',
+            'getAttrApartment',
+            'ApartmentAttributeModel',
+            'execute',
+            \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_ACTIVE,
+            $apartmentId
+        ]));
 
-        $b = $apartmentAttributeModel->getModelsManager()->createBuilder();
-        $b->columns(array(
-            'a2.id AS attribute_id',
-            'a2.name AS attribute_name',
-            'a2.name_eng AS attribute_name_eng',
-            'a2.type AS attribute_type'
-        ));
+        $result = ($cache == 'true') ? $this->cache->get($cacheName) : null;
 
-        $b->from(array('aa1' => 'ITECH\Data\Model\ApartmentAttributeModel'));
-        $b->innerJoin('ITECH\Data\Model\AttributeModel', 'a2.id = aa1.attribute_id', 'a2');
-        $b->innerJoin('ITECH\Data\Model\ApartmentModel', 'a1.id = aa1.apartment_id', 'a1');
+        if (!$result) {
+            $apartmentAttributeModel = new \ITECH\Data\Model\ApartmentAttributeModel();
 
-        $b->andWhere('a1.status = :attribute_status:', array('attribute_status' => \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_ACTIVE));
-        $b->andWhere('a1.id = :apartment_id:', array('apartment_id' => $apartmentId));
+            $b = $apartmentAttributeModel->getModelsManager()->createBuilder();
+            $b->columns(array(
+                'a2.id AS attribute_id',
+                'a2.name AS attribute_name',
+                'a2.name_eng AS attribute_name_eng',
+                'a2.type AS attribute_type'
+            ));
 
-        $result = $b->getQuery()->execute();
+            $b->from(array('aa1' => 'ITECH\Data\Model\ApartmentAttributeModel'));
+            $b->innerJoin('ITECH\Data\Model\AttributeModel', 'a2.id = aa1.attribute_id', 'a2');
+            $b->innerJoin('ITECH\Data\Model\ApartmentModel', 'a1.id = aa1.apartment_id', 'a1');
+
+            $b->andWhere('a1.status = :attribute_status:', array('attribute_status' => \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_ACTIVE));
+            $b->andWhere('a1.id = :apartment_id:', array('apartment_id' => $apartmentId));
+
+            $result = $b->getQuery()->execute();
+
+            if ($cache == 'true') {
+                $this->cache->save($cacheName, $result);
+            }
+        }
 
         $arrayType = array();
         $arrayView = array();
         $arrayUtility = array();
         $typeAttr = \ITECH\Data\Lib\Constant::getApartmentAttributeType();
-        if (count($result)) {
 
+        if (count($result)) {
             foreach ($result as $item) {
                 if ($item['attribute_type'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE) {
                     $item->attribute_type_text = $typeAttr[$item->attribute_type];
                     $arrayType[] = array(
-                        'id' => $item->attribute_id,
-                        'name' => $item->attribute_name,
-                        'name_eng' => $item->attribute_name_eng,
+                        'id'       => $item->attribute_id,
+                        'name'     => $item->attribute_name,
+                        'name_eng' => $item->attribute_name_eng
                     );
                 }
+
                 if ($item['attribute_type'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW) {
                     $item->attribute_type_text = $typeAttr[$item->attribute_type];
                     $arrayView[] = array(
-                        'id' => $item->attribute_id,
-                        'name' => $item->attribute_name,
-                        'name_eng' => $item->attribute_name_eng,
+                        'id'       => $item->attribute_id,
+                        'name'     => $item->attribute_name,
+                        'name_eng' => $item->attribute_name_eng
                     );
                 }
+
                 if ($item['attribute_type'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY) {
                     $item->attribute_type_text = $typeAttr[$item->attribute_type];
                     $arrayUtility[] = array(
-                        'id' => $item->attribute_id,
-                        'name' => $item->attribute_name,
-                        'name_eng' => $item->attribute_name_eng,
+                        'id'       => $item->attribute_id,
+                        'name'     => $item->attribute_name,
+                        'name_eng' => $item->attribute_name_eng
                     );
                 }
             }
         }
-        // Apartment Attributes ---------
 
         return array(
             'type' => $arrayType,

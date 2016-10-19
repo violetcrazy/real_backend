@@ -151,14 +151,14 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         //$attributeRepo = new \ITECH\Data\Repo\AttributeRepo();
 
         foreach ($projects->items as $item) {
-            $attributeType = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $item['id'], 1, $cache);
-            $attributeTypeEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $item['id'], 2, $cache);
+            $attributeType = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $item['id'], $cache);
+            $attributeTypeEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $item['id'], $cache);
 
-            $attributeView = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $item['id'], 1, $cache);
-            $attributeViewEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $item['id'], 2, $cache);
+            $attributeView = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $item['id'], $cache);
+            $attributeViewEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $item['id'], $cache);
 
-            $attributeUtility = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $item['id'], 1, $cache);
-            $attributeUtilityEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $item['id'], 2, $cache);
+            $attributeUtility = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $item['id'], $cache);
+            $attributeUtilityEng = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $item['id'], $cache);
 
             $defaultImageUrl = parent::$noImageUrl;
             if ($item['default_image'] != '') {
@@ -1112,33 +1112,33 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
     public function fullAction()
     {
         $response = array(
-            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
             'message' => 'Success.',
-            'result' => array()
+            'result'  => array()
         );
 
         $id = $this->request->getQuery('id', array('int'), '');
         $cache = $this->request->getQuery('cache', array('striptags', 'trim', 'lower'), 'true');
         $updateViewCount = $this->request->getQuery('update_view_count', array('striptags', 'trim', 'lower'), 'false');
 
+        $params = array(
+            'conditions' => array(
+                'id'     => $id,
+                'status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE
+            )
+        );
+
         $cacheName = md5(serialize(array(
             'ProjectController',
             'fullAction',
             'ProjectModel',
             'findFirst',
-            $id,
-            \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE
+            $params
         )));
 
-        $project = $cache == 'true' ? $this->cache->get($cacheName) : null;
-        if (!$project) {
-            $params = array(
-                'conditions' => array(
-                    'id' => $id,
-                    'status' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE
-                )
-            );
+        $project = ($cache == 'true') ? $this->cache->get($cacheName) : null;
 
+        if (!$project) {
             $projectRepo = new \ITECH\Data\Repo\ProjectRepo();
             $project = $projectRepo->getDetail($params);
 
@@ -1155,7 +1155,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
 
         if (!$project) {
             $response = array(
-                'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
+                'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
                 'message' => 'Không tồn tại dự án này.'
             );
             goto RETURN_RESPONSE;
@@ -1164,22 +1164,23 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         if ($updateViewCount == 'true') {
             $projectModel = \ITECH\Data\Model\ProjectModel::findFirst(array(
                 'conditions' => 'id = :id:',
-                'bind' => array('id' => $id)
+                'bind'       => array('id' => $id)
             ));
 
             $projectModel->view_count = $project->view_count + 1;
             $projectModel->save();
         }
 
-        $attributeType = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $project['id'], 1, $cache);
-        $attributeView = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $project['id'], 1, $cache);
-        $attributeUtility = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $project['id'], 1, $cache);
+        $attributeType = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_TYPE, $project['id'], $cache);
+        $attributeView = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_VIEW, $project['id'], $cache);
+        $attributeUtility = parent::getAttrProject(\ITECH\Data\Lib\Constant::ATTRIBUTE_TYPE_UTILITY, $project['id'], $cache);
 
         $mapImageList = \ITECH\Data\Model\MapImageModel::find(array(
-            'conditions' => 'item_id = :item_id: AND module = :module:',
+            'conditions' => 'item_id = :item_id: 
+                AND module = :module:',
             'bind' => array(
                 'item_id' => $project->id,
-                'module' => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT
+                'module'  => \ITECH\Data\Lib\Constant::MAP_IMAGE_MODULE_PROJECT
             ))
         );
 
@@ -1233,6 +1234,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         }
 
         $blockList = array();
+
         $blocks = \ITECH\Data\Model\BlockModel::find(array(
             'conditions' => 'project_id = :project_id:',
             'bind' => array('project_id' => $project->id))
@@ -1241,7 +1243,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         if (count($blocks)) {
             foreach ($blocks as $item) {
                 $blockList[$item->id] = array(
-                    'id' => (int)$item->id,
+                    'id'   => (int)$item->id,
                     'name' => $item->name,
                     'slug' => $item->slug
                 );
@@ -1259,6 +1261,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         )));
 
         $apartmentAvailableCount = $this->cache->get($cacheName);
+
         if (!$apartmentAvailableCount) {
             $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
             $b = $apartmentRepo->getModelsManager()->createBuilder();
@@ -1297,6 +1300,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         )));
 
         $apartmentProcessingCount = $this->cache->get($cacheName);
+
         if (!$apartmentProcessingCount) {
             $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
             $b = $apartmentRepo->getModelsManager()->createBuilder();
@@ -1335,6 +1339,7 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         )));
 
         $apartmentSoldCount = $this->cache->get($cacheName);
+
         if (!$apartmentSoldCount) {
             $apartmentRepo = new \ITECH\Data\Repo\ApartmentRepo();
             $b = $apartmentRepo->getModelsManager()->createBuilder();
@@ -1363,16 +1368,19 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         }
 
         $defaultImageUrl = parent::$noImageUrl;
+
         if ($project->default_image != '') {
             $defaultImageUrl = $this->config->cdn->dir_upload . $project->default_image;
         }
 
         $imageViewUrl = parent::$noImageUrl;
+
         if ($project->image_view != '') {
             $imageViewUrl = $this->config->cdn->dir_upload . $project->image_view;
         }
 
         $planViewUrl = parent::$noImageUrl;
+
         if ($project->plan_view != '') {
             $planViewUrl = $this->config->cdn->dir_upload . $project->plan_view;
         }
@@ -1391,59 +1399,60 @@ class ProjectController extends \ITECH\Api\Controller\BaseController
         $textTrend = \ITECH\Data\Lib\Constant::getDirection();
 
         $response = array(
-            'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
+            'status'  => \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS,
             'message' => 'Success.',
-            'result' => array(
-                'id' => (int)$project->id,
-                'name' => $project->name,
-                'name_eng' => $project->name_eng,
-                'slug' => $project->slug,
-                'slug_eng' => $project->slug_eng,
-                'description' => $project->description,
+            'result'  => array(
+                'id'              => (int)$project->id,
+                'name'            => $project->name,
+                'name_eng'        => $project->name_eng,
+                'slug'            => $project->slug,
+                'slug_eng'        => $project->slug_eng,
+                'description'     => $project->description,
                 'description_eng' => $project->description_eng,
                 'province' => array(
-                    'id' => (int)$project->province_id,
+                    'id'   => (int)$project->province_id,
                     'name' => $project->province_name
                 ),
                 'district' => array(
-                    'id' => (int)$project->district_id,
+                    'id'   => (int)$project->district_id,
                     'name' => $project->district_name
                 ),
-                'address' => $project->address,
-                'address_eng' => $project->address_eng,
-                'address_latitude' => $project->address_latitude,
+                'address'           => $project->address,
+                'address_eng'       => $project->address_eng,
+                'address_latitude'  => $project->address_latitude,
                 'address_longitude' => $project->address_longitude,
-                'default_image' => $project->default_image,
+                'default_image'     => $project->default_image,
                 'default_image_url' => $defaultImageUrl,
-                'gallery' => $project->gallery,
-                'gallery_url' => $galleryUrl,
-                'image_view' => $project->image_view,
-                'image_view_url' => $imageViewUrl,
-                'plan_view' => $project->plan_view,
-                'plan_view_url' => $planViewUrl,
-                'block_count' => (int)$project->block_count,
-                'apartment_count' => (int)$project->apartment_count,
-                'apartment_available_count' => (int)$apartmentAvailableCount,
+                'gallery'           => $project->gallery,
+                'gallery_url'       => $galleryUrl,
+                'image_view'        => $project->image_view,
+                'image_view_url'    => $imageViewUrl,
+                'plan_view'         => $project->plan_view,
+                'plan_view_url'     => $planViewUrl,
+                'block_count'       => (int)$project->block_count,
+                'apartment_count'   => (int)$project->apartment_count,
+                'apartment_available_count'  => (int)$apartmentAvailableCount,
                 'apartment_processing_count' => (int)$apartmentProcessingCount,
-                'apartment_sold_count' => (int)$apartmentSoldCount,
-                'direction' => (int)$project->direction,
-                'direction_text' => isset($textTrend[$project['direction']]) ? $textTrend[$project['direction']] : '',
+                'apartment_sold_count'       => (int)$apartmentSoldCount,
+                'direction'         => (int)$project->direction,
+                'direction_text'    => isset($textTrend[$project['direction']]) ? $textTrend[$project['direction']] : '',
                 'orientation_value' => (int)$project->direction,
-                'orientation' => isset($textTrend[$project['direction']]) ? $textTrend[$project['direction']] : '',
+                'orientation'       => isset($textTrend[$project['direction']]) ? $textTrend[$project['direction']] : '',
                 'attribute' => array(
-                    'type' => $attributeType,
-                    'view' => $attributeView,
+                    'type'    => $attributeType,
+                    'view'    => $attributeView,
                     'utility' => $attributeUtility,
                 ),
                 'total_area' => $project->total_area,
                 'green_area' => $project->green_area,
-                'status' => (int)$project->status,
+                'status'     => (int)$project->status,
                 'created_by' => (int)$project->created_by,
-                'map_view' => $mapViewList,
-                'galleries' => $galleries,
-                'blocks' => $blockList
-            ),
+                'map_view'   => $mapViewList,
+                'galleries'  => $galleries,
+                'blocks'     => $blockList
+            )
         );
+
         RETURN_RESPONSE:
             parent::outputJSON($response);
     }
