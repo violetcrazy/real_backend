@@ -1568,6 +1568,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
     {
         if ($this->request->isPost()) {
             $projectId = $this->request->getPost('project_id');
+            $blockId = $this->request->getPost('block_id');
 
             $project = \ITECH\Data\Model\ProjectModel::findFirst(array(
                 'conditions' => 'id = :project_id:',
@@ -1576,6 +1577,15 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
 
             if (!$project) {
                 throw new \Exception('Không tồn tại dự án này.');
+            }
+
+            $block = \ITECH\Data\Model\BlockModel::findFirst(array(
+                'conditions' => 'id = :block_id: AND project_id = :project_id:',
+                'bind' => array('block_id' => $blockId, 'project_id' => $projectId)
+            ));
+
+            if (!$block) {
+                throw new \Exception('Không tồn tại block này.');
             }
 
             $apartmentModel = new \ITECH\Data\Model\ApartmentModel();
@@ -1619,6 +1629,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
             $b->leftJoin('ITECH\Data\Model\ProjectModel', 'p1.id = b1.project_id', 'p1');
 
             $b->andWhere('a1.status = :status:', array('status' => \ITECH\Data\Lib\Constant::APARTMENT_STATUS_ACTIVE));
+            $b->andWhere('a1.block_id = :blockId:', array('blockId' => $blockId));
             $b->andWhere('p1.id = :projectID:', array('projectID' => $projectId));
 
             $response = $b->getQuery()->execute();
@@ -1716,7 +1727,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                 $output[] = $apartment;
             }
 
-            $fileName = 'product_by_project_' . $project->slug . '.xlsx';
+            $fileName = 'product_by_project_' . $project->slug . '_block_'. $block->slug .'.xlsx';
             $export = \ITECH\Data\Lib\Excel::exportDataApartment($output, $fileName);
 
             $response = array(
