@@ -600,9 +600,9 @@ class MapImageController extends \ITECH\Api\Controller\BaseController
             'result' => array()
         );
 
-        $module = $this->request->getQuery('module', array('striptags', 'trim', 'int'), '');
+        $module  = $this->request->getQuery('module', array('striptags', 'trim', 'int'), '');
         $item_id = $this->request->getQuery('item_id', array('striptags', 'trim', 'int'), '');
-        $type = $this->request->getQuery('type', array('striptags', 'trim', 'int'), '');
+        $type    = $this->request->getQuery('type', array('striptags', 'trim', 'int'), '');
         //$cache = $this->request->getQuery('cache', array('striptags', 'trim', 'lower'), 'true');
 
         $block = \ITECH\Data\Model\BlockModel::findFirst(array(
@@ -643,17 +643,17 @@ class MapImageController extends \ITECH\Api\Controller\BaseController
         if ($mapImages) {
             foreach ($mapImages->toArray() as $key => $value) {
                 $arr = array(
-                    'conditions' => array('image_map_id' => $value['id'])
+                    'conditions' => array('map_image_id' => $value['id'])
                 );
 
                 $arrMap = $mapRepo->getListByBlock($arr)->toArray();
                 if (count($arrMap)) {
                     foreach ($arrMap as $key1 => $value1) {
                         $tmp[$key1]['id'] = $value1['id'];
-                        $tmp[$key1]['image_map_id'] = $value1['image_map_id'];
+                        $tmp[$key1]['map_image_id'] = $value1['map_image_id'];
                         $tmp[$key1]['apartment_name'] = $value1['apartment_name'];
                         $tmp[$key1]['apartment_id'] = $value1['apartment_id'];
-                        $data = (array)json_decode($value1['map']);
+                        $data = (array)json_decode($value1['point']);
                         $tmp[$key1]['coords'] = $data['coords'];
                         $tmp[$key]['strokeColor'] = $data['data-maphilight']->strokeColor;
                         $tmp[$key1]['fillColor'] = $data['data-maphilight']->fillColor;
@@ -665,7 +665,7 @@ class MapImageController extends \ITECH\Api\Controller\BaseController
                 $planView[$value['floor']]['map'] = $tmp;
                 $planView[$value['floor']]['image'] = $value['image'];
                 $planView[$value['floor']]['floor'] = $value['floor'];
-                $planView[$value['floor']]['image_map_id'] = $value['id'];
+                $planView[$value['floor']]['map_image_id'] = $value['id'];
             }
         } else {
             $planView = '';

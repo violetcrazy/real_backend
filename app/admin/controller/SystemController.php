@@ -997,9 +997,9 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                     $validator->setFilters('floor', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('room_count', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('user_id', array('striptags', 'trim', 'int'));
-                                    $validator->setFilters('rose', array('striptags', 'trim', 'int'));
-                                    $validator->setFilters('total_area', array('striptags', 'trim', 'int'));
-                                    $validator->setFilters('green_area', array('striptags', 'trim', 'int'));
+                                    $validator->setFilters('rose', array('striptags', 'trim', 'float'));
+                                    $validator->setFilters('total_area', array('striptags', 'trim', 'float'));
+                                    $validator->setFilters('green_area', array('striptags', 'trim', 'float'));
                                     $validator->setFilters('image_position', array('striptags', 'trim',));
                                     $validator->setFilters('position_vi', array('striptags', 'trim'));
                                     $validator->setFilters('image_position', array('striptags', 'trim'));
