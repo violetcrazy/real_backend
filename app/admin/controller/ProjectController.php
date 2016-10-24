@@ -21,12 +21,14 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
         if (!is_array($projectIds)) {
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
+                'conditions' => 'status <> :removedStatus:',
+                'bind' => ['removedStatus' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_REMOVED]
             ));
         } else {
             $projects = \ITECH\Data\Model\ProjectModel::find(array(
-                'conditions' => '
-                    id IN (' . $projectIds['projectIdsString'] . ')
-                ',
+                'conditions' => 'id IN (' . $projectIds['projectIdsString'] . ')
+                    AND status <> :removedStatus:',
+                'bind' => ['removedStatus' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_REMOVED]
             ));
         }
 
@@ -100,11 +102,11 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
         ];
 
         $this->view->setVars(array(
-            'addAction' => true,
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'gallery' => $gallery,
-            'trends' => $direction,
+            'addAction'   => true,
+            'provinces'   => $provinces,
+            'districts'   => $districts,
+            'gallery'     => $gallery,
+            'trends'      => $direction,
             'breadcrumbs' => $breadcrumbs
         ));
         $this->view->pick(parent::$theme . '/project/add');
@@ -370,15 +372,20 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
                     goto RETURN_RESPONSE;
                 }
 
-                $project->status = \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE;
+                $project->status     = \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE;
                 $project->updated_by = $userSession['id'];
                 $project->updated_at = date('Y-m-d H:i:s');
                 $isNew = false;
             } else {
                 $project = \ITECH\Data\Model\ProjectModel::findFirst(array(
-                    'conditions' => 'name = :project_name:',
-                    'bind' => array('project_name'=> $post['name'])
+                    'conditions' => 'name = :project_name: 
+                        AND status <> :removedStatus:',
+                    'bind' => array(
+                        'project_name'  => $post['name'],
+                        'removedStatus' => \ITECH\Data\Lib\Constant::PROJECT_STATUS_REMOVED
+                    )
                 ));
+
                 if ($project) {
                     $response = array(
                         'status' => \ITECH\Data\Lib\Constant::STATUS_CODE_ERROR,
@@ -389,7 +396,7 @@ class ProjectController extends \ITECH\Admin\Controller\BaseController
 
                 $project = new \ITECH\Data\Model\ProjectModel();
 
-                $project->status = \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE;
+                $project->status     = \ITECH\Data\Lib\Constant::PROJECT_STATUS_ACTIVE;
                 $project->created_by = $userSession['id'];
                 $project->created_at = date('Y-m-d H:i:s');
                 $project->updated_at = date('Y-m-d H:i:s');
