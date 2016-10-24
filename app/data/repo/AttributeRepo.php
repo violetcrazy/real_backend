@@ -29,6 +29,8 @@ class AttributeRepo extends \ITECH\Data\Model\AttributeModel
             $b->andWhere('a1.status = :block_status:', array('block_status' => \ITECH\Data\Lib\Constant::BLOCK_STATUS_ACTIVE));
         }
 
+        $b->andWhere('a1.status <> :removedStatus:', array('removedStatus' => \ITECH\Data\Lib\Constant::ATTRIBUTE_STATUS_REMOVED));
+
         if (isset($params['module'])) {
             if ($params['module'] == \ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_PROJECT) {
                 $b->andWhere('a1.module = :module:', array('module' => \ITECH\Data\Lib\Constant::ATTRIBUTE_MODULE_PROJECT));
