@@ -53,6 +53,8 @@ class UserRepo extends \ITECH\Data\Model\UserModel
             $b->andWhere('u1.status = :status:', array('status' => $params['conditions']['status']));
         }
 
+        $b->andWhere('u1.status <> :removedStatus:', array('removedStatus' => \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED));
+
         if (isset($params['conditions']['is_today']) && $params['conditions']['is_today'] == true) {
             $b->andWhere('DATE_FORMAT(u1.created_at, "%Y-%m-%d") >= :created_at:', array('created_at' => date('Y-m-d')));
         }
@@ -129,6 +131,8 @@ class UserRepo extends \ITECH\Data\Model\UserModel
         if (isset($params['conditions']['status']) && $params['conditions']['status'] != '') {
             $b->andWhere('u1.status = :status:', array('status' => $params['conditions']['status']));
         }
+
+        $b->andWhere('u1.status <> :removedStatus:', array('removedStatus' => \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED));
 
         if (isset($params['conditions']['is_today']) && $params['conditions']['is_today'] == true) {
             $b->andWhere('DATE_FORMAT(u1.created_at, "%Y-%m-%d") >= :created_at:', array('created_at' => date('Y-m-d')));
