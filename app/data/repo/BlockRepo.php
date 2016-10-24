@@ -62,6 +62,8 @@ class BlockRepo extends \ITECH\Data\Model\BlockModel
             $b->andWhere('b1.status = :block_status:', array('block_status' => $params['conditions']['status']));
         }
 
+        $b->andWhere('b1.status <> :removedStatus:', array('removedStatus' => \ITECH\Data\Lib\Constant::BLOCK_STATUS_REMOVED));
+
         if (isset($params['conditions']['project_id'])) {
             $b->andWhere('b1.project_id = :project_id:', array('project_id' => $params['conditions']['project_id']));
         }
