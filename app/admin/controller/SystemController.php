@@ -879,7 +879,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'price_sale_off_eng',
                         'condition',
                         'floor',
-                        'room_count',
+                        'ordering',
                         'user_id',
                         'rose',
                         'total_area',
@@ -995,7 +995,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                     $validator->setFilters('price_sale_off_eng', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('condition', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('floor', array('striptags', 'trim', 'int'));
-                                    $validator->setFilters('room_count', array('striptags', 'trim', 'int'));
+                                    $validator->setFilters('ordering', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('user_id', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('rose', array('striptags', 'trim', 'float'));
                                     $validator->setFilters('total_area', array('striptags', 'trim', 'float'));
@@ -1045,7 +1045,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                         $apartment->price_sale_off_eng = $validator->getValue('price_sale_off_eng');
                                         $apartment->condition = $validator->getValue('condition');
                                         $apartment->floor = $validator->getValue('floor');
-                                        $apartment->room_count = $validator->getValue('room_count');
+                                        $apartment->ordering = $validator->getValue('ordering');
                                         $apartment->user_id = $validator->getValue('user_id');
                                         $apartment->rose = $validator->getValue('rose');
                                         $apartment->total_area = $validator->getValue('total_area');
@@ -1237,7 +1237,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                         'price_sale_off_eng',
                         'condition',
                         'floor',
-                        'room_count',
+                        'ordering',
                         'user_id',
                         'rose',
                         'total_area',
@@ -1349,7 +1349,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                     $validator->setFilters('price_sale_off_eng', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('condition', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('floor', array('striptags', 'trim', 'int'));
-                                    $validator->setFilters('room_count', array('striptags', 'trim', 'int'));
+                                    $validator->setFilters('ordering', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('user_id', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('rose', array('striptags', 'trim', 'int'));
                                     $validator->setFilters('total_area', array('striptags', 'trim', 'int'));
@@ -1399,7 +1399,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                                         $apartment->price_sale_off_eng = $validator->getValue('price_sale_off_eng');
                                         $apartment->condition = $validator->getValue('condition');
                                         $apartment->floor = $validator->getValue('floor');
-                                        $apartment->room_count = $validator->getValue('room_count');
+                                        $apartment->ordering = $validator->getValue('ordering');
                                         $apartment->user_id = $validator->getValue('user_id');
                                         $apartment->rose = $validator->getValue('rose');
                                         $apartment->total_area = $validator->getValue('total_area');
@@ -1600,7 +1600,7 @@ class SystemController extends \ITECH\Admin\Controller\BaseController
                 'a1.price_sale_off_eng',
                 'a1.condition',
                 'a1.floor',
-                'a1.room_count',
+                'a1.ordering',
                 'a1.user_id',
                 'a1.rose',
                 'a1.position',

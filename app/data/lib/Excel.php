@@ -247,7 +247,7 @@ class Excel
                     ->setCellValue($keyCell[6] . $i, $apartment->price_sale_off_eng)
                     ->setCellValue($keyCell[7] . $i, $apartment->condition)
                     ->setCellValue($keyCell[8] . $i, $apartment->floor)
-                    ->setCellValue($keyCell[9] . $i, $apartment->room_count)
+                    ->setCellValue($keyCell[9] . $i, $apartment->ordering)
                     ->setCellValue($keyCell[10] . $i, $apartment->user_id)
                     ->setCellValue($keyCell[11] . $i, $apartment->rose)
                     ->setCellValue($keyCell[12] . $i, $apartment->total_area)
