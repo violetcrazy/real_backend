@@ -143,12 +143,16 @@ class ApartmentController extends \ITECH\Admin\Controller\BaseController
                 $this->flashSession->error('Thông tin chưa hợp lệ.');
             } else {
                 $checkApartment = \ITECH\Data\Model\ApartmentModel::findFirst(array(
-                    'conditions' => 'name = :apartment_name: AND block_id = :block_id:',
+                    'conditions' => 'name = :apartment_name: 
+                        AND block_id = :block_id:
+                        AND status <> :removedStatus:',
                     'bind' => array(
-                        'apartment_name'=> $this->request->getPost('name'),
-                        'block_id' => $block->id
+                        'apartment_name' => $this->request->getPost('name'),
+                        'block_id'       => $block->id,
+                        'removedStatus'  => \ITECH\Data\Lib\Constant::APARTMENT_STATUS_REMOVED
                     )
                 ));
+
                 if ($checkApartment) {
                     throw new \Phalcon\Exception('Tên sản phẩm đã tồn tại.');
                 }

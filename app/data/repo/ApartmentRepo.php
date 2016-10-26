@@ -30,10 +30,12 @@ class ApartmentRepo extends \ITECH\Data\Model\ApartmentModel
             $b->andWhere('a1.status = :apartment_status:', array('apartment_status' => $params['conditions']['status']));
         }
 
+        $b->andWhere('a1.status <> :removedStatus:', array('removedStatus' => \ITECH\Data\Lib\Constant::APARTMENT_STATUS_REMOVED));
+
         if (isset($params['conditions']['project_id'])) {
             $b->andWhere('a1.project_id = :project_id:', array('project_id' => $params['conditions']['project_id']));
         }
-        
+
         if (isset($params['conditions']['block_id'])) {
             $b->andWhere('a1.block_id = :block_id:', array('block_id' => $params['conditions']['block_id']));
         }

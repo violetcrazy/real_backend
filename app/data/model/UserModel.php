@@ -57,7 +57,7 @@ class UserModel extends \ITECH\Data\Model\BaseModel
     public function validation()
     {
         $this->validate(new \Phalcon\Mvc\Model\Validator\Uniqueness(array(
-            'field'   => 'username',
+            'field'   => ['username', 'status'],
             'message' => 'DUPLICATED_USERNAME'
         )));
 
