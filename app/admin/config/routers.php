@@ -54,6 +54,12 @@ $router->add('/user/admin-sale-list{query:(/.*)*}', array(
     'action'     => 'adminSaleList'
 ))->setName('userAdminSaleList');
 
+$router->add('/user/admin-removed-list{query:(/.*)*}', [
+    'module'     => 'admin',
+    'controller' => 'user_admin',
+    'action'     => 'adminRemovedList'
+])->setName('userAdminRemovedList');
+
 $router->add('/user/add-admin{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user_admin',
@@ -92,11 +98,23 @@ $router->add('/user/agent-list{query:(/.*)*}', array(
     'action'     => 'agentList'
 ))->setName('userAgentList');
 
+$router->add('/user/agent-removed-list{query:(/.*)*}', [
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'agentRemovedList'
+])->setName('userAgentRemovedList');
+
 $router->add('/user/member-list{query:(/.*)*}', array(
     'module'     => 'admin',
     'controller' => 'user',
     'action'     => 'memberList'
 ))->setName('userMemberList');
+
+$router->add('/user/member-removed-list{query:(/.*)*}', [
+    'module'     => 'admin',
+    'controller' => 'user',
+    'action'     => 'memberRemovedList'
+])->setName('userMemberRemovedList');
 
 $router->add('/user/admin-profile{query:(/.*)*}', array(
     'module'     => 'admin',
