@@ -110,6 +110,7 @@
                         <button type="submit" class="btn btn-bricky">
                             Cập nhật
                         </button>
+
                         <a href="{{ url({'for': 'userAgentList'}) }}" class="btn btn-primary">
                             Trở lại
                         </a>
@@ -123,16 +124,17 @@
         var url_upload = "{{ config.application.base_url }}load/upload-image-user/ajax";
         var user_id = "{{ user.id }}";
 
-        $(document).ready(function() {
-            $('.btn-upload-img').click(function(event) {
+        $(document).ready(function () {
+            $('.btn-upload-img').click(function (event) {
                 event.preventDefault();
                 $('#upload-avatar').trigger('click');
             });
 
-            $('#upload-avatar').change(function() {
+            $('#upload-avatar').change(function () {
                 var file_data = $(this).prop('files')[0];
                 $this = $(this);
                 var form_data = new FormData();
+
                 form_data.append('user_id', user_id);
                 form_data.append('type_upload', 'avatar');
 

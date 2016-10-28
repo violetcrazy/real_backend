@@ -341,7 +341,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars([
             'breadcrumbs'      => $breadcrumbs,
-            'result'           => $result,
+            'result'           => $result->items,
             'q'                => $q,
             'paginationLayout' => $paginationLayout
 

@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in result.items %}
+                    {% for item in result %}
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>

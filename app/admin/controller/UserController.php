@@ -577,7 +577,7 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             ],
             [
                 'title'  => 'Danh sách đại lý',
-                'url'    => $this->url->get(['for' => 'userMemberList']),
+                'url'    => $this->url->get(['for' => 'userAgentList']),
                 'active' => true
             ]
         ];
@@ -589,6 +589,65 @@ class UserController extends \ITECH\Admin\Controller\BaseController
             'q'                => $q
         ]);
         $this->view->pick(parent::$theme . '/user/agent_list');
+    }
+
+    public function agentRemovedListAction()
+    {
+        parent::authenticateUser();
+
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page = $this->request->getQuery('page', array('int'), 1);
+        $limit = $this->config->application->pagination_limit;
+
+        $params = array(
+            'conditions' => array(
+                'q'      => $q,
+                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_AGENT,
+                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED
+            ),
+            'page'  => $page,
+            'limit' => $limit
+        );
+
+        $userRepo = new \ITECH\Data\Repo\UserRepo();
+        $result = $userRepo->getPaginationList($params);
+
+        $query = array();
+        $query['page'] = $page;
+
+        $url = $this->url->get(array('for' => 'userAgentRemovedList'));
+
+        $options = array(
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
+            'pages_display' => 3
+        );
+
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
+        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Danh sách đại lý đã xóa',
+                'url'    => $this->url->get(['for' => 'userAgentRemovedList']),
+                'active' => true
+            ]
+        ];
+
+        $this->view->setVars([
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result->items,
+            'paginationLayout' => $paginationLayout,
+            'q'                => $q
+        ]);
+        $this->view->pick(parent::$theme . '/user/agent_removed_list');
     }
 
     public function editAgentAction()
@@ -741,22 +800,20 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => 'Danh sách đại lý',
-                'url' => $this->url->get([
-                    'for' => 'userAgentList',
-                ]),
+                'title'  => 'Danh sách đại lý',
+                'url'    => $this->url->get(['for' => 'userAgentList']),
                 'active' => false
             ],
             [
                 'title' => $user->name,
-                'url' => $this->url->get([
+                'url'   => $this->url->get([
                     'for' => 'user_edit_agent',
-                    'id' => $user->id
+                    'id'  => $user->id
                 ]),
                 'active' => true
             ]
@@ -764,10 +821,10 @@ class UserController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'q' => $q,
-            'filter' => $filter,
-            'user' => $user,
-            'form' => $form,
+            'q'           => $q,
+            'filter'      => $filter,
+            'user'        => $user,
+            'form'        => $form,
             'userSession' => $userSession
         ));
         $this->view->pick(parent::$theme . '/user/edit_agent');
