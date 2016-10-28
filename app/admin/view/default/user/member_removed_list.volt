@@ -13,7 +13,7 @@
             {% include 'default/element/layout/breadcrumbs.volt' %}
 
             <div class="page-header">
-                <h3>Danh sách đại lý đã xóa</h3>
+                <h3>Danh sách thành viên đã xóa</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -52,16 +52,16 @@
                             <tr>
                                 <td>{{ item.id }}</td>
                                 <td>
-                                    <a href="{{ url({'for': 'user_edit_agent', 'query': '?' ~ http_build_query({'id': item['id'], 'q': q, 'filter': 'agent_removed_list'})}) }}">
-                                        {{ item['username'] }}
+                                    <a href="{{ url({'for': 'user_edit_member', 'query': '?' ~ http_build_query({'id': item.id, 'q': q, 'filter': 'member_removed_list'})}) }}">
+                                        {{ item.username }}
                                     </a>
                                 </td>
                                 <td>{{ item['name'] }}</td>
-                                <td>{{ userMembershipAgent[item['membership']] }}</td>
-                                <td>{{ date('d-m-Y H:i:s', strtotime(item['created_at'])) }}</td>
+                                <td>{{ userMembership[item.membership] }}</td>
+                                <td>{{ date('d-m-Y H:i:s', strtotime(item.created_at)) }}</td>
                                 <td>
-                                    {% if strtotime(item['logined_at']) %}
-                                        {{ date('d-m-Y H:i:s', strtotime(item['logined_at'])) }}
+                                    {% if strtotime(item.logined_at) %}
+                                        {{ date('d-m-Y H:i:s', strtotime(item.logined_at)) }}
                                     {% endif %}
                                 </td>
                                 <td>{{ userStatus[item['status']] }}</td>

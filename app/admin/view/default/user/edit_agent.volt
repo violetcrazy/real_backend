@@ -144,7 +144,7 @@
                     data: {user_id: user_id},
                     cache: false,
                     type: 'post',
-                    success: function(data) {
+                    success: function (data) {
                         $this.closest('div').find('img').attr('src', data.result.image_url);
                     }
                 });

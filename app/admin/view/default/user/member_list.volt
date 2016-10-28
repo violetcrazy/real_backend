@@ -15,8 +15,8 @@
             <div class="page-header">
                 {%
                 if
-                user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
-                or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
+                    user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN')
+                    or user_session['membership'] == constant('\ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN')
                 %}
                     <a href="{{ url({'for': 'user_add_member', 'query': '?' ~ http_build_query({'q': q, 'filter': 'member_list'})}) }}" class="btn btn-primary pull-right">
                         <i class="fa fa-plus"></i>

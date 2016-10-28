@@ -131,6 +131,65 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user/member_list');
     }
 
+    public function memberRemovedListAction()
+    {
+        parent::authenticateUser();
+
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page = $this->request->getQuery('page', array('int'), 1);
+        $limit = $this->config->application->pagination_limit;
+
+        $params = array(
+            'conditions' => array(
+                'q'      => $q,
+                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER,
+                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED
+            ),
+            'page'  => $page,
+            'limit' => $limit
+        );
+
+        $userRepo = new \ITECH\Data\Repo\UserRepo();
+        $result = $userRepo->getPaginationList($params);
+
+        $query = array();
+        $query['page'] = $page;
+
+        $url = $this->url->get(array('for' => 'userMemberRemovedList'));
+
+        $options = array(
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
+            'pages_display' => 3
+        );
+
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
+        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Danh sách thành viên đã xóa',
+                'url'    => $this->url->get(['for' => 'userMemberList']),
+                'active' => true
+            ]
+        ];
+
+        $this->view->setVars([
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result->items,
+            'paginationLayout' => $paginationLayout,
+            'q'                => $q
+        ]);
+        $this->view->pick(parent::$theme . '/user/member_removed_list');
+    }
+
     public function deleteAction()
     {
         parent::authenticateUser();
