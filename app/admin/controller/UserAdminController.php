@@ -285,6 +285,70 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/user_admin/admin_sale_list');
     }
 
+    public function adminRemovedListAction()
+    {
+        parent::authenticateUser();
+
+        parent::allowRole([
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+        ]);
+
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page = $this->request->getQuery('page', array('int'), 1);
+        $limit = $this->config->application->pagination_limit;
+
+        $params = array(
+            'conditions' => array(
+                'q'      => $q,
+                'type'   => \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR,
+                'status' => \ITECH\Data\Lib\Constant::USER_STATUS_REMOVED
+            ),
+            'page'  => $page,
+            'limit' => $limit
+        );
+
+        $userRepo = new \ITECH\Data\Repo\UserRepo();
+        $result = $userRepo->getPaginationList($params);
+
+        $query = array();
+        $query['page'] = $page;
+
+        $url = $this->url->get(array('for' => 'userAdminRemovedList'));
+        $options = array(
+            'url'           => $url,
+            'query'         => $query,
+            'total_pages'   => isset($result->total_pages) ? $result->total_pages : 0,
+            'page'          => $page,
+            'pages_display' => 3
+        );
+
+        $layoutComponent  = new \ITECH\Admin\Component\LayoutComponent();
+        $paginationLayout = $layoutComponent->pagination(parent::$theme, $options);
+
+        $breadcrumbs = [
+            [
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
+                'active' => false
+            ],
+            [
+                'title'  => 'Danh sách TK đã xóa',
+                'url'    => $this->url->get(['for' => 'userAdminRemovedList']),
+                'active' => true
+            ]
+        ];
+
+        $this->view->setVars([
+            'breadcrumbs'      => $breadcrumbs,
+            'result'           => $result,
+            'q'                => $q,
+            'paginationLayout' => $paginationLayout
+
+        ]);
+        $this->view->pick(parent::$theme . '/user_admin/admin_removed_list');
+    }
+
     public function addAdminAction()
     {
         parent::authenticateUser();
@@ -717,6 +781,12 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         switch ($filter) {
             default:
+            case 'admin_removed_list':
+                $for = 'userAdminRemovedList';
+                $title = 'Danh sách Quản trị viên';
+                $addTitle = 'Chỉnh sửa Quản trị viên';
+                break;
+
             case 'all_admin_list':
                 $for = 'userAllAdminList';
                 $title = 'Danh sách Quản trị viên';
@@ -756,19 +826,19 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $breadcrumbs = [
             [
-                'title' => 'Dashboard',
-                'url' => $this->config->application->base_url,
+                'title'  => 'Dashboard',
+                'url'    => $this->config->application->base_url,
                 'active' => false
             ],
             [
-                'title' => $title,
-                'url' => $this->url->get(['for' => $for]),
+                'title'  => $title,
+                'url'    => $this->url->get(['for' => $for]),
                 'active' => false
             ],
             [
-                'title' => $editTitle,
-                'url' => $this->url->get([
-                    'for' => 'user_edit_admin',
+                'title'  => $editTitle,
+                'url'    => $this->url->get([
+                    'for'   => 'user_edit_admin',
                     'query' => '?' . http_build_query(['id' => $user->id, 'filter' => $filter])
                 ]),
                 'active' => true
@@ -777,14 +847,14 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $this->view->setVars(array(
             'breadcrumbs' => $breadcrumbs,
-            'q' => $q,
-            'filter' => $filter,
-            'user' => $user,
-            'form' => $form,
+            'q'           => $q,
+            'filter'      => $filter,
+            'user'        => $user,
+            'form'        => $form,
             'userSession' => $userSession,
-            'urlFor' => $for,
-            'editTitle' => $editTitle,
-            'projectIds' => $projectIds
+            'urlFor'      => $for,
+            'editTitle'   => $editTitle,
+            'projectIds'  => $projectIds
         ));
         $this->view->pick(parent::$theme . '/user_admin/edit_admin');
     }

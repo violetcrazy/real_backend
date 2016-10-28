@@ -451,7 +451,16 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
-                    )
+                    ),
+                    'userAdminRemovedList' => [
+                        'title'      => 'DS TK đã xóa',
+                        'controller' => 'user_admin',
+                        'action'     => 'adminRemovedList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ]
                 )
             ),
             'memberList' => array(
@@ -481,7 +490,25 @@ class Constant
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
                             \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
                         ]
-                    )
+                    ),
+                    'userAgentRemovedList' => [
+                        'title'      => 'DS đại lý đã xóa',
+                        'controller' => 'user',
+                        'action'     => 'agentRemovedList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ],
+                    'userMemberRemovedList' => [
+                        'title'      => 'DS thành viên đã xóa',
+                        'controller' => 'user',
+                        'action'     => 'memberRemovedList',
+                        'roles'      => [
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_SUPERADMIN,
+                            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
+                        ]
+                    ]
                 )
             )
         );
