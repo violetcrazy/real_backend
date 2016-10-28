@@ -77,8 +77,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     {
         parent::authenticateUser();
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
 
         $params = array(
@@ -91,9 +91,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result = $userRepo->getPaginationList($params);
 
-        $query         = array();
+        $query = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'userMemberList'));
@@ -130,79 +130,6 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         ]);
         $this->view->pick(parent::$theme . '/user/member_list');
     }
-
-    /*
-    public function editAction()
-    {
-        parent::allowRole(array(
-            \ITECH\Data\Lib\Constant::USER_MEMBERSHIP_ADMIN_ADMIN
-        ));
-
-        $filter = $this->request->getQuery('filter', array('striptags', 'trim'), 'member');
-        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $userSession = $this->session->get('USER');
-        $id = $this->request->getQuery('id', array('int'), '');
-        $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
-        $user = new \ITECH\Data\Model\UserModel();
-
-        $url = $this->config->application->api_url . 'user/detail?authorzied_token=' . $authorizedToken . '&id=' . $id . '&filter=' .$filter;
-        if ($this->request->isPost()) {
-            switch ($filter) {
-                case 'admin' :
-                    $form = new \ITECH\Admin\Form\AdminForm($user);
-                    $type = \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR;
-                    break;
-                case 'agent' :
-                    $form = new \ITECH\Admin\Form\AgentForm($user);
-                    $type = \ITECH\Data\Lib\Constant::USER_TYPE_AGENT;
-                    break;
-                case 'member' :
-                    $form = new \ITECH\Admin\Form\MemberForm($user);
-                    $type = \ITECH\Data\Lib\Constant::USER_TYPE_MEMBER;
-                    break;
-            }
-            $form->bind($this->request->getPost(), $user);
-
-            if (!$form->isValid()) {
-                $this->flashSession->error('Thông tin chưa hợp lệ.');
-            } else {
-                $post = array(
-                    'name' => $this->request->getPost('name'),
-                    'password' => $this->request->getPost('password'),
-                    'email' => $this->request->getPost('email'),
-                    'username' => $this->request->getPost('username'),
-                    'membership' => $this->request->getPost('membership'),
-                    'status' => $this->request->getPost('status'),
-                    'type' => $type
-                );
-            }
-        }
-        $r = json_decode(\ITECH\Data\Lib\Util::curlPostJson($url, $post), true);
-        var_dump($r); die;
-        if (isset($r['result']) && count($r['result']) && $r['status'] == \ITECH\Data\Lib\Constant::STATUS_CODE_SUCCESS) {
-            $this->flashSession->success('Thêm thành viên thành công.');
-            $query = array(
-                'filter' => $filter,
-                'id' => $r['result']['id']
-            );
-            return $this->response->redirect(array('for' => 'user_edit', 'query' => '?' . http_build_query($query)));
-        } else {
-            if (isset($r['message'])) {
-                $this->flashSession->success($r['message']);
-            } else {
-                $this->flashSession->success('Lỗi, thêm thành viên không thành công.');
-            }
-        }
-        $this->view->setVars(array(
-            'q' => $q,
-            'filter' => $filter,
-            'user' => $user,
-            'form' => $form,
-            'userSession' => $userSession
-        ));
-        $this->view->pick(parent::$theme . '/user/edit_agent');
-    }
-    */
 
     public function deleteAction()
     {
@@ -610,8 +537,8 @@ class UserController extends \ITECH\Admin\Controller\BaseController
     {
         parent::authenticateUser();
 
-        $q     = $this->request->getQuery('q', array('striptags', 'trim'), '');
-        $page  = $this->request->getQuery('page', array('int'), 1);
+        $q = $this->request->getQuery('q', array('striptags', 'trim'), '');
+        $page = $this->request->getQuery('page', array('int'), 1);
         $limit = $this->config->application->pagination_limit;
 
         $params = array(
@@ -624,9 +551,9 @@ class UserController extends \ITECH\Admin\Controller\BaseController
         );
 
         $userRepo = new \ITECH\Data\Repo\UserRepo();
-        $result   = $userRepo->getPaginationList($params);
+        $result = $userRepo->getPaginationList($params);
 
-        $query         = array();
+        $query = array();
         $query['page'] = $page;
 
         $url = $this->url->get(array('for' => 'userAgentList'));
