@@ -805,7 +805,7 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
 
         $user = \ITECH\Data\Model\UserModel::findFirst(array(
             'conditions' => 'id = :id:',
-            'bind' => array('id' => $id)
+            'bind'       => array('id' => $id)
         ));
 
         if (!$user) {
@@ -848,19 +848,19 @@ class UserAdminController extends \ITECH\Admin\Controller\BaseController
             }
 
             $userLogModel = new \ITECH\Data\Model\UserLogModel();
-            $userLogModel->user_id = $userSession['id'];
-            $userLogModel->action = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_REMOVE_USER;
+            $userLogModel->user_id      = $userSession['id'];
+            $userLogModel->action       = \ITECH\Data\Lib\Constant::USER_LOG_TYPE_REMOVE_USER;
             $userLogModel->referral_url = $referralUrl;
-            $userLogModel->user_agent = $this->request->getUserAgent();
-            $userLogModel->ip = $this->request->getClientAddress();
+            $userLogModel->user_agent   = $this->request->getUserAgent();
+            $userLogModel->ip           = $this->request->getClientAddress();
 
             $post = array(
-                'id' => $user->id,
-                'username' => $user->username,
+                'id'           => $user->id,
+                'username'     => $user->username,
                 'referral_url' => $referralUrl,
-                'user_agent' => $this->request->getUserAgent(),
-                'ip' => $this->request->getClientAddress(),
-                'logined_at' => $user->logined_at
+                'user_agent'   => $this->request->getUserAgent(),
+                'ip'           => $this->request->getClientAddress(),
+                'logined_at'   => $user->logined_at
             );
 
             $userLogModel->log_data = json_encode(array('[UserController][deleteAdminAction]' => $post), JSON_UNESCAPED_UNICODE);
