@@ -58,8 +58,8 @@ $parameters = array(
     ),
     'asset' => array(
         'download'       => 'http://adminjinn.codex4u.com/asset/download/',
-        'version'        => '20161024_1502',
-        'mobile_version' => '20161024_1502',
+        'version'        => '20161028_9_27am',
+        'mobile_version' => '20161028_9_27am',
         'frontend_url'   => 'http://cdnjinn.codex4u.com/asset/frontend/',
         'backend_url'    => 'http://cdnjinn.codex4u.com/asset/backend/'
     ),
