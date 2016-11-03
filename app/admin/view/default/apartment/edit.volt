@@ -172,7 +172,7 @@
                     apartment = '0' + apartment;
                 }
 
-                var name = shortNameBlock + '-' + floor + '-' + apartment;
+                var name = shortNameBlock + '-' + floor + '.' + apartment;
                 $('#name').val(name);
                 $('#name_eng').val(name);
             });
@@ -189,7 +189,7 @@
                     apartment = '0' + apartment;
                 }
 
-                var name = shortNameBlock + '-' + floor + '-' + apartment;
+                var name = shortNameBlock + '-' + floor + '.' + apartment;
                 $('#name').val(name);
             }
 

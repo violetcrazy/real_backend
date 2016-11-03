@@ -28,7 +28,7 @@
             var tryOk = true;
 
             setInterval(function () {
-                $.get('/', function () {
+                $.get('/ping', function () {
                     if (check) {
                         t.reset();
                         check = false;

@@ -155,6 +155,29 @@
                 }
             }
         });
+    }).on('change', '#list_block_apartment', function(){
+        var id = $(this).val();
+        var urlLoadBlock = '{{ url({'for': 'block_full_ajax'}) }}';
+        $.ajax({
+            url: urlLoadBlock,
+            data: {id: id},
+            dataType: 'json',
+            success: function(data){
+                if (data.status == 200) {
+                    var option = '<option value="">Chọn tầng</option>';
+                    for (var i = 1; i <= data.result.floor_count; i++){
+                        option += '<option value="'+ i +'">'+ i +'</option>';
+                    }
+                    $('#floor_count').html(option);
+
+                    var option = '<option value="">Chọn thứ tự</option>';
+                    for (var i = 1; i <= data.result.apartment_count; i++){
+                        option += '<option value="'+ i +'">'+ i +'</option>';
+                    }
+                    $('#ordering').html(option);
+                }
+            }
+        });
     }).ready(function(){
         var project_id = $('#list_project_apartment').val();
         var urlLoadBlock = '{{ url({'for': 'block_ajax'}) }}';
@@ -171,10 +194,8 @@
                     });
 
                     $('#list_block_apartment').html(option).val('{{ block_detail.id is defined ? block_detail.id : '' }}');
-
                 }
             }
         });
     });
 </script>
-<!-- // {{ block_detail.id is defined ? block_detail.id : '' }} -->

@@ -379,6 +379,16 @@ class BlockController extends \ITECH\Admin\Controller\BaseController
         $this->view->pick(parent::$theme . '/block/edit');
     }
 
+    public function fullDetailBlockAction()
+    {
+        $authorizedToken = $this->session->get('AUTHORIZED_TOKEN');
+        $id        = $this->request->getQuery('id', array('int'), '');
+
+        $url = $this->config->application->api_url . 'block/detail?id=' . $id . '&cache=false&type=' . \ITECH\Data\Lib\Constant::USER_TYPE_ADMINISTRATOR . '&authorized_token=' . $authorizedToken;
+        $r = json_decode(\ITECH\Data\Lib\Util::curlGet($url), true);
+
+        parent::outputJSON($r);
+    }
     public function editAction()
     {
         $userSession     = $this->session->get('USER');

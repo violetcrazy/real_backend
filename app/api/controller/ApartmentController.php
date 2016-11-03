@@ -2617,7 +2617,7 @@ class ApartmentController extends \ITECH\Api\Controller\BaseController
         $listGallery= array();
         if ($_listGallery) {
             foreach ($_listGallery as $item) {
-                $listGallery[$item->type] = array(
+                $listGallery[$item->type][] = array(
                     'id' => (int)$item->id,
                     'image' => $item->image,
                     'name' => \ITECH\Data\Lib\Constant::getMapImageType()[$item->type],

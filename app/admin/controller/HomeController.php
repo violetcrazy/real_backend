@@ -13,4 +13,9 @@ class HomeController extends \ITECH\Admin\Controller\BaseController
     {
         $this->view->pick(parent::$theme . '/home/index');
     }
+
+    public function pingAction()
+    {
+        echo 'pong';
+    }
 }

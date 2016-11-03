@@ -5,6 +5,12 @@ $router->add('/', array(
     'action'        => 'index'
 ))->setName('home');
 
+$router->add('/ping', array(
+    'module'        => 'admin',
+    'controller'    => 'home',
+    'action'        => 'ping'
+))->setName('home');
+
 $router->add('/user/login{query:(/.*)*}', array(
     'module'        => 'admin',
     'controller'    => 'user',
@@ -252,6 +258,12 @@ $router->add('/block/list/ajax', array(
     'controller'    => 'block',
     'action'        => 'listBlock'
 ))->setName('block_list_block');
+
+$router->add('/block/full/ajax', array(
+    'module'        => 'admin',
+    'controller'    => 'block',
+    'action'        => 'fullDetailBlock'
+))->setName('block_full_ajax');
 
 $router->add('/block/map-image/clone{query:(/.*)*}', array(
     'module'        => 'admin',
