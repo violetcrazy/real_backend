@@ -89,7 +89,7 @@ class UserController extends \ITECH\Api\Controller\BaseController
                         $email = $validator->getValue('username');
                         $user = \ITECH\Data\Model\UserModel::findFirst(array(
                             'conditions' => '
-                                (username = :username: OR email = :email:) 
+                                (username = :username: OR email = :email:)
                                 AND type = :type:
                             ',
                             'bind' => array(
@@ -539,8 +539,8 @@ class UserController extends \ITECH\Api\Controller\BaseController
                     'slug' => $user['slug'],
                     'email' => $user['email'],
                     'phone' => $user['phone'],
-                    'avatar' => $user['avatar'],
-                    'cover' => $user['cover'],
+                    'avatar' => $user['avatar_image'],
+                    'cover' => $user['cover_image'],
                     'gender' => isset($userGender[$user['gender']]) ? $userGender[$user['gender']] : null,
                     'birthday' => strtotime($user['birthday']) ? $user['birthday'] : null,
                     'address' => $user['address'],

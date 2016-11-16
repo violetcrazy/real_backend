@@ -1589,6 +1589,8 @@ class BlockController extends \ITECH\Api\Controller\BaseController
                 'price_eng' => $block->price_eng,
                 'default_image' => $block->default_image,
                 'default_image_url' => $defaultImageUrl,
+                'policy' => $block->policy,
+                'policy_eng' => $block->price_eng,
                 'gallery' => $block->gallery,
                 'gallery_url' => $galleryUrl,
                 'floor_count' => (int)$block->floor_count,
